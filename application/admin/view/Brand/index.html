@@ -1,0 +1,71 @@
+<{/*引入头部资源文件*/}>
+<{include file="common/header"}>
+<style>
+</style>
+<{/*引入左侧导航文件*/}>
+<{include file="common/nav"}>
+
+<div id="content-wrapper">
+
+    <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="<{:url('index/index')}>"><i class="fa fa-home fa-fw"></i>&nbsp;首页</a>
+            </li>
+            <li class="breadcrumb-item active">商品品牌</li>
+        </ol>
+
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#lable" onclick="values('lable','添加','add')"><i class="fas fa-plus"> 添加</i></button>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fas fa-table"></i>
+                品牌列表
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>品牌名称</th>
+                            <th>品牌网址</th>
+                            <th>品牌描述</th>
+                            <th>缩略图</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>序号</th>
+                            <th>品牌名称</th>
+                            <th>品牌网址</th>
+                            <th>品牌描述</th>
+                            <th>缩略图</th>
+                            <th>操作</th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        <{volist name='info' id='v' key='k'}>
+                        <tr>
+                            <td></td>
+                            <td>System Architect</td>
+                            <td>Edinburgh</td>
+                            <td>61</td>
+                            <td>2011/04/25</td>
+                            <td>$320,800</td>
+                        </tr>
+                        <{/volist}>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+
+<{/*引入底部公共文件*/}>
+<{include file="common/footer"}>

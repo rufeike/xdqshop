@@ -1,19 +1,15 @@
 <?php
 /**
- * Created by 后台首页。
+ * Created by 登录控制器。
  * user: rufeike
  * email: rufeike@163.com
  * Date：2019/11/23
- * Time: 15:42
+ * Time: 16:48
  */
 namespace app\admin\controller;
-
-class Index extends Base{
+use think\Controller;
+class Login extends Controller{
     public function index(){
         return $this->fetch();
-    }
-
-    public function _empty(){
-        $this->redirect(url('index',302));
     }
 }

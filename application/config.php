@@ -15,7 +15,7 @@ return [
     // +----------------------------------------------------------------------
 
     // 应用调试模式
-    'app_debug'              => false,
+    'app_debug'              => true,
     // 应用Trace
     'app_trace'              => false,
     // 应用模式状态
@@ -23,7 +23,7 @@ return [
     // 是否支持多模块
     'app_multi_module'       => true,
     // 入口自动绑定模块
-    'auto_bind_module'       => false,
+    'auto_bind_module'       => true,
     // 注册的根命名空间
     'root_namespace'         => [],
     // 扩展函数文件
@@ -133,17 +133,19 @@ return [
         // 模板文件名分隔符
         'view_depr'    => DS,
         // 模板引擎普通标签开始标记
-        'tpl_begin'    => '{',
+        'tpl_begin'    => '<{',
         // 模板引擎普通标签结束标记
-        'tpl_end'      => '}',
+        'tpl_end'      => '}>',
         // 标签库标签开始标记
-        'taglib_begin' => '{',
+        'taglib_begin' => '<{',
         // 标签库标签结束标记
-        'taglib_end'   => '}',
+        'taglib_end'   => '}>',
     ],
 
     // 视图输出字符串内容替换
-    'view_replace_str'       => [],
+    'view_replace_str'       => [
+        '__ADMIN__' => '/static/admin',
+    ],
     // 默认跳转页面对应的模板文件
     'dispatch_success_tmpl'  => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
     'dispatch_error_tmpl'    => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
@@ -239,5 +241,18 @@ return [
         'type'      => 'bootstrap',
         'var_page'  => 'page',
         'list_rows' => 15,
+    ],
+    'captcha' => [
+        'bg' => [243, 251, 254],  //背景颜色
+        'useZh' => false, //中文验证开启
+        'zhSet' => '你好我是中国人',//中文字符串
+        'codeSet' => '2345678abcdefhijkmnpqrstuvwxyzABCDEFGHJKLMNPQRTUVWXY', // 验证码字符集合
+        'fontSize' => 24,    // 验证码字体大小(px)
+        'useCurve' => true,    // 是否画混淆曲线
+        'useNoise' => false,    // 是否添加杂点
+        'imageH'  => 50,    // 验证码图片高度
+        'imageW'  => 200,     //验证码图片宽度
+        'length'  => 4,     // 验证码位数
+        'reset'  => true, //验证成功后是否重置
     ],
 ];
