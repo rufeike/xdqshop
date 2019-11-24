@@ -7,10 +7,14 @@
  * Time: 21:30
  */
 namespace app\admin\controller;
+use rufeike\Catetree;
 
 class ArticleCategory extends Base{
     public function index(){
         $info= db('article_category')->where('is_del',1)->order('sort ASC,id DESC')->select();
+        $cateTree = new Catetree($info);
+        $info = $cateTree->getTree();
+
         $this->assign('info',$info);
         return $this->fetch();
     }
@@ -67,6 +71,8 @@ class ArticleCategory extends Base{
 
         $data = array(
             'cate_name' => isset($param['cate_name']) ? $param['cate_name'] : '',
+            'description' => isset($param['description'])?$param['description']:'',
+            'keywords' => isset($param['keywords'])?$param['keywords']:'',
             'pid' => isset($param['pid']) ? $param['pid'] : 0,
             'status' => isset($param['status']) ? $param['status'] : 0,
         );

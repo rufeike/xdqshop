@@ -41,7 +41,7 @@
                         <{volist name='info' id='v' key='k'}>
                         <tr>
                             <td><{$k}></td>
-                            <td><{$v.cate_name}></td>
+                            <td><?php echo str_repeat('&nbsp;',$v['level']*4); ?> <{if($v['level']!=0)}>├─ <{/if}><{$v.cate_name}></td>
                             <td><{$v.pid}></td>
                             <td><{$v.type}></td>
                             <td>
