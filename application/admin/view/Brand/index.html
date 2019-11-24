@@ -18,7 +18,8 @@
         </ol>
 
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#lable" onclick="values('lable','添加','add')"><i class="fas fa-plus"> 添加</i></button>
+            <div></div>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#lable" onclick="jump('<{:url('brand/add')}>')"><i class="fas fa-plus"> 添加</i></button>
         </div>
 
         <div class="card mb-3">
@@ -39,32 +40,24 @@
                             <th>操作</th>
                         </tr>
                         </thead>
-                        <tfoot>
-                        <tr>
-                            <th>序号</th>
-                            <th>品牌名称</th>
-                            <th>品牌网址</th>
-                            <th>品牌描述</th>
-                            <th>缩略图</th>
-                            <th>操作</th>
-                        </tr>
-                        </tfoot>
                         <tbody>
                         <{volist name='info' id='v' key='k'}>
                         <tr>
-                            <td></td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>2011/04/25</td>
-                            <td>$320,800</td>
+                            <td><{$k}></td>
+                            <td><{$v.brand_name}></td>
+                            <td><{$v.brand_url}></td>
+                            <td><{$v.description}></td>
+                            <td><{if($v.brand_src!='')}><img src="__UPLOADS__/brand/<{$v.brand_src}>" style="height: 40px;"><{/if}></td>
+                            <td>
+                                <button class="btn btn-primary" onclick="jump('<{:url(\'brand/edit\',array(\'id\'=>$v.id))}>')">编辑</button>
+                                <button class="btn btn-danger" onclick="deleteById('<{:url('brand/delete')}>',<{$v.id}>,'brand')">删除</button>
+                            </td>
                         </tr>
                         <{/volist}>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
 
 <{/*引入底部公共文件*/}>

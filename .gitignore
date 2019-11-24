@@ -4,3 +4,5 @@
 tmp/
 ErrorFiles/
 u.php
+runtime/
+uploads/
