@@ -18,7 +18,7 @@
             <li class="breadcrumb-item">
                 <a href="<{:url('article_category/index')}>">文章分类</a>
             </li>
-            <li class="breadcrumb-item active">添加</li>
+            <li class="breadcrumb-item active">编辑</li>
         </ol>
 
         <div class="card mb-3">
@@ -27,16 +27,16 @@
                     <form class="form-horizontal" role="form" style="padding:1rem;" onsubmit="return false;" id="form"
                           action="<{:url('article_category/save')}>" method="post"  enctype="multipart/form-data">
                         <input type="hidden" name="__token__" value="<{$Request.token}>">
-                        <input type="hidden" value="add" name="action">
-                        <input type="hidden" value="" name="id">
+                        <input type="hidden" value="edit" name="action">
+                        <input type="hidden" value="<{$info.id}>" name="id">
                         <div class="form-group" style="line-height: 40px;">
                             <label for="pid" class="col-sm-2 control-label" style="float: left;">所属分类<span style="color:red;margin-left: 5px;font-weight: 700;">*</span></label>
                             <div class="">
                                 <select name="pid" id="pid" class="form-control col-sm-8">
                                     <option value="0">顶级分类</option>
-                                    <{if !empty($info)}>
-                                        <{volist name='info' id='iv'}>
-                                            <option <{if($iv.id==$id)}>selected<{/if}> value="<{$iv.id}>">&nbsp;&nbsp;&nbsp;&nbsp;<{if($iv['level']==0)}>├─ <{/if}><?php echo str_repeat('&nbsp;',$iv['level']*4); ?> <{if($iv['level']!=0)}>├─ <{/if}><{$iv.cate_name}></option>
+                                    <{if !empty($cateTree)}>
+                                        <{volist name='cateTree' id='iv'}>
+                                            <option <{if($iv.pid==$info.id)}>selected<{/if}> value="<{$iv.id}>">&nbsp;&nbsp;&nbsp;&nbsp;<{if($iv['level']==0)}>├─ <{/if}><?php echo str_repeat('&nbsp;',$iv['level']*4); ?> <{if($iv['level']!=0)}>├─ <{/if}><{$iv.cate_name}></option>
                                         <{/volist}>
                                     <{/if}>
                                 </select>
@@ -45,29 +45,29 @@
                         <div class="form-group" style="line-height: 40px;">
                             <label for="cate_name" class="col-sm-2 control-label" style="float: left;">分类名称</label>
                             <div class="">
-                                <input type="text" class="form-control col-sm-8" id="cate_name" name="cate_name" placeholder="" style="">
+                                <input type="text" class="form-control col-sm-8" id="cate_name" name="cate_name" placeholder="" style="" value="<{$info.cate_name}>">
                             </div>
                         </div>
                         <div class="form-group" style="line-height: 40px;">
                             <label for="keywords" class="col-sm-2 control-label" style="float: left;">关键字</label>
                             <div class="">
-                                <input type="text" class="form-control col-sm-8" id="keywords" name="keywords" placeholder="" style="">
+                                <input type="text" class="form-control col-sm-8" id="keywords" name="keywords" placeholder="" style="" <{$info.keywords}>>
                             </div>
                         </div>
                         <div class="form-group" style="line-height: 40px;">
                             <label for="description" class="col-sm-2 control-label" style="float: left;">描述</label>
                             <div class="">
-                                <textarea name="description"  class="form-control col-sm-8" id="description" style="resize:none;" rows="5"></textarea>
+                                <textarea name="description"  class="form-control col-sm-8" id="description" style="resize:none;" rows="5"><{$info.description}></textarea>
                             </div>
                         </div>
                         <div class="form-group" style="line-height: 40px;">
                             <label for="" class="col-sm-2 control-label" style="float: left;">显示到导航</label>
                             <div class="">
                                 <label>
-                                    <input type="radio" name="status"  value="1"  >  正常
+                                    <input type="radio" name="status"  value="1"  <{if $info.status==1}>checked<{/if}> >  正常
                                 </label>
                                 <label>
-                                    <input type="radio" name="status"  value="0" checked > 禁用
+                                    <input type="radio" name="status"  value="0" <{if $info.status==0}>checked<{/if}> > 禁用
                                 </label>
                             </div>
                         </div>

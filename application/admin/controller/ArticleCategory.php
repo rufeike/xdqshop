@@ -11,9 +11,25 @@ use rufeike\Catetree;
 
 class ArticleCategory extends Base{
     public function index(){
-        $info= db('article_category')->where('is_del',1)->order('sort ASC,id DESC')->select();
+        $info= db('article_category')->alias('AC')->join('article_category PAC','AC.pid = PAC.id','LEFT')->where('AC.is_del',1)->order('AC.sort ASC,AC.id DESC')->field("AC.*,PAC.cate_name as pname")->select();
         $cateTree = new Catetree($info);
         $info = $cateTree->getTree();
+
+        foreach($info as $k => $v){
+            switch ($v['cate_type']){
+                case 1:
+                    $info[$k]['cate_type_text'] = '系统分类';
+                    break;
+                case 2:
+                    $info[$k]['cate_type_text'] = '网店帮助';
+                    break;
+                case 3:
+                    $info[$k]['cate_type_text'] = '网店信息';
+                    break;
+                default:
+                    $info[$k]['cate_type_text'] = '普通分类';
+            }
+        }
 
         $this->assign('info',$info);
         return $this->fetch();
@@ -21,6 +37,15 @@ class ArticleCategory extends Base{
 
     //添加
     public function add(){
+        $param = request()->param();
+        $id = isset($param['id'])?$param['id']:0;
+        $info= db('article_category')->where('is_del',1)->order('sort ASC')->field("id,cate_name,pid")->select();
+
+        //获取树状结构数据
+        $cateTree = new Catetree($info);
+        $info = $cateTree->getTree();
+        $this->assign('info',$info);
+        $this->assign('id',$id);
         return $this->fetch();
     }
 
@@ -30,6 +55,12 @@ class ArticleCategory extends Base{
         $db = db('article_category');
         $info = $db->where('id = ?')->bind(array($param['id']))->find();
         $this->assign('info',$info);
+
+        $cate= db('article_category')->where('is_del',1)->order('sort ASC')->field("id,cate_name,pid")->select();
+        //获取树状结构数据
+        $cateTree = new Catetree($cate);
+        $cate = $cateTree->getTree();
+        $this->assign('cateTree',$cate);
         return $this->fetch();
     }
 
@@ -57,8 +88,14 @@ class ArticleCategory extends Base{
     public function save()
     {
         $param = request()->param();
-        check_token($param);//防止重复提交
         $id = isset($param['id']) ? $param['id'] : '';
+        $pid = isset($param['pid']) ? $param['pid'] : '';
+        check_token($param);//防止重复提交
+
+        if (in_array($pid,array(1,3))) {
+            get_jsonData(0, '该分类不能添加子分类', array('token' => request()->token()));
+        }
+
         $action = isset($param['action']) ? $param['action'] : '';
 
         //提交数据验证
@@ -68,6 +105,9 @@ class ArticleCategory extends Base{
             get_jsonData(0, $validate->getError(), array('token' => request()->token()));
         }
 
+
+        //获取父级分类类型
+        $cate_type = db('article_category')->where('id',$pid)->field('cate_type')->find();
 
         $data = array(
             'cate_name' => isset($param['cate_name']) ? $param['cate_name'] : '',
@@ -80,11 +120,16 @@ class ArticleCategory extends Base{
         //判断添加和修改
         if ($action == 'add') {
             $data['create_time'] = time();
+            $data['cate_type'] = isset($cate_type[0])?$cate_type[0]:0;
             $id = db('article_category')->insert($data);
             if ($id) {
                 get_jsonData(200, '操作成功');
             }
         } else if ($action == 'edit') {
+            if(!in_array($id,array(2,3))){
+                $data['cate_type'] = isset($cate_type[0])?$cate_type[0]:0;
+            }
+
             $res = db('article_category')->where('id', $id)->data($data)->update();
             if ($res !== false) {
                 get_jsonData(200, '操作成功');
