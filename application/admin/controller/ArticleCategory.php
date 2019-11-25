@@ -12,11 +12,17 @@ use think\Db;
 
 class ArticleCategory extends Base{
     public function index(){
-        $info= db('article_category')->alias('AC')->join('article_category PAC','AC.pid = PAC.id','LEFT')->where('AC.is_del',1)->order('AC.sort ASC,AC.id DESC')->field("AC.*,PAC.cate_name as pname")->select();
+        $info= db('article_category')->alias('AC')->join('article_category PAC','AC.pid = PAC.id','LEFT')->where('AC.is_del',1)->order('AC.sort DESC,AC.id DESC')->field("AC.*,PAC.cate_name as pname")->select();
         $cateTree = new Catetree($info);
         $info = $cateTree->getTree();
 
         foreach($info as $k => $v){
+            if($v['status']==1){
+                $info[$k]['status_text'] = '<i class="fas fa-check-circle" style="color:#00ff00;font-size: 20px"></i>';
+            }else{
+                $info[$k]['status_text'] = '<i class="fas fa-times-circle" style="color: #ff0000;font-size: 20px"></i>';
+            }
+
             switch ($v['cate_type']){
                 case 1:
                     $info[$k]['cate_type_text'] = '系统分类';
@@ -40,7 +46,7 @@ class ArticleCategory extends Base{
     public function add(){
         $param = request()->param();
         $id = isset($param['id'])?$param['id']:0;
-        $info= db('article_category')->where('is_del',1)->order('sort ASC')->field("id,cate_name,pid")->select();
+        $info= db('article_category')->where('is_del',1)->order('sort ASC')->field("id,cate_name,pid,allow_add")->select();
 
         //获取树状结构数据
         $cateTree = new Catetree($info);
@@ -63,7 +69,7 @@ class ArticleCategory extends Base{
             'id'=>array('neq',$id),
         );
 
-        $cate= db('article_category')->where($where)->order('sort ASC')->field("id,cate_name,pid")->select();
+        $cate= db('article_category')->where($where)->order('sort ASC')->field("id,cate_name,pid,allow_add")->select();
         //获取树状结构数据
         $cateTree = new Catetree($cate);
         $cate = $cateTree->getTree();

@@ -13,10 +13,11 @@ use think\Validate;
 class ArticleCategory extends Validate{
     protected $rule = [
         '__token__'=>'require',
-        'cate_name'=>'require',
+        'cate_name'=>'require|unique:article_category',
     ];
     protected $message = [
         '__token__'=>'令牌不能為空',
-        'cate_name'=>'分类名称不能為空',
+        'cate_name.require'=>'分类名称不能為空',
+        'cate_name.unique'=>'分类名称已存在',
     ];
 }
