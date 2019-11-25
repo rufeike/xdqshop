@@ -36,7 +36,7 @@
                                     <option value="0">顶级分类</option>
                                     <{if !empty($cateTree)}>
                                         <{volist name='cateTree' id='iv'}>
-                                            <option <{if($iv.pid==$info.id)}>selected<{/if}> value="<{$iv.id}>">&nbsp;&nbsp;&nbsp;&nbsp;<{if($iv['level']==0)}>├─ <{/if}><?php echo str_repeat('&nbsp;',$iv['level']*4); ?> <{if($iv['level']!=0)}>├─ <{/if}><{$iv.cate_name}></option>
+                                            <option <{if($iv.id==$info.pid)}>selected  style="background-color:#AECAFF"<{/if}> value="<{$iv.id}>">&nbsp;&nbsp;&nbsp;&nbsp;<{if($iv['level']==0)}>├─ <{/if}><?php echo str_repeat('&nbsp;',$iv['level']*4); ?> <{if($iv['level']!=0)}>├─ <{/if}><{$iv.cate_name}></option>
                                         <{/volist}>
                                     <{/if}>
                                 </select>

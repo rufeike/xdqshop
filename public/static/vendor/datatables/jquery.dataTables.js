@@ -11342,8 +11342,9 @@
 				 *      } );
 				 *    } );
 				 */
-				"sFirst": "First",
-	
+				// "sFirst": "First",
+				"sFirst": "首页",
+
 	
 				/**
 				 * Text to use when using the 'full_numbers' type of pagination for the
@@ -11365,8 +11366,9 @@
 				 *      } );
 				 *    } );
 				 */
-				"sLast": "Last",
-	
+				// "sLast": "Last",
+				"sLast": "尾页",
+
 	
 				/**
 				 * Text to use for the 'next' pagination button (to take the user to the
@@ -11388,8 +11390,9 @@
 				 *      } );
 				 *    } );
 				 */
-				"sNext": "Next",
-	
+				// "sNext": "Next",
+				"sNext": "下一页",
+
 	
 				/**
 				 * Text to use for the 'previous' pagination button (to take the user to
@@ -11411,7 +11414,8 @@
 				 *      } );
 				 *    } );
 				 */
-				"sPrevious": "Previous"
+				// "sPrevious": "Previous"
+				"sPrevious": "上一页"
 			},
 	
 			/**
@@ -11434,8 +11438,9 @@
 			 *      } );
 			 *    } );
 			 */
-			"sEmptyTable": "No data available in table",
-	
+			// "sEmptyTable": "No data available in table",
+			"sEmptyTable": "暂无相关数据",
+
 	
 			/**
 			 * This string gives information to the end user about the information
@@ -11466,8 +11471,9 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
-	
+			// "sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+			"sInfo": " _START_ / _END_ 共 _TOTAL_ 条",
+
 	
 			/**
 			 * Display information string for when the table is empty. Typically the
@@ -11487,8 +11493,9 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfoEmpty": "Showing 0 to 0 of 0 entries",
-	
+			// "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+			"sInfoEmpty": " 0 / 0 共 0 条",
+
 	
 			/**
 			 * When a user filters the information in a table, this string is appended
@@ -11509,7 +11516,8 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfoFiltered": "(filtered from _MAX_ total entries)",
+			// "sInfoFiltered": "(filtered from _MAX_ total entries)",
+			"sInfoFiltered": "(从 _MAX_ 条记录中筛选)",
 	
 	
 			/**
@@ -11627,8 +11635,9 @@
 			 *      } );
 			 *    } );
 			 */
-			"sLengthMenu": "Show _MENU_ entries",
-	
+			// "sLengthMenu": "Show _MENU_ entries",
+			"sLengthMenu": "展示 _MENU_ 条",
+
 	
 			/**
 			 * When using Ajax sourced data and during the first draw when DataTables is
@@ -11707,8 +11716,9 @@
 			 *      } );
 			 *    } );
 			 */
-			"sSearch": "Search:",
-	
+			// "sSearch": "Search:",
+			"sSearch": "搜索:",
+
 	
 			/**
 			 * Assign a `placeholder` attribute to the search `input` element
@@ -11765,7 +11775,8 @@
 			 *      } );
 			 *    } );
 			 */
-			"sZeroRecords": "No matching records found"
+			// "sZeroRecords": "No matching records found"
+			"sZeroRecords": "暂无相关记录"
 		},
 	
 	
@@ -14507,7 +14518,7 @@
 		
 		first_last_numbers: function (page, pages) {
 	 		return ['first', _numbers(page, pages), 'last'];
-	 	},
+		},
 	
 		// For testing and plug-ins to use
 		_numbers: _numbers,

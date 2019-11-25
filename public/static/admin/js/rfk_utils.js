@@ -19,6 +19,8 @@ function deleteById(url,id,model){
                 layer.msg('操作成功',{icon:1,time:3000},function(){
                     window.location.reload();
                 })
+            }else if(json.code==0){
+                layer.alert(json.msg,{icon:2});
             }else{
                 console.log(r);
             }
