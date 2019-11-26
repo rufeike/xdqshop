@@ -1,0 +1,26 @@
+
+<{volist name='info' id='v'}>
+<{if $v.type=='dir'}>
+<div class="col-sm-1 col-md-2 dir_box" data-url="<{$v.path}>" style="box-sizing: border-box;padding:15px;height: 200px;">
+    <figure class="figure"
+            style=";min-width:200px;width:100%;text-align: center;border:2px solid #EEEEEE;border-radius: 5px;margin-bottom:15px;">
+        <img src="__ADMIN__/images/dir.jpg" class="figure-img img-fluid rounded" alt="<{$v.path}>"
+             style="height:180px">
+        <figcaption class="figure-caption" style="text-align: center;background-color: #eeeeee;">
+            <{$v.name}>
+        </figcaption>
+    </figure>
+</div>
+<{else}>
+<div class="col-sm-1 col-md-2 img_box" style="box-sizing: border-box;padding:15px;height: 200px;">
+    <figure class="figure"
+            style=";min-width:200px;width:100%;text-align: center;border:2px solid #EEEEEE;border-radius: 5px;margin-bottom:15px;">
+        <img src="<{$v.path}>" class="figure-img img-fluid rounded" alt="<{$v.path}>"
+             style="height:180px">
+        <figcaption class="figure-caption" style="text-align: center;background-color: #eeeeee;">
+            <{$v.name}>
+        </figcaption>
+    </figure>
+</div>
+<{/if}>
+<{/volist}>

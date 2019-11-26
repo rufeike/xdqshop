@@ -122,7 +122,7 @@
                         <div class="form-group" style="line-height: 40px;">
                             <label for="" class="col-sm-2 control-label" style="float: left;">&nbsp;</label>
                             <div class="col-sm-2" id="img"  style="float:left">
-                                <img id="" width="100%" src="__UPLOADS__/article/<{$info.thumb}>">
+                                <img id="" width="100%" src="<{if $info.thumb!=''}>__UPLOADS__/article/<{$info.thumb}><{/if}>">
                             </div>
                         </div>
                         <div style="clear:both;margin-bottom: 15px;"></div>

@@ -192,4 +192,52 @@ class Article extends Base{
     }
 
 
+    //ueditor图片管理
+    public function imgManagement(){
+        $path=ROOT_PATH.'public'.DS.'ueditor'.DS.'image';
+        $pathArr=$this->getImagesPath($path);
+        $this->assign('info',$pathArr);
+        return $this->fetch();
+    }
+
+    //ajax_获取文件夹信息内容
+    public function ajax_imgManagement(){
+        $param = request()->param();
+        $path = ROOT_PATH;
+        $path.=isset($param['path'])?$param['path']:'public'.DS.'ueditor'.DS.'image';
+        $pathArr=$this->getImagesPath($path);
+        $this->assign('info',$pathArr);
+        return $this->fetch();
+    }
+
+
+    //获取文件
+    public function getImagesPath($path){
+        $files = scandir($path,true);
+        $pathArr = array();
+
+        foreach($files as $v){
+            $tmpArr = array();
+            if($v!='.'&&$v!='..'){
+                $pathinfo=pathinfo($v);
+                if(is_dir($path.DS.$v)){
+                    $tmpArr['type'] = 'dir';
+                    $tmpArr['name'] = $v;
+                    $tmpArr['realpath'] = $path.DS.$v;
+                    $tmpArr['path'] = str_replace(ROOT_PATH,'',$path.DS.$v);
+                }else{
+                    if(isset($pathinfo['extension'])&&in_array('.'.$pathinfo['extension'],[".png", ".jpg", ".jpeg", ".gif", ".bmp"])){
+                        $tmpArr['type'] = 'file';
+                        $tmpArr['name'] = $v;
+                        $tmpArr['realpath'] = $path.DS.$v;
+                        $tmpArr['path'] = DS.str_replace(ROOT_PATH,'',$path.DS.$v);
+                    }
+                }
+                $pathArr[] = $tmpArr;
+            }
+        }
+
+        return $pathArr;
+    }
+
 }

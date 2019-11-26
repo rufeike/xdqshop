@@ -1,0 +1,152 @@
+<{/*引入头部资源文件*/}>
+<{include file="common/header"}>
+<style>
+    .red {
+        color: red;
+        cursor: pointer;
+    }
+
+    .blue {
+        color: blue;
+        cursor: pointer;
+    }
+
+    #file {
+        position: absolute;
+        opacity: 0;
+        left: 25%;
+        z-index: 99;
+    }
+</style>
+<{/*引入左侧导航文件*/}>
+<{include file="common/nav"}>
+
+<div id="content-wrapper">
+
+    <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="<{:url('index/index')}>"><i class="fa fa-home fa-fw"></i>&nbsp;首页</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="<{:url('link/index')}>">友链列表</a>
+            </li>
+            <li class="breadcrumb-item active">添加</li>
+        </ol>
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <form class="form-horizontal" role="form" style="padding:1rem;" onsubmit="return false;" id="form"
+                          action="<{:url('link/save')}>" method="post"  enctype="multipart/form-data">
+                        <input type="hidden" name="__token__" value="<{$Request.token}>">
+                        <input type="hidden" value="add" name="action">
+                        <input type="hidden" value="" name="id">
+                        <input type="hidden" name="pic">
+                        <div class="form-group" style="line-height: 40px;">
+                            <label for="link_name" class="col-sm-2 control-label" style="float: left;">友链名称</label>
+                            <div class="">
+                                <input type="text" class="form-control col-sm-8" id="link_name" name="link_name" placeholder="" style="">
+                            </div>
+                        </div>
+                        <div class="form-group" style="line-height: 40px;">
+                            <label for="description" class="col-sm-2 control-label" style="float: left;">友链描述</label>
+                            <div class="">
+                                <textarea name="description"  class="form-control col-sm-8" id="description" style="resize:none;" rows="5"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group" style="line-height: 40px;">
+                            <label for="link_url" class="col-sm-2 control-label" style="float: left;">友链网址</label>
+                            <div class="">
+                                <input type="text" class="form-control col-sm-8" id="link_url" name="link_url" placeholder="" value="">
+                            </div>
+                        </div>
+                        <div class="form-group" style="line-height: 40px;">
+                            <label for="" class="col-sm-2 control-label" style="float: left;">是否顯示</label>
+                            <div class="">
+                                <label>
+                                    <input type="radio" name="status"  value="1"  >  显示
+                                </label>
+                                <label>
+                                    <input type="radio" name="status"  value="0" checked >  隐藏
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group" style="line-height: 40px;">
+                            <label for="" class="col-sm-2 control-label" style="float: left;">友链图片</label>
+                            <div class="">
+                                <button class="btn btn-primary" type="button">上传图片</button>
+                                <input style="margin-left:-100px" name="file" type="file" id="file" accept="image/gif,image/jpeg,image/x-png">
+                            </div>
+                        </div>
+                        <div class="form-group" style="line-height: 40px;">
+                            <label for="" class="col-sm-2 control-label" style="float: left;">&nbsp;</label>
+                            <div class="col-sm-4" id="img"  style="float:left">
+                                    <img id="" width="100%">
+                            </div>
+                        </div>
+                        <div style="clear:both;margin-bottom: 15px;"></div>
+                        <div class="form-group" style="width: 100%;line-height: 40px;">
+                            <label for="" class="col-sm-2 control-label" style="float: left;"></label>
+                            <div class="">
+                                <button class="btn btn-primary" id="save"><i class="fas fa-save"> 保存</i></button>
+                                <button class="btn btn-danger" type="reset"><i class="fas fa-redo-alt"> 重置</i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <{/*引入底部公共文件*/}>
+        <{include file="common/footer"}>
+
+        <script>
+
+            $(function () {
+                var ua = navigator.userAgent.toLowerCase();
+                var screenwidth = window.screen.width;
+                if (!/iphone|ipad|ipod/.test(ua)) {
+                    $("#page-top").attr("scrolling", "auto");
+                } else {
+                    $('#page-top').width(screenwidth + 'px');
+                }
+
+                //圖片預覽
+                $("#file").change(function () {
+                    var t = this;
+                    if (t.files && t.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function (evt) {
+                            $("#img").html('<img src="' + evt.target.result + '" style="width:100%" />');
+                            $('[name=pic]').val(evt.target.result);
+                        }
+                        reader.readAsDataURL(file.files[0]);
+                    } else {
+                        $("#img	").html('<div style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>');
+                    }
+                })
+
+                $('#save').click(function(){
+                    $('#form').ajaxSubmit({
+                        success:function(r){
+                            var r = $.parseJSON(r);
+                            if(r.code == 200){
+                                layer.msg(r.msg,{icon:1},function(){
+                                    jump('<{:url('link/index')}>');
+                                })
+                            }else if(r.code==101){
+                                layer.alert(r.msg,{icon:2});
+                            }else{
+                                layer.alert(r.msg,{icon:2});
+                                $("[name='__token__']").val(r.result.token);
+                            }
+                        }
+                    })
+                })
+            });
+
+        </script>
+

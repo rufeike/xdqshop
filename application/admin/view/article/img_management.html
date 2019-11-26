@@ -1,0 +1,84 @@
+<{/*引入头部资源文件*/}>
+<{include file="common/header"}>
+<style>
+    .dir_box:hover {
+        cursor: pointer;
+    }
+
+    .img_box:after {
+        content: 'x';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 20px;
+        height: 20px;
+        background-color: #0b2e13;
+        line-height: 18px;
+        text-align: center;
+        border-radius: 50%;
+        color: #ffffee;
+    }
+</style>
+<{/*引入左侧导航文件*/}>
+<{include file="common/nav"}>
+
+<div id="content-wrapper">
+
+    <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="<{:url('index/index')}>"><i class="fa fa-home fa-fw"></i>&nbsp;首页</a>
+            </li>
+            <li class="breadcrumb-item active">UEditor编辑器图片管理</li>
+        </ol>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fas fa-table"></i>
+                图片列表
+            </div>
+            <div class="row" style="padding:15px" id="file_show_box">
+                <{volist name='info' id='v'}>
+                <{if $v.type=='dir'}>
+                <div class="col-sm-1 col-md-2 dir_box" data-url="<{$v.path}>" style="box-sizing: border-box;padding:15px;height: 200px;">
+                    <figure class="figure"
+                            style=";min-width:200px;width:100%;text-align: center;border:2px solid #EEEEEE;border-radius: 5px;margin-bottom:15px;">
+                        <img src="__ADMIN__/images/dir.jpg" class="figure-img img-fluid rounded" alt="<{$v.path}>"
+                             style="height:180px">
+                        <figcaption class="figure-caption" style="text-align: center;background-color: #eeeeee;">
+                            <{$v.name}>
+                        </figcaption>
+                    </figure>
+                </div>
+                <{else}>
+                <div class="col-sm-1 col-md-2 img_box" style="box-sizing: border-box;padding:15px;height: 200px;">
+                    <figure class="figure"
+                            style=";min-width:200px;width:100%;text-align: center;border:2px solid #EEEEEE;border-radius: 5px;margin-bottom:15px;">
+                        <img src="<{$v.path}>" class="figure-img img-fluid rounded" alt="<{$v.path}>"
+                             style="height:180px">
+                        <figcaption class="figure-caption" style="text-align: center;background-color: #eeeeee;">
+                            <{$v.name}>
+                        </figcaption>
+                    </figure>
+                </div>
+                <{/if}>
+                <{/volist}>
+            </div>
+            <br>
+        </div>
+
+        <{/*引入底部公共文件*/}>
+        <{include file="common/footer"}>
+
+        <script>
+            $(function(){
+                $('.dir_box').click(function(){
+                    var path=$(this).attr('data-url');
+                    $.post("<{:url('article/ajax_imgManagement')}>",{path:path},function(r){
+                        $('#file_show_box').html(r);
+                    })
+                })
+            })
+        </script>

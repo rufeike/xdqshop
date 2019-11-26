@@ -10,10 +10,44 @@ Target Server Type    : MYSQL
 Target Server Version : 50727
 File Encoding         : 65001
 
-Date: 2019-11-24 22:05:09
+Date: 2019-11-27 00:24:43
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for tp_article
+-- ----------------------------
+DROP TABLE IF EXISTS `tp_article`;
+CREATE TABLE `tp_article` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `author` varchar(60) DEFAULT NULL COMMENT '作者',
+  `title` varchar(60) DEFAULT NULL COMMENT '文章名称',
+  `keywords` varchar(255) DEFAULT NULL COMMENT '关键词',
+  `thumb` varchar(255) DEFAULT NULL COMMENT '缩略图',
+  `description` tinytext COMMENT '描述',
+  `content` text COMMENT '文章内容',
+  `cate_id` int(11) DEFAULT '0' COMMENT '文章分类ID',
+  `sort` int(11) DEFAULT '99' COMMENT '排序',
+  `show_top` tinyint(1) DEFAULT '0' COMMENT '是否置顶 默认为0 否，1：置顶',
+  `status` tinyint(1) DEFAULT '0' COMMENT '是否显示到导航，状态 0：不显示 1显示',
+  `create_time` bigint(20) DEFAULT NULL COMMENT '创建时间',
+  `update_time` bigint(20) DEFAULT '0' COMMENT '更改时间',
+  `is_del` tinyint(1) DEFAULT '1' COMMENT '默认1：正常 1：删除',
+  `link_url` varchar(255) DEFAULT NULL COMMENT '外部链接地址',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of tp_article
+-- ----------------------------
+INSERT INTO `tp_article` VALUES ('4', '1', '年庆优惠', '', null, '', null, '2', '99', '0', '0', null, '0', '1', null);
+INSERT INTO `tp_article` VALUES ('5', '1', '新手指南', '', null, '', null, '12', '99', '0', '0', null, '0', '1', null);
+INSERT INTO `tp_article` VALUES ('7', '1', '支付说明', '', '20191126\\373adabbbf7b930272a0b59988b1eedc.png', '', '<p><img src=\"/public/ueditor/image/20191126/1574773033157353.png\" title=\"1574773033157353.png\" alt=\"tag-1.png\"/></p>', '2', '99', '0', '0', null, '1574773035', '1', '');
+INSERT INTO `tp_article` VALUES ('8', '1', '免责声明', '', null, '', null, '7', '99', '0', '0', null, '0', '1', null);
+INSERT INTO `tp_article` VALUES ('9', '1', '支付宝支付', '', '', '', '<p><img src=\"/public/ueditor/image/20191126/1574771681757601.jpg\" title=\"1574771681757601.jpg\" alt=\"login_bg.jpg\"/></p>', '7', '99', '1', '0', null, '1574771684', '1', '');
+INSERT INTO `tp_article` VALUES ('10', '1', '微信支付', '', '20191126\\7808ac1657720a53f9d0a0c6351d7b93.JPG', '', '<p>45454</p>', '7', '99', '1', '1', null, '1574771551', '1', '');
+INSERT INTO `tp_article` VALUES ('15', '老公', '我老婆使用信用卡心得', '我老婆', '20191126\\0cac9ca07548d8614e4039c5c3977482.png', '我老婆超额贷款', '<p>放得开发快递发的开发贷款发的咖啡店父类大风大浪发卡方发卡夫卡六块腹肌卡了法力浮龙的奥卡菲娜付款啦法拉开发暖风机afafklafa凯迪拉克你客<br/></p><p>亏大发了发卡量发了疯奥拉夫啦lfakfalfdkfka</p><p><br/></p><p><br/></p><p>辅导费健康路否那falf</p><p><br/></p><p>代付款发快递看就看见风使舵金粉世家方法sjwmf.v四季分明快捷方式咖啡机积分开始大家风范节目否爱睡觉按啥的看法夹噶嘎婆上课慢jaguargfagh&#39;gkf赶紧来看古灵精怪</p><p>LGJLSGN&#39;SLGHALS</p><p><img src=\"/public/ueditor/image/20191126/1574782927279414.jpg\" title=\"1574782927279414.jpg\" alt=\"001.JPG\"/></p><p>&nbsp;ASIDGLKDGNLL海格力斯看过了更好地客户嘎嘎红薯干活uwdtierhj8vbjwk4ntofnb</p>', '7', '99', '0', '1', '1574782955', '0', '1', 'http://www.rufeike.top');
 
 -- ----------------------------
 -- Table structure for tp_article_category
@@ -22,19 +56,34 @@ DROP TABLE IF EXISTS `tp_article_category`;
 CREATE TABLE `tp_article_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `cate_name` varchar(60) DEFAULT NULL,
+  `keywords` varchar(255) DEFAULT NULL COMMENT '关键词',
+  `description` tinytext COMMENT '描述',
   `pid` int(11) DEFAULT '0' COMMENT '父级ID',
   `sort` int(11) DEFAULT '99' COMMENT '排序',
-  `status` tinyint(1) DEFAULT '1' COMMENT '状态 0：禁用 1正常',
+  `status` tinyint(1) DEFAULT '0' COMMENT '是否显示到导航，状态 0：不显示 1显示',
   `is_del` tinyint(1) DEFAULT '1' COMMENT '默认1：正常 1：删除',
   `create_time` bigint(20) DEFAULT NULL COMMENT '创建时间',
-  `type` tinyint(1) DEFAULT '0' COMMENT '分类类型 默认0：帮助文档，1：系统文档',
+  `cate_type` tinyint(1) DEFAULT '0' COMMENT '分类类型 默认0：普通分类，1：系统分类  2：网店帮助，3：网店信息',
+  `allow_add` tinyint(1) DEFAULT '1' COMMENT '是否可以添加子分类 默认为1：可添加，0：不可添加',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of tp_article_category
 -- ----------------------------
-INSERT INTO `tp_article_category` VALUES ('1', 'fdfdfd', '0', '99', '0', '1', '1574604114', '0');
+INSERT INTO `tp_article_category` VALUES ('1', '系统分类', '', '', '0', '104', '1', '1', '1574604114', '1', '0');
+INSERT INTO `tp_article_category` VALUES ('2', '网店帮助', '', 'dfafafd', '1', '98', '1', '1', '1574607894', '2', '0');
+INSERT INTO `tp_article_category` VALUES ('3', '网店信息', '', '', '1', '99', '0', '1', null, '3', '0');
+INSERT INTO `tp_article_category` VALUES ('4', '年庆优惠', '', '', '2', '99', '0', '1', null, '0', '1');
+INSERT INTO `tp_article_category` VALUES ('5', '新手指南', '', '', '12', '99', '0', '1', null, '0', '1');
+INSERT INTO `tp_article_category` VALUES ('6', '其他分类', '', 'fdfd', '0', '95', '0', '1', null, '0', '1');
+INSERT INTO `tp_article_category` VALUES ('7', '支付说明', '', '', '2', '99', '0', '1', null, '0', '1');
+INSERT INTO `tp_article_category` VALUES ('8', '免责声明', '', '', '7', '99', '0', '1', null, '0', '1');
+INSERT INTO `tp_article_category` VALUES ('9', '支付宝支付', null, null, '7', '99', '0', '1', null, '0', '1');
+INSERT INTO `tp_article_category` VALUES ('10', '微信支付', null, null, '7', '99', '0', '1', null, '0', '1');
+INSERT INTO `tp_article_category` VALUES ('11', '闪电付', null, null, '7', '99', '0', '1', null, '0', '1');
+INSERT INTO `tp_article_category` VALUES ('12', '购物流程', null, null, '5', '99', '0', '1', null, '0', '1');
+INSERT INTO `tp_article_category` VALUES ('13', 'fdfdfd', '', 'dfdfd', '4', '99', '0', '0', '1574661095', '0', '1');
 
 -- ----------------------------
 -- Table structure for tp_brand
@@ -51,7 +100,7 @@ CREATE TABLE `tp_brand` (
   `is_del` tinyint(1) DEFAULT '1' COMMENT '是否删除 0：删除 1：显示',
   `create_time` bigint(20) DEFAULT NULL COMMENT '添加时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of tp_brand
@@ -64,3 +113,25 @@ INSERT INTO `tp_brand` VALUES ('5', '大幅度发放', '', '', '', '1', '50', '0
 INSERT INTO `tp_brand` VALUES ('6', '大幅度发放', 'http://ddfdfd', '20191124\\7cb3238c3587b8e763d46c5b79762212.png', '大幅度', '1', '50', '0', null);
 INSERT INTO `tp_brand` VALUES ('7', '大幅度发放', 'http://ddfdfd', '20191124\\9449f606ec2be1c340a8227e6ff83671.png', '大多数', '1', '50', '0', null);
 INSERT INTO `tp_brand` VALUES ('8', '大幅度发放', 'http://ddfdfd', '', '辅导辅导', '0', '50', '0', null);
+
+-- ----------------------------
+-- Table structure for tp_link
+-- ----------------------------
+DROP TABLE IF EXISTS `tp_link`;
+CREATE TABLE `tp_link` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `link_name` varchar(60) DEFAULT NULL COMMENT '友情链接名称',
+  `link_url` varchar(255) DEFAULT NULL COMMENT '友链网址',
+  `link_src` varchar(255) DEFAULT NULL COMMENT '友链logo图片',
+  `description` tinytext COMMENT '品牌描述',
+  `status` tinyint(1) DEFAULT '1' COMMENT '0：隐藏 1：显示',
+  `sort` int(11) DEFAULT '50' COMMENT '排序',
+  `is_del` tinyint(1) DEFAULT '1' COMMENT '是否删除 0：删除 1：显示',
+  `create_time` bigint(20) DEFAULT NULL COMMENT '添加时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of tp_link
+-- ----------------------------
+INSERT INTO `tp_link` VALUES ('1', '粤凯信息科技有限公司', 'http://www.yuekai.com', '20191127\\e27706c68be82edb35b4869cfe927614.png', '世界第一，宇宙最强', '1', '50', '1', '1574784547');
