@@ -14,12 +14,12 @@
             <li class="breadcrumb-item">
                 <a href="<{:url('index/index')}>"><i class="fa fa-home fa-fw"></i>&nbsp;首页</a>
             </li>
-            <li class="breadcrumb-item active">文章管理</li>
+            <li class="breadcrumb-item active">文章回收站</li>
         </ol>
 
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div></div>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#lable" onclick="jump('<{:url('article/add')}>')"><i class="fas fa-plus"> 添加</i></button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#lable" onclick="layer.msg('功能开发中。。。')"><i class="fas fa-plus"> 恢复</i></button>
         </div>
 
         <div class="card mb-3">
@@ -51,12 +51,12 @@
                             <td><{$v.keywords}></td>
                             <td title="<{$v.description}>"><{:mb_substr($v.description,0,10)}><{if mb_strlen($v.description)>30 }>...<{/if}></td>
                             <td><{if($v.thumb!='')}><img src="__UPLOADS__/article/<{$v.thumb}>" style="height: 40px;"><{/if}></td>
-                            <td align="center"><input type="number" value="<{$v.sort}>" style="max-width: 60px;text-align: center;" onchange="ajaxSort('<{:url(\'article/ajaxSort\')}>',<{$v.id}>,$(this),'article')"></td>
+                            <td align="center"><input type="number" disabled value="<{$v.sort}>" style="max-width: 60px;text-align: center;" onchange="ajaxSort('<{:url(\'article/ajaxSort\')}>',<{$v.id}>,$(this),'article')"></td>
                             <td align="center"><{$v.show_top_text}></td>
                             <td align="center"><{$v.status_text}></td>
                             <td>
-                                <button class="btn btn-primary" onclick="jump('<{:url(\'article/edit\',array(\'id\'=>$v.id))}>')"><i class="fas fa-edit"></i> 编辑</button>
-                                <button class="btn btn-danger" onclick="deleteById('<{:url('article/delete')}>',<{$v.id}>,'article')"><i class="fas fa-trash"></i> 删除</button>
+                                <button class="btn btn-primary" onclick="recoverById('<{:url(\'article/recover\')}>',<{$v.id}>,'article')"><i class="fas fa-plus"></i> 恢复</button>
+                                <button class="btn btn-danger" onclick="deleteByIdForever('<{:url('article/delete_ever')}>',<{$v.id}>,'article')"><i class="fas fa-trash"></i> 删除</button>
                             </td>
                         </tr>
                         <{/volist}>

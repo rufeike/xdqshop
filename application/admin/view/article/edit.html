@@ -31,7 +31,7 @@
                 <a href="<{:url('index/index')}>"><i class="fa fa-home fa-fw"></i>&nbsp;首页</a>
             </li>
             <li class="breadcrumb-item">
-                <a href="<{:url('brand/index')}>">商品列表</a>
+                <a href="<{:url('article/index')}>">文章管理</a>
             </li>
             <li class="breadcrumb-item active">编辑</li>
         </ol>
@@ -40,43 +40,80 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <form class="form-horizontal" role="form" style="padding:1rem;" onsubmit="return false;" id="form"
-                          action="<{:url('brand/save')}>" method="post"  enctype="multipart/form-data">
+                          action="<{:url('article/save')}>" method="post"  enctype="multipart/form-data">
                         <input type="hidden" name="__token__" value="<{$Request.token}>">
                         <input type="hidden" value="edit" name="action">
                         <input type="hidden" value="<{$info.id}>" name="id">
                         <input type="hidden" name="pic">
-                        <input type="hidden" name="old_pic" value="<{$info.brand_src}>">
+                        <input type="hidden" name="old_pic" value="<{$info.thumb}>">
                         <div class="form-group" style="line-height: 40px;">
-                            <label for="brand_name" class="col-sm-2 control-label" style="float: left;">品牌名称</label>
+                            <label for="title" class="col-sm-2 control-label" style="float: left;">所属栏目</label>
                             <div class="">
-                                <input type="text" class="form-control col-sm-8" id="brand_name" name="brand_name" placeholder="" style="" value="<{$info.brand_name}>">
+                                <select name="cate_id" class="form-control col-sm-8" id="cate_id">
+                                    <option value="0">请选择</option>
+                                    <{if !empty($cateTree)}>
+                                    <{volist name='cateTree' id='iv'}>
+                                    <option <{if $iv.id==$info.cate_id}>selected style="background-color:#EAEAEA"<{/if}>  value="<{$iv.id}>">&nbsp;&nbsp;&nbsp;&nbsp;<{if($iv['level']==0)}>├─ <{/if}><?php echo str_repeat('&nbsp;',$iv['level']*4); ?> <{if($iv['level']!=0)}>├─ <{/if}><{$iv.cate_name}></option>
+                                    <{/volist}>
+                                    <{/if}>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group" style="line-height: 40px;">
-                            <label for="description" class="col-sm-2 control-label" style="float: left;">品牌描述</label>
+                            <label for="title" class="col-sm-2 control-label" style="float: left;">文章标题</label>
                             <div class="">
-                                <textarea name="description"  class="form-control col-sm-8" id="description" style="resize:none;" rows="5"><{$info.description}></textarea>
+                                <input type="text" class="form-control col-sm-8" id="title" name="title" placeholder="" style="" value="<{$info.title}>">
                             </div>
                         </div>
                         <div class="form-group" style="line-height: 40px;">
-                            <label for="brand_url" class="col-sm-2 control-label" style="float: left;">品牌网址</label>
+                            <label for="keywords" class="col-sm-2 control-label" style="float: left;">关键字</label>
                             <div class="">
-                                <input type="text" class="form-control col-sm-8" id="brand_url" name="brand_url" placeholder="" value="<{$info.brand_url}>">
+                                <input type="text" class="form-control col-sm-8" id="keywords" name="keywords" placeholder="" style="" value="<{$info.keywords}>">
                             </div>
                         </div>
                         <div class="form-group" style="line-height: 40px;">
-                            <label class="col-sm-2 control-label" style="float: left;">是否顯示</label>
+                            <label for="author" class="col-sm-2 control-label" style="float: left;">作者</label>
+                            <div class="">
+                                <input type="text" class="form-control col-sm-8" id="author" name="author" placeholder="" style="" value="<{$info.author}>">
+                            </div>
+                        </div>
+                        <div class="form-group" style="line-height: 40px;">
+                            <label for="description" class="col-sm-2 control-label" style="float: left;">文章描述</label>
+                            <div class="">
+                                <textarea name="description"  class="form-control col-sm-8" id="description" style="resize:none;" rows="3"><{$info.description}></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group" style="line-height: 40px;">
+                            <label for="link_url" class="col-sm-2 control-label" style="float: left;">外链地址</label>
+                            <div class="">
+                                <input type="text" class="form-control col-sm-8" id="link_url" name="link_url" placeholder=""  value="<{$info.link_url}>">
+                            </div>
+                        </div>
+                        <div class="form-group" style="line-height: 40px;">
+                            <label for="" class="col-sm-2 control-label" style="float: left;">是否置顶</label>
                             <div class="">
                                 <label>
-                                    <input type="radio" name="status"  value="1" <{if($info.status==1)}>checked<{/if}> >  显示
+                                    <input type="radio" name="show_top" <{if($info.show_top==1)}>checked<{/if}> value="1"  >  是
                                 </label>
                                 <label>
-                                    <input type="radio" name="status"  value="0" <{if($info.status==0)}>checked<{/if}> >  隐藏
+                                    <input type="radio" name="show_top" <{if($info.show_top==0)}>checked<{/if}>  value="0" checked >  否
                                 </label>
                             </div>
                         </div>
                         <div class="form-group" style="line-height: 40px;">
-                            <label for="" class="col-sm-2 control-label" style="float: left;">品牌图片</label>
+                            <label for="" class="col-sm-2 control-label" style="float: left;">是否显示</label>
+                            <div class="">
+                                <label>
+                                    <input type="radio" name="status" <{if($info.status==1)}>checked<{/if}>  value="1"  >  显示
+                                </label>
+                                <label>
+                                    <input type="radio" name="status" <{if($info.status==0)}>checked<{/if}> value="0" >  隐藏
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="line-height: 40px;">
+                            <label for="" class="col-sm-2 control-label" style="float: left;">缩略图片</label>
                             <div class="">
                                 <button class="btn btn-primary" type="button">上传图片</button>
                                 <input style="margin-left:-100px" name="file" type="file" id="file" accept="image/gif,image/jpeg,image/x-png">
@@ -84,71 +121,90 @@
                         </div>
                         <div class="form-group" style="line-height: 40px;">
                             <label for="" class="col-sm-2 control-label" style="float: left;">&nbsp;</label>
-                            <div class="col-sm-4" id="img"  style="float:left">
-                                    <{if($info.brand_src!='')}><img src="__UPLOADS__/brand/<{$info.brand_src}>" id="" width="100%"><{/if}>
+                            <div class="col-sm-2" id="img"  style="float:left">
+                                <img id="" width="100%" src="__UPLOADS__/article/<{$info.thumb}>">
                             </div>
                         </div>
                         <div style="clear:both;margin-bottom: 15px;"></div>
-                        <div class="form-group" style="width: 100%;line-height: 40px;">
-                            <label for="" class="col-sm-2 control-label" style="float: left;"></label>
-                            <div class="">
-                                <button class="btn btn-primary" id="save"><i class="fas fa-save"> 保存</i></button>
-                                <button class="btn btn-danger" type="reset"><i class="fas fa-redo-alt"> 重置</i></button>
-                            </div>
+                        <div class="form-group" style="line-height: 40px;">
+                            <label for="container" class="col-sm-2 control-label" style="float: left;">文章内容</label>
                         </div>
-                    </form>
+
+                        <div style="clear:both;margin-bottom: 15px;"></div>
+                        <textarea name="content" style="width:100%"  id="container" style="line-height: 20px;" rows="10"><{$info.content}></textarea>
                 </div>
+                <div class="form-group" style="width: 100%;line-height: 40px;">
+                    <label for="" class="col-sm-2 control-label" style="float: left;"></label>
+                    <div class="">
+                        <button class="btn btn-primary" id="save"><i class="fas fa-save"> 保存</i></button>
+                        <button class="btn btn-danger" type="reset"><i class="fas fa-redo-alt"> 重置</i></button>
+                    </div>
+                </div>
+                </form>
             </div>
         </div>
+    </div>
 
-        <{/*引入底部公共文件*/}>
-        <{include file="common/footer"}>
+    <{/*引入底部公共文件*/}>
+    <{include file="common/footer"}>
+    <!-- 配置文件 -->
+    <script type="text/javascript" src="__STATIC__/vendor/ueditor/ueditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" src="__STATIC__/vendor/ueditor/ueditor.all.js"></script>
+    <!-- 实例化编辑器 -->
+    <script type="text/javascript">
+        var ue = UE.getEditor('container',{
+            autoHeight:false,
+            toolbars: [
+                ['fullscreen', 'source', 'undo', 'redo','simpleupload','bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc']
+            ]
+        });
 
-        <script>
+    </script>
+    <script>
 
-            $(function () {
-                var ua = navigator.userAgent.toLowerCase();
-                var screenwidth = window.screen.width;
-                if (!/iphone|ipad|ipod/.test(ua)) {
-                    $("#page-top").attr("scrolling", "auto");
+        $(function () {
+            var ua = navigator.userAgent.toLowerCase();
+            var screenwidth = window.screen.width;
+            if (!/iphone|ipad|ipod/.test(ua)) {
+                $("#page-top").attr("scrolling", "auto");
+            } else {
+                $('#page-top').width(screenwidth + 'px');
+            }
+
+            //圖片預覽
+            $("#file").change(function () {
+                var t = this;
+                if (t.files && t.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (evt) {
+                        $("#img").html('<img src="' + evt.target.result + '" style="width:100%" />');
+                        $('[name=pic]').val(evt.target.result);
+                    }
+                    reader.readAsDataURL(file.files[0]);
                 } else {
-                    $('#page-top').width(screenwidth + 'px');
+                    $("#img	").html('<div style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>');
                 }
+            })
 
-
-                //圖片預覽
-                $("#file").change(function () {
-                    var t = this;
-                    if (t.files && t.files[0]) {
-                        var reader = new FileReader();
-                        reader.onload = function (evt) {
-                            $("#img").html('<img src="' + evt.target.result + '" style="width:100%" />');
-                            $('[name=pic]').val(evt.target.result);
+            $('#save').click(function(){
+                $('#form').ajaxSubmit({
+                    success:function(r){
+                        var r = $.parseJSON(r);
+                        if(r.code == 200){
+                            layer.msg(r.msg,{icon:1},function(){
+                                jump('<{:url('article/index')}>');
+                            })
+                        }else if(r.code==101){
+                            layer.alert(r.msg,{icon:2});
+                        }else{
+                            layer.alert(r.msg,{icon:2});
+                            $("[name='__token__']").val(r.result.token);
                         }
-                        reader.readAsDataURL(file.files[0]);
-                    } else {
-                        $("#img	").html('<div style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>');
                     }
                 })
+            })
+        });
 
-                $('#save').click(function(){
-                    $('#form').ajaxSubmit({
-                        success:function(r){
-                            var r = $.parseJSON(r);
-                            if(r.code == 200){
-                                layer.msg(r.msg,{icon:1},function(){
-                                    jump('<{:url('brand/index')}>');
-                                })
-                            }else if(r.code==101){
-                                layer.alert(r.msg,{icon:2});
-                            }else{
-                                layer.alert(r.msg,{icon:2});
-                                $("[name='__token__']").val(r.result.token);
-                            }
-                        }
-                    })
-                })
-            });
-
-        </script>
+    </script>
 

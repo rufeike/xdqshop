@@ -153,7 +153,10 @@
         <!-- 实例化编辑器 -->
         <script type="text/javascript">
             var ue = UE.getEditor('container',{
-                // autoHeight:false,
+                autoHeight:false,
+                toolbars: [
+                    ['fullscreen', 'source', 'undo', 'redo','simpleupload','bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc']
+                ]
             });
 
         </script>
