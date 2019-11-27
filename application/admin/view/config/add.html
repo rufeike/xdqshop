@@ -1,0 +1,139 @@
+<{/*引入头部资源文件*/}>
+<{include file="common/header"}>
+<style>
+
+</style>
+<{/*引入左侧导航文件*/}>
+<{include file="common/nav"}>
+
+<div id="content-wrapper">
+
+    <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="<{:url('index/index')}>"><i class="fa fa-home fa-fw"></i>&nbsp;首页</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="<{:url('config/index')}>">配置设置</a>
+            </li>
+            <li class="breadcrumb-item active">添加</li>
+        </ol>
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <form class="form-horizontal" role="form" style="padding:1rem;" onsubmit="return false;" id="form"
+                          action="<{:url('config/save')}>" method="post"  enctype="multipart/form-data">
+                        <input type="hidden" name="__token__" value="<{$Request.token}>">
+                        <input type="hidden" value="add" name="action">
+                        <input type="hidden" value="" name="id">
+                        <div class="form-group" style="line-height: 40px;">
+                            <label for="ename" class="col-sm-2 control-label" style="float: left;">英文名称<span style="color:red;margin-left: 5px;font-weight: 700;">*</span></label>
+                            <div class="">
+                                <input type="text" class="form-control col-sm-8" id="ename" name="ename" placeholder="" style="">
+                            </div>
+                        </div>
+                        <div class="form-group" style="line-height: 40px;">
+                            <label for="cname" class="col-sm-2 control-label" style="float: left;">中文名称<span style="color:red;margin-left: 5px;font-weight: 700;">*</span></label>
+                            <div class="">
+                                <input type="text" class="form-control col-sm-8" id="cname" name="cname" placeholder="" style="">
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="line-height: 40px;">
+                            <label for="form_type" class="col-sm-2 control-label" style="float: left;">表单类型<span style="color:red;margin-left: 5px;font-weight: 700;">*</span></label>
+                            <div class="">
+                                <select name="form_type" id="form_type" class="form-control col-sm-8">
+                                    <option value="input">输入框(input)</option>
+                                    <option value="radio">单选框(radio)</option>
+                                    <option value="checkbox">复选框(checkbox)</option>
+                                    <option value="select">下拉框(select)</option>
+                                    <option value="textarea">文本域(textarea)</option>
+                                    <option value="file">附件(file)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" style="line-height: 40px;">
+                            <label for="values" class="col-sm-2 control-label" style="float: left;">可选值</label>
+                            <div class="">
+                                <textarea name="values"  class="form-control col-sm-8" id="values" style="resize:none;" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group" style="line-height: 40px;">
+                            <label for="value" class="col-sm-2 control-label" style="float: left;">默认值</label>
+                            <div class="">
+                                <input type="text" class="form-control col-sm-8" id="value" name="value" placeholder="" style="">
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="line-height: 40px;">
+                            <label for="" class="col-sm-2 control-label" style="float: left;">配置类型</label>
+                            <div class="">
+                                <label>
+                                    <input type="radio" name="config_type"  value="1"  >  商品配置
+                                </label>
+                                <label>
+                                    <input type="radio" name="config_type"  value="0" checked > 网站配置
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group" style="line-height: 40px;">
+                            <label for="" class="col-sm-2 control-label" style="float: left;">是否启用</label>
+                            <div class="">
+                                <label>
+                                    <input type="radio" name="status"  value="1"  checked>  正常
+                                </label>
+                                <label>
+                                    <input type="radio" name="status"  value="0" > 禁用
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group" style="width: 100%;line-height: 40px;">
+                            <label for="" class="col-sm-2 control-label" style="float: left;"></label>
+                            <div class="">
+                                <button class="btn btn-primary" id="save"><i class="fas fa-save"> 保存</i></button>
+                                <button class="btn btn-danger" type="reset"><i class="fas fa-redo-alt"> 重置</i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <{/*引入底部公共文件*/}>
+        <{include file="common/footer"}>
+
+        <script>
+
+            $(function () {
+                var ua = navigator.userAgent.toLowerCase();
+                var screenwidth = window.screen.width;
+                if (!/iphone|ipad|ipod/.test(ua)) {
+                    $("#page-top").attr("scrolling", "auto");
+                } else {
+                    $('#page-top').width(screenwidth + 'px');
+                }
+
+                $('#save').click(function(){
+                    $('#form').ajaxSubmit({
+                        success:function(r){
+                            var r = $.parseJSON(r);
+                            if(r.code == 200){
+                                layer.msg(r.msg,{icon:1},function(){
+                                    jump('<{:url('config/index')}>');
+                                })
+                            }else if(r.code==101){
+                                layer.alert(r.msg,{icon:2});
+                            }else{
+                                layer.alert(r.msg,{icon:2});
+                                $("[name='__token__']").val(r.result.token);
+                            }
+                        }
+                    })
+                })
+            });
+
+        </script>
+

@@ -1,0 +1,138 @@
+<{/*引入头部资源文件*/}>
+<{include file="common/header"}>
+
+<{/*引入左侧导航文件*/}>
+<{include file="common/nav"}>
+
+<div id="content-wrapper">
+
+    <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="<{:url('index/index')}>"><i class="fa fa-home fa-fw"></i>&nbsp;首页</a>
+            </li>
+            <li class="breadcrumb-item active">配置详情</li>
+        </ol>
+
+
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <div></div>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#lable" onclick="change_info()">商品配置</button>
+        </div>
+        <div class="card mb-3" id="form_content">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <form class="form-horizontal" role="form" style="padding:1rem;" onsubmit="return false;" id="form"
+                          action="<{:url('config/save_info')}>" method="post"  enctype="multipart/form-data">
+                        <input type="hidden" name="__token__" value="<{$Request.token}>">
+                        <input type="hidden" value="edit" name="action">
+                        <input type="hidden" value="" name="id">
+                        <?php foreach($info as $ik => $iv):?>
+                        <div class="form-group" style="line-height: 40px;">
+                            <label for="<{$iv.ename}>" class="col-sm-2 control-label" style="float: left;"><{$iv.cname}></label>
+                            <div class="">
+                                <?php if($iv['form_type']=='input'): ?>
+                                    <input type="text" class="form-control col-sm-8" id="<{$iv.ename}>" name="<{$iv.ename}>" placeholder="" style="" value="<{$iv.value}>" >
+                                <?php elseif($iv['form_type']=='radio'): ?>
+                                <?php
+                                    $radio = explode(',',$iv['values']);
+                                    foreach($radio as $rk => $rv):
+                                ?>
+                                <label><input type="radio" class="" id="<{$iv.ename}>-<{$rk}>" name="<{$iv.ename}>" placeholder="" style="width:15px;height: 15px;" value="<{$rv}>" > &nbsp; <{$rv}></label> &nbsp;&nbsp;
+                                <?php endforeach;?>
+                                <?php elseif($iv['form_type']=='checkbox'): ?>
+                                <?php
+                                    $checkbox = explode(',',$iv['values']);
+                                    foreach($checkbox as $ck => $cv):
+                                ?>
+                                <label><input type="checkbox" class="" id="<{$iv.ename}>-<{$ck}>" name="<{$iv.ename}>[]" placeholder="" style="width:15px;height: 15px;" value="<{$cv}>" > &nbsp; <{$cv}></label> &nbsp;&nbsp;
+                                <?php endforeach;?>
+                                <?php elseif($iv['form_type']=='select'): ?>
+                                    <select name="<{$iv.ename}>" id="<{$iv.ename}>" class="form-control col-sm-8">
+                                        <?php
+                                            $option = explode(',',$iv['values']);
+                                            foreach($option as $ok => $ov):
+                                        ?>
+                                            <option value="<{$ov}>"><{$ov}></option>
+                                        <?php endforeach ;?>
+                                    </select>
+                                <?php elseif($iv['form_type']=='textarea'): ?>
+                                    <textarea name="<{$iv.ename}>"  class="form-control col-sm-8" id="<{$iv.ename}>" style="resize:none;" rows="3"><{$iv.value}></textarea>
+                                <?php elseif($iv['form_type']=='file'): ?>
+                                    <input type="file" class="form-control col-sm-4" id="<{$iv.ename}>" name="<{$iv.ename}>" placeholder="" style="" value="<{$iv.value}>" >
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <?php endforeach ;?>
+<!--                        <div class="form-group" style="line-height: 40px;">-->
+<!--                            <label for="cname" class="col-sm-2 control-label" style="float: left;">中文名称<span style="color:red;margin-left: 5px;font-weight: 700;">*</span></label>-->
+<!--                            <div class="">-->
+<!--                                <input type="text" class="form-control col-sm-8" id="cname" name="cname" placeholder="" style="">-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        <div class="form-group" style="line-height: 40px;">-->
+<!--                            <label for="form_type" class="col-sm-2 control-label" style="float: left;">表单类型<span style="color:red;margin-left: 5px;font-weight: 700;">*</span></label>-->
+<!--                            <div class="">-->
+<!--                                <select name="form_type" id="form_type" class="form-control col-sm-8">-->
+<!--                                    <option value="input">输入框(input)</option>-->
+<!--                                    <option value="radio">单选框(radio)</option>-->
+<!--                                    <option value="checkbox">复选框(checkbox)</option>-->
+<!--                                    <option value="select">下拉框(select)</option>-->
+<!--                                    <option value="textarea">文本域(textarea)</option>-->
+<!--                                    <option value="file">附件(file)</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="form-group" style="line-height: 40px;">-->
+<!--                            <label for="values" class="col-sm-2 control-label" style="float: left;">可选值</label>-->
+<!--                            <div class="">-->
+<!--                                <textarea name="values"  class="form-control col-sm-8" id="values" style="resize:none;" rows="3"></textarea>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="form-group" style="line-height: 40px;">-->
+<!--                            <label for="value" class="col-sm-2 control-label" style="float: left;">默认值</label>-->
+<!--                            <div class="">-->
+<!--                                <input type="text" class="form-control col-sm-8" id="value" name="value" placeholder="" style="">-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        <div class="form-group" style="line-height: 40px;">-->
+<!--                            <label for="" class="col-sm-2 control-label" style="float: left;">配置类型</label>-->
+<!--                            <div class="">-->
+<!--                                <label>-->
+<!--                                    <input type="radio" name="config_type"  value="1"  >  商品配置-->
+<!--                                </label>-->
+<!--                                <label>-->
+<!--                                    <input type="radio" name="config_type"  value="0" checked > 网站配置-->
+<!--                                </label>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="form-group" style="line-height: 40px;">-->
+<!--                            <label for="" class="col-sm-2 control-label" style="float: left;">是否启用</label>-->
+<!--                            <div class="">-->
+<!--                                <label>-->
+<!--                                    <input type="radio" name="status"  value="1"  checked>  正常-->
+<!--                                </label>-->
+<!--                                <label>-->
+<!--                                    <input type="radio" name="status"  value="0" > 禁用-->
+<!--                                </label>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                        <div class="form-group" style="width: 100%;line-height: 40px;">
+                            <label for="" class="col-sm-2 control-label" style="float: left;"></label>
+                            <div class="">
+                                <button class="btn btn-primary" id="save"><i class="fas fa-save"> 保存</i></button>
+                                <button class="btn btn-danger" type="reset"><i class="fas fa-redo-alt"> 重置</i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <{/*引入底部公共文件*/}>
+        <{include file="common/footer"}>

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50727
 File Encoding         : 65001
 
-Date: 2019-11-27 00:24:43
+Date: 2019-11-28 01:09:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -113,6 +113,36 @@ INSERT INTO `tp_brand` VALUES ('5', '大幅度发放', '', '', '', '1', '50', '0
 INSERT INTO `tp_brand` VALUES ('6', '大幅度发放', 'http://ddfdfd', '20191124\\7cb3238c3587b8e763d46c5b79762212.png', '大幅度', '1', '50', '0', null);
 INSERT INTO `tp_brand` VALUES ('7', '大幅度发放', 'http://ddfdfd', '20191124\\9449f606ec2be1c340a8227e6ff83671.png', '大多数', '1', '50', '0', null);
 INSERT INTO `tp_brand` VALUES ('8', '大幅度发放', 'http://ddfdfd', '', '辅导辅导', '0', '50', '0', null);
+
+-- ----------------------------
+-- Table structure for tp_config
+-- ----------------------------
+DROP TABLE IF EXISTS `tp_config`;
+CREATE TABLE `tp_config` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ename` varchar(100) DEFAULT NULL COMMENT '英文名称',
+  `cname` varchar(100) DEFAULT NULL COMMENT '中文名称',
+  `form_type` varchar(20) DEFAULT 'input' COMMENT '配置项表单类型：input、radio、checkbox、select、textarea、file',
+  `value` varchar(120) DEFAULT NULL,
+  `values` varchar(255) DEFAULT NULL COMMENT '配置项值',
+  `status` tinyint(1) DEFAULT '1' COMMENT '是否禁用，默认为1正常，0：禁用',
+  `sort` int(11) DEFAULT '50' COMMENT '排序',
+  `config_type` tinyint(1) DEFAULT '0' COMMENT '配置项类型默认为0：网站配置项，1：商品配置项',
+  `create_time` bigint(20) DEFAULT NULL COMMENT '创建时间',
+  `is_del` tinyint(1) DEFAULT '1' COMMENT '是否删除，默认1：正常，0：删除',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of tp_config
+-- ----------------------------
+INSERT INTO `tp_config` VALUES ('1', 'website', '站点', 'input', '', '', '1', '53', '0', null, '1');
+INSERT INTO `tp_config` VALUES ('2', 'description', '企业介绍', 'textarea', '', '', '1', '48', '0', '1574863805', '1');
+INSERT INTO `tp_config` VALUES ('3', 'isVcode', '是否开启验证码', 'radio', '关闭', '开启,关闭', '1', '50', '0', '1574868889', '1');
+INSERT INTO `tp_config` VALUES ('4', 'checkboxTest', '测试多选', 'checkbox', '多选1', '多选1,多选2,多选3,多选4', '1', '50', '0', '1574869007', '1');
+INSERT INTO `tp_config` VALUES ('5', 'selectTest', '测试下拉框', 'select', '下拉1', '下拉1,下拉2,下拉3,下拉4', '1', '50', '0', '1574869080', '1');
+INSERT INTO `tp_config` VALUES ('6', 'qrcode', '二维码', 'file', '', '', '1', '50', '0', '1574869132', '1');
+INSERT INTO `tp_config` VALUES ('7', 'wxcode', '微信二维码', 'file', '', '', '1', '50', '0', '1574869166', '1');
 
 -- ----------------------------
 -- Table structure for tp_link
