@@ -4,19 +4,17 @@
     .dir_box:hover {
         cursor: pointer;
     }
-
-    .img_box:after {
-        content: 'x';
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 20px;
-        height: 20px;
-        background-color: #0b2e13;
-        line-height: 18px;
-        text-align: center;
-        border-radius: 50%;
-        color: #ffffee;
+    .del_btn{
+        position:absolute;
+        top:-2px;
+        right:0;
+        opacity: 0.3;
+        cursor:pointer;
+        font-size:1.5em;
+    }
+    .del_btn:hover{
+        color:#f00;
+        opacity: 0.8;
     }
 </style>
 <{/*引入左侧导航文件*/}>
@@ -34,13 +32,13 @@
             <li class="breadcrumb-item active">UEditor编辑器图片管理</li>
         </ol>
 
-        <div class="card mb-3">
+        <div class="card mb-3" id="file_show_box">
             <div class="card-header">
                 <i class="fas fa-table"></i>
                 图片列表
             </div>
-            <div class="row" style="padding:15px" id="file_show_box">
-                <{volist name='info' id='v'}>
+            <div class="row" style="padding:15px">
+                <{volist name='info.data' id='v'}>
                 <{if $v.type=='dir'}>
                 <div class="col-sm-1 col-md-2 dir_box" data-url="<{$v.path}>" style="box-sizing: border-box;padding:15px;height: 200px;">
                     <figure class="figure"
@@ -53,7 +51,7 @@
                     </figure>
                 </div>
                 <{else}>
-                <div class="col-sm-1 col-md-2 img_box" style="box-sizing: border-box;padding:15px;height: 200px;">
+                <div class="col-sm-1 col-md-2 img_box" style="box-sizing: border-box;padding:15px;height: 200px;position:relative">
                     <figure class="figure"
                             style=";min-width:200px;width:100%;text-align: center;border:2px solid #EEEEEE;border-radius: 5px;margin-bottom:15px;">
                         <img src="<{$v.path}>" class="figure-img img-fluid rounded" alt="<{$v.path}>"
@@ -62,6 +60,7 @@
                             <{$v.name}>
                         </figcaption>
                     </figure>
+                    <span class="del_btn" data-url="<{$v.path}>"><i class="fas fa-times-circle" ></i></span>
                 </div>
                 <{/if}>
                 <{/volist}>
@@ -74,11 +73,32 @@
 
         <script>
             $(function(){
-                $('.dir_box').click(function(){
+                //进入目录
+                $(document).on('click','.dir_box',function(){
                     var path=$(this).attr('data-url');
                     $.post("<{:url('article/ajax_imgManagement')}>",{path:path},function(r){
                         $('#file_show_box').html(r);
                     })
                 })
+
+                //删除图片
+                $(document).on('click','.del_btn',function(){
+                    var obj = $(this);
+                    var path = $(this).attr('data-url');
+                    layer.confirm('确认删除吗？',{icon:3},function(index){
+                        layer.close(index);
+                        $.post("<{:url('article/del_img')}>",{path:path},function(r){
+                            var json = $.parseJSON(r);
+                            if(json.code==200){
+                                obj.parents('.img_box').remove();
+                                layer.msg(json.msg,{icon:1,time:5000});
+                            }else{
+                                layer.alert(r.msg,{icon:2});
+                            }
+                        })
+                    })
+                })
+
             })
+
         </script>

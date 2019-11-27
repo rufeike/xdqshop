@@ -194,8 +194,7 @@ class Article extends Base{
 
     //ueditor图片管理
     public function imgManagement(){
-        $path=ROOT_PATH.'public'.DS.'ueditor'.DS.'image';
-        $pathArr=$this->getImagesPath($path);
+        $pathArr=$this->getImagesPath();
         $this->assign('info',$pathArr);
         return $this->fetch();
     }
@@ -203,16 +202,37 @@ class Article extends Base{
     //ajax_获取文件夹信息内容
     public function ajax_imgManagement(){
         $param = request()->param();
-        $path = ROOT_PATH;
-        $path.=isset($param['path'])?$param['path']:'public'.DS.'ueditor'.DS.'image';
+        $path=isset($param['path'])?$param['path']:'public/ueditor/image';
         $pathArr=$this->getImagesPath($path);
         $this->assign('info',$pathArr);
         return $this->fetch();
     }
 
 
+    //获取路径层次
+    public function getLever($path,$base){
+        static $arr = array();
+        if($path!=$base){
+            $name = substr($path,strrpos($path,'/')+1);
+            $newPath = substr($path,0,strrpos($path,'/'));
+            $prev['name']=$name;
+            $prev['path']=$path;
+            array_unshift($arr,$prev);
+            $this->getLever($newPath,$base);
+        }
+        return $arr;
+    }
+
+
     //获取文件
-    public function getImagesPath($path){
+    public function getImagesPath($path='public/ueditor/image',$base='public/ueditor/image'){
+        $path = str_replace('\\','/',$path);
+        $prev= array();
+        if($path!=$base){
+            $prev = $this->getLever($path,$base);
+        }
+        $path =ROOT_PATH.$path;
+
         $files = scandir($path,true);
         $pathArr = array();
 
@@ -225,6 +245,7 @@ class Article extends Base{
                     $tmpArr['name'] = $v;
                     $tmpArr['realpath'] = $path.DS.$v;
                     $tmpArr['path'] = str_replace(ROOT_PATH,'',$path.DS.$v);
+                    array_unshift($pathArr,$tmpArr);
                 }else{
                     if(isset($pathinfo['extension'])&&in_array('.'.$pathinfo['extension'],[".png", ".jpg", ".jpeg", ".gif", ".bmp"])){
                         $tmpArr['type'] = 'file';
@@ -232,12 +253,26 @@ class Article extends Base{
                         $tmpArr['realpath'] = $path.DS.$v;
                         $tmpArr['path'] = DS.str_replace(ROOT_PATH,'',$path.DS.$v);
                     }
+                    $pathArr[] = $tmpArr;
                 }
-                $pathArr[] = $tmpArr;
             }
         }
 
-        return $pathArr;
+        return array('prev'=>$prev,'data'=>$pathArr);
+    }
+
+    //删除编辑器图片
+    public function del_img(){
+        $param = request()->param();
+        $path = isset($param['path'])?trim(trim($param['path'],'/'),'\\'):'';
+        $realPath = ROOT_PATH.$path;
+        if($path==''||!is_file($realPath)){
+            get_jsonData(0,'图片路径不存在');
+        }
+
+        if(@unlink($realPath)){
+            get_jsonData(200,'图片删除成功');
+        }
     }
 
 }
