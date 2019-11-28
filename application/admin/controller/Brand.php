@@ -66,7 +66,7 @@ class Brand extends Base{
             get_jsonData(0,$validate->getError(),array('token'=>request()->token()));
         }
 
-        $pic = $this->upload();
+        $pic = $this->rfkUpload('file','brand');
         $brand_url = isset($param['brand_url'])?trim($param['brand_url']):'';
 
         if($brand_url!=''){
@@ -95,7 +95,7 @@ class Brand extends Base{
             $res = db('brand')->where('id',$id)->data($data)->update();
             if($res!==false){
                 if($pic){//删除老照片地址
-                    $path = ROOT_PATH . 'public' . DS . 'uploads'.DS.'brand'.DS.$old_pic;
+                    $path = ROOT_PATH . $old_pic;
                     @unlink($path);
                 }
                 get_jsonData(200,'操作成功');
@@ -105,30 +105,6 @@ class Brand extends Base{
         get_jsonData(0,'非法操作',array('token'=>request()->token()));
     }
 
-    //上传图片
-    public function upload(){
-        // 获取表单上传文件 例如上传了001.jpg
-        $file = request()->file('file');
-
-        // 移动到框架应用根目录/public/uploads/ 目录下
-        if($file){
-            $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads'.DS.'brand');
-            if($info){
-                // 成功上传后 获取上传信息
-                // 输出 jpg
-                //echo $info->getExtension();
-                // 输出 20160820/42a79759f284b767dfcb2a0197904287.jpg
-                return $info->getSaveName();
-                // 输出 42a79759f284b767dfcb2a0197904287.jpg
-                //echo $info->getFilename();
-            }else{
-                // 上传失败获取错误信息
-                echo $file->getError();
-            }
-        }else{
-            return '';
-        }
-    }
 
 
 }

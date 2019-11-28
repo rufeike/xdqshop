@@ -1,0 +1,48 @@
+<input type="hidden" name="__token__" value="<{$Request.token}>">
+<?php foreach($info as $ik => $iv):?>
+<div class="form-group" style="line-height: 40px;">
+    <label for="<{$iv.ename}>" class="col-sm-2 control-label" style="float: left;"><{$iv.cname}></label>
+    <div class="form_item_box">
+        <?php if($iv['form_type']=='input'): ?>
+        <input type="text" class="form-control col-sm-8" id="<{$iv.ename}>" name="<{$iv.ename}>" placeholder="" style="" value="<{$iv.value}>" >
+        <?php elseif($iv['form_type']=='radio'): ?>
+        <?php
+                                    $radio = explode(',',$iv['values']);
+                                    foreach($radio as $rk => $rv):
+        ?>
+        <label><input <?php if($iv['value']==$rv){ echo "checked";}?> type="radio" class="" id="<{$iv.ename}>-<{$rk}>" name="<{$iv.ename}>" placeholder="" style="width:15px;height: 15px;" value="<{$rv}>" > &nbsp; <{$rv}></label> &nbsp;&nbsp;
+        <?php endforeach;?>
+        <?php elseif($iv['form_type']=='checkbox'): ?>
+        <?php
+                                    $checkbox = explode(',',$iv['values']);
+                                    $checkboxValues = explode(',',$iv['value'])==[]?array():explode(',',$iv['value']);
+                                    foreach($checkbox as $ck => $cv):
+        ?>
+        <label><input <?php if(in_array($cv,$checkboxValues)) echo "checked";?> type="checkbox" class="" id="<{$iv.ename}>-<{$ck}>" name="<{$iv.ename}>[]" placeholder="" style="width:15px;height: 15px;" value="<{$cv}>" > &nbsp; <{$cv}></label> &nbsp;&nbsp;
+        <?php endforeach;?>
+        <?php elseif($iv['form_type']=='select'): ?>
+        <select name="<{$iv.ename}>" id="<{$iv.ename}>" class="form-control col-sm-8">
+            <?php
+                                            $option = explode(',',$iv['values']);
+                                            foreach($option as $ok => $ov):
+            ?>
+            <option <?php if($iv['value']==$ov)echo "selected style='background-color:#eaeaea'"; ?> value="<{$ov}>"><{$ov}></option>
+            <?php endforeach ;?>
+        </select>
+        <?php elseif($iv['form_type']=='textarea'): ?>
+        <textarea name="<{$iv.ename}>"  class="form-control col-sm-8" id="<{$iv.ename}>" style="resize:none;" rows="3"><{$iv.value}></textarea>
+        <?php elseif($iv['form_type']=='file'): ?>
+        <span class="upload_box" style="text-align:center;border-radius:5px;border:1px solid #eaeaea;display: inline-block;position: relative;min-width:200px;"><i class="fas fa-cloud-upload-alt"></i> 上传附件<input type="file" class="form-control col-sm-12 img_file" id="<{$iv.ename}>" name="<{$iv.ename}>" placeholder="" style="opacity: 0;cursor:pointer;position: absolute;top:0;" value="<{$iv.value}>" ></span>
+        <span class="img_show_box"></span>
+        <?php if($iv['file_type']=='img'):?>
+        <img class="show_img" src="/<{$iv['value']}>" style="height: 40px;position: relative;top:-4px;cursor:pointer">
+        <img src="/<{$iv['value']}>" style="position: absolute;height: 200px;display: none;">
+        <?php elseif($iv['file_type']=='file'):?>
+        <a href="/<{$iv.value}>"><i class="fas fa-file-download" style="font-size: 20px;position:relative;left:5px;top:5px;color:#666;"> 附件下载</i></a>
+        <?php else:?>
+        <!-- 空 -->
+        <?php endif;?>
+        <?php endif; ?>
+    </div>
+</div>
+<?php endforeach ;?>

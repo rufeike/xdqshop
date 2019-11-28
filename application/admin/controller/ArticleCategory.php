@@ -191,4 +191,5 @@ class ArticleCategory extends Base{
 
         get_jsonData(0, '非法操作', array('token' => request()->token()));
     }
+
 }

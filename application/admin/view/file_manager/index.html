@@ -1,0 +1,104 @@
+<{/*引入头部资源文件*/}>
+<{include file="common/header"}>
+<style>
+    .dir_box:hover {
+        cursor: pointer;
+    }
+    .del_btn{
+        position:absolute;
+        top:-2px;
+        right:0;
+        opacity: 0.3;
+        cursor:pointer;
+        font-size:1.5em;
+    }
+    .del_btn:hover{
+        color:#f00;
+        opacity: 0.8;
+    }
+</style>
+<{/*引入左侧导航文件*/}>
+<{include file="common/nav"}>
+
+<div id="content-wrapper">
+
+    <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="<{:url('index/index')}>"><i class="fa fa-home fa-fw"></i>&nbsp;首页</a>
+            </li>
+            <li class="breadcrumb-item active">上传文件管理</li>
+        </ol>
+
+        <div class="card mb-3" id="file_show_box">
+            <div class="card-header">
+                <i class="fas fa-table"></i>
+                图片列表
+            </div>
+            <div class="row" style="padding:15px">
+                <{volist name='info.data' id='v'}>
+                <{if $v.type=='dir'}>
+                <div class="col-sm-1 col-md-3 dir_box" data-url="<{$v.path}>" style="box-sizing: border-box;padding:15px;height: 200px;margin-bottom: 30px;">
+                    <figure class="figure"
+                            style=";min-width:200px;width:100%;text-align: center;border:2px solid #EEEEEE;border-radius: 5px;margin-bottom:15px;">
+                        <img src="__ADMIN__/images/dir.jpg" class="figure-img img-fluid rounded" alt="<{$v.path}>"
+                             style="height:180px">
+                        <figcaption class="figure-caption" style="text-align: center;background-color: #eeeeee;">
+                            <{$v.name}>
+                        </figcaption>
+                    </figure>
+                </div>
+                <{elseif $v.type=='img'}>
+                <div class="col-sm-1 col-md-3 img_box" style="box-sizing: border-box;padding:15px;height: 200px;position:relative;margin-bottom: 30px;">
+                    <figure class="figure"
+                            style=";min-width:200px;width:100%;text-align: center;border:2px solid #EEEEEE;border-radius: 5px;margin-bottom:15px;">
+                        <img src="<{$v.path}>" class="figure-img img-fluid rounded" alt="<{$v.path}>"
+                             style="height:180px">
+                        <figcaption class="figure-caption" style="text-align: center;background-color: #eeeeee;">
+                            <{$v.name}>
+                        </figcaption>
+                    </figure>
+                    <span class="del_btn" data-url="<{$v.path}>"><i class="fas fa-times-circle" ></i></span>
+                </div>
+                <{/if}>
+                <{/volist}>
+            </div>
+            <br>
+        </div>
+
+        <{/*引入底部公共文件*/}>
+        <{include file="common/footer"}>
+
+        <script>
+            $(function(){
+                //进入目录
+                $(document).on('click','.dir_box',function(){
+                    var path=$(this).attr('data-url');
+                    $.post("<{:url('file_manager/ajax_index')}>",{path:path},function(r){
+                        $('#file_show_box').html(r);
+                    })
+                })
+
+                //删除图片
+                $(document).on('click','.del_btn',function(){
+                    var obj = $(this);
+                    var path = $(this).attr('data-url');
+                    layer.confirm('确认删除吗？',{icon:3},function(index){
+                        layer.close(index);
+                        $.post("<{:url('article/del_img')}>",{path:path},function(r){
+                            var json = $.parseJSON(r);
+                            if(json.code==200){
+                                obj.parents('.img_box').remove();
+                                layer.msg(json.msg,{icon:1,time:5000});
+                            }else{
+                                layer.alert(r.msg,{icon:2});
+                            }
+                        })
+                    })
+                })
+
+            })
+
+        </script>

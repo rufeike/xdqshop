@@ -117,6 +117,7 @@
                 }
 
                 $('#save').click(function(){
+                    var loading = layer.load();
                     $('#form').ajaxSubmit({
                         success:function(r){
                             var r = $.parseJSON(r);
@@ -130,6 +131,8 @@
                                 layer.alert(r.msg,{icon:2});
                                 $("[name='__token__']").val(r.result.token);
                             }
+
+                            layer.close(loading);
                         }
                     })
                 })

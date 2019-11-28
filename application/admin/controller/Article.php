@@ -92,7 +92,7 @@ class Article extends Base{
             get_jsonData(0,$validate->getError(),array('token'=>request()->token()));
         }
 
-        $pic = $this->upload();
+        $pic = $this->rfkupload('file','article');
         $link_url = isset($param['link_url'])?trim($param['link_url']):'';
 
         if($link_url!=''){
@@ -137,30 +137,6 @@ class Article extends Base{
         get_jsonData(0,'非法操作',array('token'=>request()->token()));
     }
 
-    //上传图片
-    public function upload(){
-        // 获取表单上传文件 例如上传了001.jpg
-        $file = request()->file('file');
-
-        // 移动到框架应用根目录/public/uploads/ 目录下
-        if($file){
-            $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads'.DS.'article');
-            if($info){
-                // 成功上传后 获取上传信息
-                // 输出 jpg
-                //echo $info->getExtension();
-                // 输出 20160820/42a79759f284b767dfcb2a0197904287.jpg
-                return $info->getSaveName();
-                // 输出 42a79759f284b767dfcb2a0197904287.jpg
-                //echo $info->getFilename();
-            }else{
-                // 上传失败获取错误信息
-                echo $file->getError();
-            }
-        }else{
-            return '';
-        }
-    }
 
     //彻底删除数据
     public function delete_ever(){
@@ -191,88 +167,5 @@ class Article extends Base{
         }
     }
 
-
-    //ueditor图片管理
-    public function imgManagement(){
-        $pathArr=$this->getImagesPath();
-        $this->assign('info',$pathArr);
-        return $this->fetch();
-    }
-
-    //ajax_获取文件夹信息内容
-    public function ajax_imgManagement(){
-        $param = request()->param();
-        $path=isset($param['path'])?$param['path']:'public/ueditor/image';
-        $pathArr=$this->getImagesPath($path);
-        $this->assign('info',$pathArr);
-        return $this->fetch();
-    }
-
-
-    //获取路径层次
-    public function getLever($path,$base){
-        static $arr = array();
-        if($path!=$base){
-            $name = substr($path,strrpos($path,'/')+1);
-            $newPath = substr($path,0,strrpos($path,'/'));
-            $prev['name']=$name;
-            $prev['path']=$path;
-            array_unshift($arr,$prev);
-            $this->getLever($newPath,$base);
-        }
-        return $arr;
-    }
-
-
-    //获取文件
-    public function getImagesPath($path='public/ueditor/image',$base='public/ueditor/image'){
-        $path = str_replace('\\','/',$path);
-        $prev= array();
-        if($path!=$base){
-            $prev = $this->getLever($path,$base);
-        }
-        $path =ROOT_PATH.$path;
-
-        $files = scandir($path,true);
-        $pathArr = array();
-
-        foreach($files as $v){
-            $tmpArr = array();
-            if($v!='.'&&$v!='..'){
-                $pathinfo=pathinfo($v);
-                if(is_dir($path.DS.$v)){
-                    $tmpArr['type'] = 'dir';
-                    $tmpArr['name'] = $v;
-                    $tmpArr['realpath'] = $path.DS.$v;
-                    $tmpArr['path'] = str_replace(ROOT_PATH,'',$path.DS.$v);
-                    array_unshift($pathArr,$tmpArr);
-                }else{
-                    if(isset($pathinfo['extension'])&&in_array('.'.$pathinfo['extension'],[".png", ".jpg", ".jpeg", ".gif", ".bmp"])){
-                        $tmpArr['type'] = 'file';
-                        $tmpArr['name'] = $v;
-                        $tmpArr['realpath'] = $path.DS.$v;
-                        $tmpArr['path'] = DS.str_replace(ROOT_PATH,'',$path.DS.$v);
-                    }
-                    $pathArr[] = $tmpArr;
-                }
-            }
-        }
-
-        return array('prev'=>$prev,'data'=>$pathArr);
-    }
-
-    //删除编辑器图片
-    public function del_img(){
-        $param = request()->param();
-        $path = isset($param['path'])?trim(trim($param['path'],'/'),'\\'):'';
-        $realPath = ROOT_PATH.$path;
-        if($path==''||!is_file($realPath)){
-            get_jsonData(0,'图片路径不存在');
-        }
-
-        if(@unlink($realPath)){
-            get_jsonData(200,'图片删除成功');
-        }
-    }
 
 }

@@ -72,4 +72,21 @@ class Base extends Controller{
             get_jsonData(0,'失败',array('error'=>$e->getMessage()));
         }
     }
+
+    //上传数据
+    public function rfkUpload($fileName,$dirname='file'){
+        //获取用户上传信息
+        $file = request()->file($fileName);
+        $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads'.DS.$dirname);
+        if($info){
+            return 'public'.DS.'uploads'.DS.$dirname.DS.$info->getsaveName();
+        }else {
+            get_jsonData(0,$info->getError,array('token'=>request()->token()));
+        }
+    }
+
+    //空方法处理
+    public function _empty(){
+        $this->redirect(url('index/index'),302);
+    }
 }

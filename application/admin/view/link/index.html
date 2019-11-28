@@ -47,7 +47,7 @@
                             <td><{$v.link_name}></td>
                             <td><{$v.link_url}></td>
                             <td><{$v.description}></td>
-                            <td><{if($v.link_src!='')}><img src="__UPLOADS__/link/<{$v.link_src}>" style="height: 40px;"><{/if}></td>
+                            <td><{if($v.link_src!='')}><img src="/<{$v.link_src}>" style="height: 40px;"><{/if}></td>
                             <td>
                                 <button class="btn btn-primary" onclick="jump('<{:url(\'link/edit\',array(\'id\'=>$v.id))}>')"><i class="fas fa-edit"></i> 编辑</button>
                                 <button class="btn btn-danger" onclick="deleteById('<{:url('link/delete')}>',<{$v.id}>,'link')"><i class="fas fa-trash"></i> 删除</button>

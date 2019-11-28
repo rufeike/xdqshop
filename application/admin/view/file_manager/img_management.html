@@ -76,7 +76,7 @@
                 //进入目录
                 $(document).on('click','.dir_box',function(){
                     var path=$(this).attr('data-url');
-                    $.post("<{:url('article/ajax_imgManagement')}>",{path:path},function(r){
+                    $.post("<{:url('file_manager/ajax_imgManagement')}>",{path:path},function(r){
                         $('#file_show_box').html(r);
                     })
                 })

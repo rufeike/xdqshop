@@ -50,7 +50,7 @@
                             <td><{$v.title}></td>
                             <td><{$v.keywords}></td>
                             <td title="<{$v.description}>"><{:mb_substr($v.description,0,10)}><{if mb_strlen($v.description)>30 }>...<{/if}></td>
-                            <td><{if($v.thumb!='')}><img src="__UPLOADS__/article/<{$v.thumb}>" style="height: 40px;"><{/if}></td>
+                            <td><{if($v.thumb!='')}><img src="/<{$v.thumb}>" style="height: 40px;"><{/if}></td>
                             <td align="center"><input type="number" disabled value="<{$v.sort}>" style="max-width: 60px;text-align: center;" onchange="ajaxSort('<{:url(\'article/ajaxSort\')}>',<{$v.id}>,$(this),'article')"></td>
                             <td align="center"><{$v.show_top_text}></td>
                             <td align="center"><{$v.status_text}></td>

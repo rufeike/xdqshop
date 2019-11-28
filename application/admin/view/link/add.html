@@ -120,7 +120,7 @@
                     if (t.files && t.files[0]) {
                         var reader = new FileReader();
                         reader.onload = function (evt) {
-                            $("#img").html('<img src="' + evt.target.result + '" style="width:100%" />');
+                            $("#img").html('<img src="' + evt.target.result + '" style="width:50%" />');
                             $('[name=pic]').val(evt.target.result);
                         }
                         reader.readAsDataURL(file.files[0]);

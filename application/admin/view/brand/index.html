@@ -47,7 +47,7 @@
                             <td><{$v.brand_name}></td>
                             <td><{$v.brand_url}></td>
                             <td><{$v.description}></td>
-                            <td><{if($v.brand_src!='')}><img src="__UPLOADS__/brand/<{$v.brand_src}>" style="height: 40px;"><{/if}></td>
+                            <td><{if($v.brand_src!='')}><img src="/<{$v.brand_src}>" style="height: 40px;"><{/if}></td>
                             <td>
                                 <button class="btn btn-primary" onclick="jump('<{:url(\'brand/edit\',array(\'id\'=>$v.id))}>')"><i class="fas fa-edit"></i> 编辑</button>
                                 <button class="btn btn-danger" onclick="deleteById('<{:url('brand/delete')}>',<{$v.id}>,'brand')"><i class="fas fa-trash"></i> 删除</button>
