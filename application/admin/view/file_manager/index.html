@@ -83,20 +83,21 @@
 
                 //删除图片
                 $(document).on('click','.del_btn',function(){
-                    var obj = $(this);
-                    var path = $(this).attr('data-url');
-                    layer.confirm('确认删除吗？',{icon:3},function(index){
-                        layer.close(index);
-                        $.post("<{:url('article/del_img')}>",{path:path},function(r){
-                            var json = $.parseJSON(r);
-                            if(json.code==200){
-                                obj.parents('.img_box').remove();
-                                layer.msg(json.msg,{icon:1,time:5000});
-                            }else{
-                                layer.alert(r.msg,{icon:2});
-                            }
-                        })
-                    })
+                    layer.msg("对不起，暂无权限",{icon:5});
+                    // var obj = $(this);
+                    // var path = $(this).attr('data-url');
+                    // layer.confirm('确认删除吗？',{icon:3},function(index){
+                        // layer.close(index);
+                        // $.post("<{:url('article/del_img')}>",{path:path},function(r){
+                        //     var json = $.parseJSON(r);
+                        //     if(json.code==200){
+                        //         obj.parents('.img_box').remove();
+                        //         layer.msg(json.msg,{icon:1,time:5000});
+                        //     }else{
+                        //         layer.alert(r.msg,{icon:2});
+                        //     }
+                        // })
+                    // })
                 })
 
             })
