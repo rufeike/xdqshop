@@ -1,0 +1,64 @@
+<{/*引入头部资源文件*/}>
+<{include file="common/header"}>
+<style>
+</style>
+<{/*引入左侧导航文件*/}>
+<{include file="common/nav"}>
+
+<div id="content-wrapper">
+
+    <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="<{:url('index/index')}>"><i class="fa fa-home fa-fw"></i>&nbsp;首页</a>
+            </li>
+            <li class="breadcrumb-item active">会员级别</li>
+        </ol>
+
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <div></div>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#lable" onclick="jump('<{:url('member_level/add')}>')"><i class="fas fa-plus"> 添加</i></button>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fas fa-table"></i>
+                会员级别列表
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th width="5%">序号</th>
+                            <th>会员级别</th>
+                            <th>积分下限</th>
+                            <th>积分上限</th>
+                            <th>会员折扣率(%)</th>
+                            <th width="15%">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <{volist name='info' id='v' key='k'}>
+                        <tr>
+                            <td><{$k}></td>
+                            <td align="left"><{$v.level_name}></td>
+                            <td align="left"><{$v.base_point}></td>
+                            <td align="left"><{$v.top_point}></td>
+                            <td align="left"><{$v.rate}></td>
+                            <td>
+                                <button class="btn btn-primary" onclick="jump('<{:url(\'member_level/edit\',array(\'id\'=>$v.id))}>')"><i class="fas fa-edit"></i> 编辑</button>
+                                <button class="btn btn-danger" onclick="deleteById('<{:url('member_level/delete')}>',<{$v.id}>,'member_level')"><i class="fas fa-trash"></i> 删除</button>
+                            </td>
+                        </tr>
+                        <{/volist}>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+<{/*引入底部公共文件*/}>
+<{include file="common/footer"}>

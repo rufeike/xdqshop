@@ -75,18 +75,19 @@
           <span>主控台</span>
         </a>
       </li>
-      <li class="nav-item dropdown <{if($Request.controller=='Brand')}>active show<{/if}>">
+      <li class="nav-item dropdown <{if($Request.controller=='Brand'||$Request.controller=='GoodsCategory'||$Request.controller=='GoodsType'||$Request.controller=='GoodsAttribute'||$Request.controller=='Goods')}>active show<{/if}>">
         <a class="nav-link dropdown-toggle" href="#" id="Commodity" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-cart-plus" aria-hidden="true"></i>
           <span>商品管理</span>
         </a>
-        <div class="dropdown-menu <{if($Request.controller=='Brand')}>show<{/if}>" aria-labelledby="Commodity">
+        <div class="dropdown-menu" aria-labelledby="Commodity">
           <h6 class="dropdown-header">商品管理</h6>
-          <a class="dropdown-item" href="#">商品列表</a>
-          <a class="dropdown-item" href="#">添加商品</a>
+          <a class="dropdown-item <{if($Request.controller=='Goods' &&($Request.action=='index'||$Request.action=='edit'))}> active<{/if}>" href="<{:url('Goods/index')}>">商品列表</a>
+          <a class="dropdown-item <{if($Request.controller=='Goods' && $Request.action=='add')}> active<{/if}>" href="<{:url('Goods/add')}>">添加商品</a>
           <a class="dropdown-item <{if($Request.controller=='Brand' &&($Request.action=='index'||$Request.action=='add'||$Request.action=='edit'))}> active<{/if}>" href="<{:url('Brand/index')}>">商品品牌</a>
-          <a class="dropdown-item" href="#">商品分类</a>
-          <a class="dropdown-item" href="#">商品类型</a>
+          <a class="dropdown-item <{if($Request.controller=='GoodsCategory' &&($Request.action=='index'||$Request.action=='add'||$Request.action=='edit'))}> active<{/if}>" href="<{:url('GoodsCategory/index')}>">商品分类</a>
+          <a class="dropdown-item <{if($Request.controller=='GoodsType' &&($Request.action=='index'||$Request.action=='add'||$Request.action=='edit'))}> active<{/if}>" href="<{:url('GoodsType/index')}>">商品类型</a>
+          <a class="dropdown-item <{if($Request.controller=='GoodsAttribute' &&($Request.action=='index'||$Request.action=='add'||$Request.action=='edit'))}> active<{/if}>" href="<{:url('GoodsAttribute/index')}>">商品属性</a>
           <a class="dropdown-item" href="#">商品回收站</a>
         </div>
       </li>
@@ -113,15 +114,15 @@
           <a class="dropdown-item" href="#">订单查询</a>
         </div>
       </li>
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown  <{if($Request.controller=='MemberLevel'||$Request.controller=='MemberMessage'||$Request.controller=='MemberList')}>active show<{/if}>">
         <a class="nav-link dropdown-toggle" href="#" id="Member" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="far fa-address-book"></i>
           <span>会员管理</span>
         </a>
-        <div class="dropdown-menu" aria-labelledby="Member">
+        <div class="dropdown-menu <{if($Request.controller=='MemberLevel'||$Request.controller=='MemberMessage'||$Request.controller=='MemberList')}>show<{/if}>" aria-labelledby="Member">
           <h6 class="dropdown-header">会员管理</h6>
           <a class="dropdown-item" href="#">会员列表</a>
-          <a class="dropdown-item" href="#">会员等级</a>
+          <a class="dropdown-item <{if($Request.controller=='MemberLevel' &&($Request.action=='index'||$Request.action=='add'||$Request.action=='edit'))}> active<{/if}> " href="<{:url('member_level/index')}>">会员级别</a>
           <a class="dropdown-item" href="#">会员留言</a>
         </div>
       </li>
@@ -130,12 +131,11 @@
           <i class="fas fa-file-word"></i>
           <span>文章模块</span>
         </a>
-        <div class="dropdown-menu <{if($Request.controller=='ArticleCategory'||$Request.controller=='Article')}> show<{/if}>" aria-labelledby="Article">
+        <div class="dropdown-menu" aria-labelledby="Article">
           <h6 class="dropdown-header">文章模块</h6>
           <a class="dropdown-item <{if($Request.controller=='Article' && ($Request.action=='index'||$Request.action=='add'||$Request.action=='edit'))}> active<{/if}>" href="<{:url('article/index')}>">文章管理</a>
           <a class="dropdown-item <{if($Request.controller=='ArticleCategory' && ($Request.action=='index'||$Request.action=='add'||$Request.action=='edit'))}> active<{/if}>" href="<{:url('article_category/index')}>">文章分类</a>
           <a class="dropdown-item <{if($Request.controller=='Article' && ($Request.action=='recycle'))}> active<{/if}>" href="<{:url('article/recycle')}>">文章回收站</a>
-          <a class="dropdown-item <{if($Request.controller=='Article' && ($Request.action=='imgManagement'))}> active<{/if}>" href="<{:url('article/imgManagement')}>">UE图片管理</a>
         </div>
       </li>
       <li class="nav-item dropdown">
@@ -154,7 +154,7 @@
           <i class="fas fa-cog"></i>
           <span>系统设置</span>
         </a>
-        <div class="dropdown-menu <{if($Request.controller=='Config')}> show<{/if}>" aria-labelledby="Website">
+        <div class="dropdown-menu" aria-labelledby="Website">
           <h6 class="dropdown-header">系统设置</h6>
           <a class="dropdown-item <{if($Request.controller=='Config' && ($Request.action=='index'||$Request.action=='add'||$Request.action=='edit'))}> active<{/if}>" href="<{:url('config/index')}>">配置设置</a>
           <a class="dropdown-item <{if($Request.controller=='Config' && $Request.action=='info')}> active<{/if}>" href="<{:url('config/info')}>">配置详情</a>
@@ -189,7 +189,7 @@
           <i class="fas fa-folder"></i>
           <span>系统文件</span>
         </a>
-        <div class="dropdown-menu <{if($Request.controller=='FileManager')}> show<{/if}>" aria-labelledby="FileManager">
+        <div class="dropdown-menu " aria-labelledby="FileManager">
           <h6 class="dropdown-header">系统文件</h6>
           <a class="dropdown-item <{if($Request.controller=='FileManager' && ($Request.action=='index'))}> active<{/if}>" href="<{:url('file_manager/index')}>">上传图片管理</a>
           <a class="dropdown-item <{if($Request.controller=='FileManager' && ($Request.action=='imgmanagement'))}> active<{/if}>" href="<{:url('file_manager/imgManagement')}>">UE图片管理</a>

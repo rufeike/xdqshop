@@ -1,0 +1,157 @@
+<{/*引入头部资源文件*/}>
+<{include file="common/header"}>
+<style>
+    .btn.disabled:hover{
+        cursor:not-allowed;
+    }
+</style>
+<{/*引入左侧导航文件*/}>
+<{include file="common/nav"}>
+
+<div id="content-wrapper">
+
+    <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="<{:url('index/index')}>"><i class="fa fa-home fa-fw"></i>&nbsp;首页</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="<{:url('goods_category/index')}>">商品分类</a>
+            </li>
+            <li class="breadcrumb-item active">编辑</li>
+        </ol>
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <form class="form-horizontal" role="form" style="padding:1rem;" onsubmit="return false;" id="form"
+                          action="<{:url('goods_category/save')}>" method="post"  enctype="multipart/form-data">
+                        <input type="hidden" name="__token__" value="<{$Request.token}>">
+                        <input type="hidden" value="edit" name="action">
+                        <input type="hidden" value="<{$info.id}>" name="id">
+                        <input type="hidden" value="<{$info.thumb}>" name="old_pic">
+                        <div class="form-group" style="line-height: 40px;">
+                            <label for="pid" class="col-sm-2 control-label" style="float: left;">所属分类<span style="color:red;margin-left: 5px;font-weight: 700;">*</span></label>
+                            <div class="">
+                                <select name="pid" id="pid" class="form-control col-sm-8">
+                                    <option value="0">顶级分类</option>
+                                    <{if !empty($cateTree)}>
+                                        <{volist name='cateTree' id='iv'}>
+                                            <option <{if($iv.allow_add == 0)}>disabled<{/if}> <{if($iv.id==$info.pid)}>selected  style="background-color:#AECAFF"<{/if}> value="<{$iv.id}>">&nbsp;&nbsp;&nbsp;&nbsp;<{if($iv['level']==0)}>├─ <{/if}><?php echo str_repeat('&nbsp;',$iv['level']*4); ?> <{if($iv['level']!=0)}>├─ <{/if}><{$iv.cate_name}></option>
+                                        <{/volist}>
+                                    <{/if}>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" style="line-height: 40px;">
+                            <label for="cate_name" class="col-sm-2 control-label" style="float: left;">分类名称</label>
+                            <div class="">
+                                <input type="text" class="form-control col-sm-8" id="cate_name" name="cate_name" placeholder="" style="" value="<{$info.cate_name}>">
+                            </div>
+                        </div>
+                        <div class="form-group" style="line-height: 40px;">
+                            <label for="keywords" class="col-sm-2 control-label" style="float: left;">关键字</label>
+                            <div class="">
+                                <input type="text" class="form-control col-sm-8" id="keywords" name="keywords" placeholder="" style="" value="<{$info.keywords}>">
+                            </div>
+                        </div>
+                        <div class="form-group" style="line-height: 40px;">
+                            <label for="description" class="col-sm-2 control-label" style="float: left;">描述</label>
+                            <div class="">
+                                <textarea name="description"  class="form-control col-sm-8" id="description" style="resize:none;" rows="5"><{$info.description}></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group form_item_box" style="line-height: 40px;">
+                            <label for="thumb" class="col-sm-2 control-label" style="float: left;">缩略图</label>
+                            <div class="">
+                                <span class="upload_box" style="text-align:center;border-radius:5px;border:1px solid #eaeaea;display: inline-block;position: relative;min-width:200px;"><i class="fas fa-cloud-upload-alt"></i> 上传附件<input type="file" class="form-control col-sm-12 img_file" id="thumb" name="file" placeholder="" style="opacity: 0;cursor:pointer;position: absolute;top:0;" value="" ></span>
+                                <span class="img_show_box"></span>
+                                <{if $info.thumb!=''}>
+                                    <img class="show_img" src="/<{$info.thumb}>" style="height: 40px;position: relative;top:-4px;cursor:pointer">
+                                    <img src="/<{$info.thumb}>" style="position: absolute;height: 200px;display: none;">
+                                <{/if}>
+                            </div>
+                        </div>
+                        <div class="form-group" style="line-height: 40px;">
+                            <label for="" class="col-sm-2 control-label" style="float: left;">显示到导航</label>
+                            <div class="">
+                                <label>
+                                    <input type="radio" name="status"  value="1"  <{if $info.status==1}>checked<{/if}> >  正常
+                                </label>
+                                <label>
+                                    <input type="radio" name="status"  value="0" <{if $info.status==0}>checked<{/if}> > 禁用
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group" style="width: 100%;line-height: 40px;">
+                            <label for="" class="col-sm-2 control-label" style="float: left;"></label>
+                            <div class="">
+                                <button class="btn btn-primary" id="save"><i class="fas fa-save"> 保存</i></button>
+                                <button class="btn btn-danger" type="reset"><i class="fas fa-redo-alt"> 重置</i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <{/*引入底部公共文件*/}>
+        <{include file="common/footer"}>
+
+        <script>
+
+            $(function () {
+                var ua = navigator.userAgent.toLowerCase();
+                var screenwidth = window.screen.width;
+                if (!/iphone|ipad|ipod/.test(ua)) {
+                    $("#page-top").attr("scrolling", "auto");
+                } else {
+                    $('#page-top').width(screenwidth + 'px');
+                }
+
+                $('#save').click(function(){
+                    $('#form').ajaxSubmit({
+                        success:function(r){
+                            var r = $.parseJSON(r);
+                            if(r.code == 200){
+                                layer.msg(r.msg,{icon:1},function(){
+                                    jump('<{:url('goods_category/index')}>');
+                                })
+                            }else if(r.code==101){
+                                layer.alert(r.msg,{icon:2});
+                            }else{
+                                layer.alert(r.msg,{icon:2});
+                                $("[name='__token__']").val(r.result.token);
+                            }
+                        }
+                    })
+                })
+
+                $(document).on('mouseover','.show_img',function(){
+                    $(this).next().css('z-index',1000).show();
+                })
+                $(document).on('mouseout','.show_img',function(){
+                    $(this).next().css('z-index',0).hide();
+                })
+
+                //图片预览
+                $(document).on('change','.img_file',function () {
+                    var t = this;
+                    if (t.files && t.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function (evt) {
+                            $(t).parents('.form_item_box').find('img').hide();
+                            $(t).parents('.form_item_box').find('.img_show_box').html('<img src="' + evt.target.result + '" style="height:40px;position: relative;top:-4px;" />');
+                        }
+                        reader.readAsDataURL(t.files[0]);
+                    } else {
+                        t.parents('.form_item_box').find('.img_show_box').html('<div style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>');
+                    }
+                })
+
+            });
+
+        </script>
+

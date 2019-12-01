@@ -1,0 +1,121 @@
+<{/*引入头部资源文件*/}>
+<{include file="common/header"}>
+<!-- Page level plugin CSS-->
+<style>
+    .red {
+        color: red;
+        cursor: pointer;
+    }
+
+    .blue {
+        color: blue;
+        cursor: pointer;
+    }
+
+    #file {
+        position: absolute;
+        opacity: 0;
+        left: 25%;
+        z-index: 99;
+    }
+
+    .btn-default {
+        border: 1px solid #dddddd;
+        background-color: #eeeeee;
+        color: #ffffff;
+    }
+
+    .btn-default:hover {
+        color: #ffffff;
+    }
+
+    .upload_box:hover {
+        background-color: #eaeaea;
+        cursor: pointer;
+    }
+</style>
+<{/*引入左侧导航文件*/}>
+<{include file="common/nav"}>
+
+<div id="content-wrapper">
+    <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="<{:url('index/index')}>"><i class="fa fa-home fa-fw"></i>&nbsp;首页</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="<{:url('goods/index')}>">商品管理</a>
+            </li>
+            <li class="breadcrumb-item active">编辑</li>
+        </ol>
+        <div id="pageinfo_box">
+            <!-- 异步获取内容-->
+        </div>
+    </div>
+</div>
+
+<{/*引入底部公共文件*/}>
+<{include file="common/footer"}>
+<!-- 配置文件 -->
+<script type="text/javascript" src="__STATIC__/vendor/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="__STATIC__/vendor/ueditor/ueditor.all.js"></script>
+
+<script>
+
+    $(function () {
+        //获取默认页面内容
+        getPageInfo("<{:url('goods/ajax_base_info')}>",0);
+
+        var ua = navigator.userAgent.toLowerCase();
+        var screenwidth = window.screen.width;
+        if (!/iphone|ipad|ipod/.test(ua)) {
+            $("#page-top").attr("scrolling", "auto");
+        } else {
+            $('#page-top').width(screenwidth + 'px');
+        }
+
+        //获取页面内容
+        $(document).on('click', '.getpage', function () {
+            var id= $('#id').val();
+            if(id==0){
+                layer.msg("请先保存商品基本信息！",{icon:2,time:3000});
+                return;
+            }
+            var url = $(this).attr('data-url');
+            getPageInfo(url,0);
+        })
+
+        $(document).on('click', '#save', function () {
+            $('#form').ajaxSubmit({
+                success: function (r) {
+                    var r = $.parseJSON(r);
+                    if (r.code == 200) {
+                        layer.msg(r.msg, {icon: 1}, function () {
+                            jump('<{:url('
+                            goods / index
+                            ')}>'
+                        )
+                            ;
+                        })
+                    } else if (r.code == 101) {
+                        layer.alert(r.msg, {icon: 2});
+                    } else {
+                        layer.alert(r.msg, {icon: 2});
+                        $("[name='__token__']").val(r.result.token);
+                    }
+                }
+            })
+        })
+    });
+
+    function getPageInfo(url,id){
+        $.post(url,{id:id},function(r){
+            $('#pageinfo_box').html(r);
+        })
+    }
+
+</script>
+

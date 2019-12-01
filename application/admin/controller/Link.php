@@ -95,7 +95,7 @@ class Link extends Base{
             $res = db('link')->where('id',$id)->data($data)->update();
             if($res!==false){
                 if($pic){//删除老照片地址
-                    $path = ROOT_PATH . 'public' . DS . 'uploads'.DS.'link'.DS.$old_pic;
+                    $path = ROOT_PATH . DS.$old_pic;
                     @unlink($path);
                 }
                 get_jsonData(200,'操作成功');

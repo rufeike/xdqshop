@@ -1,0 +1,273 @@
+<{/*引入头部资源文件*/}>
+<{include file="common/header"}>
+<!-- Page level plugin CSS-->
+<style>
+    .red {
+        color: red;
+        cursor: pointer;
+    }
+
+    .blue {
+        color: blue;
+        cursor: pointer;
+    }
+
+    #file {
+        position: absolute;
+        opacity: 0;
+        left: 25%;
+        z-index: 99;
+    }
+
+    .btn-default {
+        border: 1px solid #dddddd;
+        background-color: #eeeeee;
+        color: #ffffff;
+    }
+
+    .btn-default:hover {
+        color: #ffffff;
+    }
+
+    .upload_box:hover {
+        background-color: #eaeaea;
+        cursor: pointer;
+    }
+</style>
+<{/*引入左侧导航文件*/}>
+<{include file="common/nav"}>
+
+<div id="content-wrapper">
+    <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="<{:url('index/index')}>"><i class="fa fa-home fa-fw"></i>&nbsp;首页</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="<{:url('goods/index')}>">商品管理</a>
+            </li>
+            <li class="breadcrumb-item active">添加</li>
+        </ol>
+        <div id="pageinfo_box">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <div></div>
+                <div>
+                    <button type="button" class="btn btn-default" data-toggle="modal" >基本信息</button>
+                    <button type="button" class="btn  btn-success getpage"  data-url="<{:url('goods/ajax_member_price')}>"  data-toggle="modal">会员价格</button>
+                    <button type="button" class="btn btn-success getpage" data-url="<{:url('goods/ajax_goods_attribute')}>" data-toggle="modal">商品属性</button>
+                    <button type="button" class="btn btn-success getpage" data-url="<{:url('goods/ajax_goods_photo')}>" data-toggle="modal">商品相册</button>
+                </div>
+            </div>
+
+            <div class="card mb-3">
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <form class="form-horizontal" role="form" style="padding:1rem;" onsubmit="return false;" id="form"
+                              action="<{:url('goods/save')}>" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="__token__" value="<{$Request.token}>">
+                            <input type="hidden" value="add" name="action">
+                            <input type="hidden" value="1" name="id" id="id">
+                            <input type="hidden" name="pic">
+                            <div class="form-group" style="line-height: 40px;">
+                                <label for="cate_id" class="col-sm-2 control-label" style="float: left;">所属栏目</label>
+                                <div class="">
+                                    <select name="cate_id" class="form-control col-sm-8" id="cate_id">
+                                        <option value="0">请选择</option>
+                                        <{if !empty($cateTree)}>
+                                        <{volist name='cateTree' id='iv'}>
+                                        <option value="<{$iv.id}>">&nbsp;&nbsp;&nbsp;&nbsp;<{if($iv['level']==0)}>├─
+                                            <{/if}><?php echo str_repeat('&nbsp;',$iv['level']*4); ?> <{if($iv['level']!=0)}>├─
+                                            <{/if}><{$iv.cate_name}>
+                                        </option>
+                                        <{/volist}>
+                                        <{/if}>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" style="line-height: 40px;">
+                                <label for="goods_name" class="col-sm-2 control-label" style="float: left;">商品名称</label>
+                                <div class="">
+                                    <input type="text" class="form-control col-sm-8" id="goods_name" name="goods_name"
+                                           placeholder="" style="">
+                                </div>
+                            </div>
+                            <div class="form-group" style="line-height: 40px;">
+                                <label for="market_price" class="col-sm-2 control-label" style="float: left;">市场价格</label>
+                                <div class="">
+                                    <input type="number" class="form-control col-sm-8" id="market_price" name="market_price"
+                                           placeholder="" style="">
+                                </div>
+                            </div>
+                            <div class="form-group" style="line-height: 40px;">
+                                <label for="shop_price" class="col-sm-2 control-label" style="float: left;">本店价格</label>
+                                <div class="">
+                                    <input type="number" class="form-control col-sm-8" id="shop_price" name="shop_price"
+                                           placeholder="" style="">
+                                </div>
+                            </div>
+                            <div class="form-group" style="line-height: 40px;">
+                                <label for="goods_weight" class="col-sm-2 control-label" style="float: left;">商品重量</label>
+                                <div class="">
+                                    <input type="number" class="form-control col-sm-8 " id="goods_weight" name="goods_weight"
+                                           placeholder="" style="">
+                                </div>
+                            </div>
+                            <div class="form-group" style="line-height: 40px;">
+                                <label for="goods_unit" class="col-sm-2 control-label" style="float: left;">商品单位</label>
+                                <div class="">
+                                    <select name="goods_unit" class="form-control col-sm-1" id="goods_unit">
+                                        <option value="kg">kg</option>
+                                        <option value="g">g</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" style="line-height: 40px;">
+                                <label for="" class="col-sm-2 control-label" style="float: left;">是否上架</label>
+                                <div class="">
+                                    <label>
+                                        <input type="radio" name="status" value="0" checked> 待审核
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="status" value="1"> 上架
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="status" value="2"> 下架
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group form_item_box" style="line-height: 40px;">
+                                <label for="thumb" class="col-sm-2 control-label" style="float: left;">商品主图</label>
+                                <div class="">
+                            <span class="upload_box"
+                                  style="text-align:center;border-radius:5px;border:1px solid #eaeaea;display: inline-block;position: relative;min-width:200px;"><i
+                                    class="fas fa-cloud-upload-alt"></i> 上传附件<input type="file"
+                                                                                    class="form-control col-sm-12 img_file"
+                                                                                    id="thumb" name="file"
+                                                                                    placeholder=""
+                                                                                    style="opacity: 0;cursor:pointer;position: absolute;top:0;"
+                                                                                    value=""></span>
+                                    <span class="img_show_box"></span>
+                                    <img class="show_img" src=""
+                                         style="height: 40px;position: relative;top:-4px;cursor:pointer">
+                                    <img src="" style="position: absolute;height: 200px;display: none;">
+                                </div>
+                            </div>
+                            <div style="clear:both;margin-bottom: 15px;"></div>
+                            <div class="form-group" style="line-height: 40px;">
+                                <label for="container" class="col-sm-2 control-label" style="float: left;">商品描述</label>
+                            </div>
+
+                            <div style="clear:both;margin-bottom: 15px;"></div>
+                            <textarea name="content" style="width:100%" id="container" style="line-height: 20px;"
+                                      rows="10"></textarea>
+                    </div>
+                    <div class="form-group" style="width: 100%;line-height: 40px;">
+                        <label for="" class="col-sm-2 control-label" style="float: left;"></label>
+                        <div class="">
+                            <button class="btn btn-primary" id="save"><i class="fas fa-save"> 保存</i></button>
+                            <button class="btn btn-danger" type="reset"><i class="fas fa-redo-alt"> 重置</i></button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>
+
+<{/*引入底部公共文件*/}>
+<{include file="common/footer"}>
+<!-- 配置文件 -->
+<script type="text/javascript" src="__STATIC__/vendor/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="__STATIC__/vendor/ueditor/ueditor.all.js"></script>
+
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+    var ue = UE.getEditor('container', {
+        autoHeight: false,
+        toolbars: [
+            ['fullscreen', 'source', 'undo', 'redo', 'simpleupload', 'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc']
+        ]
+    });
+
+    $(function () {
+        //图片预览
+        $(document).on('change', '.img_file', function () {
+            var t = this;
+            if (t.files && t.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (evt) {
+                    $(t).parents('.form_item_box').find('img').hide();
+                    $(t).parents('.form_item_box').find('.img_show_box').html('<img src="' + evt.target.result + '" style="height:40px;position: relative;top:-4px;" />');
+                }
+                reader.readAsDataURL(t.files[0]);
+            } else {
+                t.parents('.form_item_box').find('.img_show_box').html('<div style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>');
+            }
+        })
+
+    })
+
+</script>
+<script>
+
+    $(function () {
+        var ua = navigator.userAgent.toLowerCase();
+        var screenwidth = window.screen.width;
+        if (!/iphone|ipad|ipod/.test(ua)) {
+            $("#page-top").attr("scrolling", "auto");
+        } else {
+            $('#page-top').width(screenwidth + 'px');
+        }
+
+        //获取页面内容
+        $(document).on('click', '.getpage', function () {
+            var id= $('#id').val();
+            if(id==0){
+                layer.msg("请先保存商品基本信息！",{icon:2,time:3000});
+                return;
+            }
+            var url = $(this).attr('data-url');
+            getPageInfo(url,0);
+        })
+
+        $(document).on('click', '#save', function () {
+            $('#form').ajaxSubmit({
+                success: function (r) {
+                    var r = $.parseJSON(r);
+                    if (r.code == 200) {
+                        layer.msg(r.msg, {icon: 1}, function () {
+                            jump('<{:url('
+                            goods / index
+                            ')}>'
+                        )
+                            ;
+                        })
+                    } else if (r.code == 101) {
+                        layer.alert(r.msg, {icon: 2});
+                    } else {
+                        layer.alert(r.msg, {icon: 2});
+                        $("[name='__token__']").val(r.result.token);
+                    }
+                }
+            })
+        })
+    });
+
+    function getPageInfo(url,id){
+        $.post(url,{id:id},function(r){
+            $('#pageinfo_box').html(r);
+        })
+    }
+
+</script>
+
