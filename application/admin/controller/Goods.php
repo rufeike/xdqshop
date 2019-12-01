@@ -85,6 +85,23 @@ class Goods extends Base{
         $this->assign('goods_type',$goods_type);
         return $this->fetch();
     }
+    //异步获取商品属性
+    public function ajax_attribute_list(){
+        $param = request()->post();
+        $id = isset($param['goods_type_id'])?$param['goods_type_id']:0;
+        //获取会员级别列表
+        $goods_attribute= Db::name('goods_attribute')->where(array('is_del'=>1,'goods_type_id'=>$id))->order('sort ASC')->select();
+        if($goods_attribute){
+            foreach($goods_attribute as $k => $v){
+                if($v['attr_values']!=''){
+                    $goods_attribute[$k]['attr_values']=explode(',',$v['attr_values']);
+                }
+            }
+        }
+
+        $this->assign('goods_attribute',$goods_attribute);
+        return $this->fetch();
+    }
     //异步获取商品相册
     public function ajax_goods_photo(){
         return $this->fetch();
