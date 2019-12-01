@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50727
 File Encoding         : 65001
 
-Date: 2019-11-29 00:33:55
+Date: 2019-12-01 20:33:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,7 +36,7 @@ CREATE TABLE `tp_article` (
   `is_del` tinyint(1) DEFAULT '1' COMMENT '默认1：正常 1：删除',
   `link_url` varchar(255) DEFAULT NULL COMMENT '外部链接地址',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COMMENT='文章表';
 
 -- ----------------------------
 -- Records of tp_article
@@ -67,7 +67,7 @@ CREATE TABLE `tp_article_category` (
   `cate_type` tinyint(1) DEFAULT '0' COMMENT '分类类型 默认0：普通分类，1：系统分类  2：网店帮助，3：网店信息',
   `allow_add` tinyint(1) DEFAULT '1' COMMENT '是否可以添加子分类 默认为1：可添加，0：不可添加',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COMMENT='文章分类表';
 
 -- ----------------------------
 -- Records of tp_article_category
@@ -101,7 +101,7 @@ CREATE TABLE `tp_brand` (
   `is_del` tinyint(1) DEFAULT '1' COMMENT '是否删除 0：删除 1：显示',
   `create_time` bigint(20) DEFAULT NULL COMMENT '添加时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COMMENT='商品品牌';
 
 -- ----------------------------
 -- Records of tp_brand
@@ -132,7 +132,7 @@ CREATE TABLE `tp_config` (
   `create_time` bigint(20) DEFAULT NULL COMMENT '创建时间',
   `is_del` tinyint(1) DEFAULT '1' COMMENT '是否删除，默认1：正常，0：删除',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COMMENT='配置项表';
 
 -- ----------------------------
 -- Records of tp_config
@@ -151,6 +151,107 @@ INSERT INTO `tp_config` VALUES ('11', 'checkboxTest2', '多选框测试2', 'chec
 INSERT INTO `tp_config` VALUES ('12', 'shoppingTest', '商品配置测试', 'input', '大幅度发', '', '1', '50', '1', '1574955177', '1');
 
 -- ----------------------------
+-- Table structure for tp_goods
+-- ----------------------------
+DROP TABLE IF EXISTS `tp_goods`;
+CREATE TABLE `tp_goods` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `goods_num` bigint(20) DEFAULT NULL COMMENT '商品编号',
+  `goods_name` varchar(120) DEFAULT NULL COMMENT '商品名称',
+  `org_thumb` varchar(255) DEFAULT NULL COMMENT '原图缩略图',
+  `sm_thumb` varchar(255) DEFAULT NULL COMMENT '小缩略图',
+  `mid_thumb` varchar(255) DEFAULT NULL COMMENT '中缩略图',
+  `big_thumb` varchar(255) DEFAULT NULL COMMENT '大图片',
+  `brand_id` int(11) DEFAULT '0' COMMENT '品牌ID',
+  `description` text COMMENT '商品描述',
+  `goods_weight` decimal(10,0) DEFAULT NULL COMMENT '商品重量',
+  `goods_unit` varchar(10) DEFAULT 'kg' COMMENT '单位',
+  `goods_type_id` int(11) DEFAULT '0' COMMENT '商品类型',
+  `market_price` decimal(10,2) DEFAULT '0.00' COMMENT '市场价格',
+  `shop_price` decimal(10,2) DEFAULT '0.00' COMMENT '商品价格',
+  `status` tinyint(1) DEFAULT '0' COMMENT '默认为0，审核中，1上架，2下架',
+  `sort` int(11) DEFAULT '50' COMMENT '排序',
+  `create_time` bigint(20) DEFAULT '0' COMMENT '商品添加时间',
+  `update_time` bigint(20) DEFAULT '0' COMMENT '更新数据',
+  `is_del` tinyint(1) DEFAULT '1' COMMENT '是否删除，默认1正常，0删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商品表';
+
+-- ----------------------------
+-- Records of tp_goods
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for tp_goods_attribute
+-- ----------------------------
+DROP TABLE IF EXISTS `tp_goods_attribute`;
+CREATE TABLE `tp_goods_attribute` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `attr_name` varchar(50) DEFAULT NULL COMMENT '属性名称',
+  `attr_type` tinyint(1) DEFAULT '0' COMMENT '属性类型：默认0唯一属性，1：单选属性',
+  `attr_values` varchar(255) DEFAULT NULL COMMENT '属性值，多个属性值用“,”隔开',
+  `goods_type_id` int(11) DEFAULT NULL COMMENT '商品类型ID',
+  `sort` int(11) DEFAULT '0' COMMENT '排序',
+  `status` tinyint(4) DEFAULT '0' COMMENT '是否显示，默认0不显示，1显示',
+  `is_del` tinyint(4) DEFAULT '1' COMMENT '是否删除，默认1正常 ，0删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='商品属性表';
+
+-- ----------------------------
+-- Records of tp_goods_attribute
+-- ----------------------------
+INSERT INTO `tp_goods_attribute` VALUES ('1', '内存', '0', '4G,8G,16G', '2', '-2', '0', '1');
+INSERT INTO `tp_goods_attribute` VALUES ('2', '机身内存', '0', '32G,64G,128G,256G', '2', '2', '0', '1');
+INSERT INTO `tp_goods_attribute` VALUES ('3', '颜色', '1', '土豪金,粉红色,黑色', '2', '0', '0', '1');
+INSERT INTO `tp_goods_attribute` VALUES ('4', '尺寸', '0', '1900mm x 720mm x 10mm', '2', '0', '0', '1');
+INSERT INTO `tp_goods_attribute` VALUES ('5', '运行内存', '1', '4G,8G,16G,32G', '1', '1', '0', '1');
+
+-- ----------------------------
+-- Table structure for tp_goods_category
+-- ----------------------------
+DROP TABLE IF EXISTS `tp_goods_category`;
+CREATE TABLE `tp_goods_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `cate_name` varchar(60) DEFAULT NULL COMMENT '分类名称',
+  `thumb` varchar(255) DEFAULT NULL COMMENT '分类背景图',
+  `keywords` varchar(255) DEFAULT NULL COMMENT '关键词',
+  `description` tinytext COMMENT '描述',
+  `pid` int(11) DEFAULT '0' COMMENT '父级ID',
+  `sort` int(11) DEFAULT '99' COMMENT '排序',
+  `status` tinyint(1) DEFAULT '0' COMMENT '是否显示到导航，状态 0：不显示 1显示',
+  `is_del` tinyint(1) DEFAULT '1' COMMENT '默认1：正常 1：删除',
+  `create_time` bigint(20) DEFAULT NULL COMMENT '创建时间',
+  `allow_add` tinyint(1) DEFAULT '1' COMMENT '是否可以添加子分类 默认为1：可添加，0：不可添加',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='商品分类表';
+
+-- ----------------------------
+-- Records of tp_goods_category
+-- ----------------------------
+INSERT INTO `tp_goods_category` VALUES ('1', '服装', 'public\\uploads\\goodscategory\\20191129\\2ecf87c0cdf0b8cd1ba7c369ffbf19f4.jpg', '服装', '服装', '0', '100', '1', '1', '1575004934', '1');
+INSERT INTO `tp_goods_category` VALUES ('2', '男装', '', '男装', '男装', '1', '101', '1', '1', '1575005613', '1');
+INSERT INTO `tp_goods_category` VALUES ('3', '女装', '', '女装', '', '1', '100', '0', '1', '1575005672', '1');
+INSERT INTO `tp_goods_category` VALUES ('4', '童装', '', '童装', '', '1', '99', '0', '1', '1575005690', '1');
+INSERT INTO `tp_goods_category` VALUES ('5', '冬装', '', '', '', '2', '99', '0', '1', '1575005759', '1');
+
+-- ----------------------------
+-- Table structure for tp_goods_type
+-- ----------------------------
+DROP TABLE IF EXISTS `tp_goods_type`;
+CREATE TABLE `tp_goods_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type_name` varchar(50) DEFAULT NULL COMMENT '商品类型',
+  `is_del` tinyint(1) DEFAULT '1' COMMENT '是否删除，默认1正常，0删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='商品类型表';
+
+-- ----------------------------
+-- Records of tp_goods_type
+-- ----------------------------
+INSERT INTO `tp_goods_type` VALUES ('1', '笔记本', '1');
+INSERT INTO `tp_goods_type` VALUES ('2', '手机', '1');
+
+-- ----------------------------
 -- Table structure for tp_link
 -- ----------------------------
 DROP TABLE IF EXISTS `tp_link`;
@@ -165,9 +266,32 @@ CREATE TABLE `tp_link` (
   `is_del` tinyint(1) DEFAULT '1' COMMENT '是否删除 0：删除 1：显示',
   `create_time` bigint(20) DEFAULT NULL COMMENT '添加时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='友情链接表';
 
 -- ----------------------------
 -- Records of tp_link
 -- ----------------------------
 INSERT INTO `tp_link` VALUES ('1', '粤凯信息科技有限公司', 'http://www.yuekai.com', 'public\\uploads\\link\\20191129\\5e3ed5d84b667726d6aea153eed57376.jpg', '世界第一，宇宙最强', '1', '50', '1', '1574784547');
+
+-- ----------------------------
+-- Table structure for tp_member_level
+-- ----------------------------
+DROP TABLE IF EXISTS `tp_member_level`;
+CREATE TABLE `tp_member_level` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `level_name` varchar(60) DEFAULT NULL COMMENT '级别名称',
+  `base_point` int(11) DEFAULT '0' COMMENT '积分下限',
+  `top_point` int(11) DEFAULT '0' COMMENT '积分上限',
+  `rate` int(3) DEFAULT '100' COMMENT '折扣率%',
+  `is_del` tinyint(1) DEFAULT '1' COMMENT '默认1正常，0已删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='会员级别';
+
+-- ----------------------------
+-- Records of tp_member_level
+-- ----------------------------
+INSERT INTO `tp_member_level` VALUES ('1', '注册会员', '0', '10000', '90', '1');
+INSERT INTO `tp_member_level` VALUES ('2', '初级会员', '10000', '20000', '80', '1');
+INSERT INTO `tp_member_level` VALUES ('3', '中级会员', '20000', '50000', '70', '1');
+INSERT INTO `tp_member_level` VALUES ('4', '高级会员', '50000', '100000', '60', '1');
+INSERT INTO `tp_member_level` VALUES ('5', 'VIP会员', '100000', '1000000', '50', '1');
