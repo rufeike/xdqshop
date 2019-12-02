@@ -127,6 +127,9 @@ class Goods extends Base{
     //保存信息
     public function save(){
         $param = request()->param();
+        dump($_FILES);
+        dump($param);
+        die;
         check_token($param);//防止重复提交
         $id = isset($param['id'])?$param['id']:'';
         $action = isset($param['action'])?$param['action']:'';

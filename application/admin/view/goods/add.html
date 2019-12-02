@@ -33,6 +33,44 @@
         background-color: #eaeaea;
         cursor: pointer;
     }
+    .dir_box:hover {
+        cursor: pointer;
+    }
+    .del_btn{
+        position:absolute;
+        top:-2px;
+        right:0;
+        opacity: 0.3;
+        cursor:pointer;
+        font-size:1.5em;
+    }
+    .del_btn:hover{
+        color:#f00;
+        opacity: 0.8;
+    }
+    .upload_del_btn{
+        position:absolute;
+        top:-15px;
+        right:-12px;
+        opacity: 0.3;
+        cursor:pointer;
+        font-size:1.5em;
+    }
+    .upload_del_btn:hover{
+        color:#f00;
+        opacity: 0.8;
+    }
+    .upload_img_box{
+        height: 200px;
+        border:1px solid #eaeaea;
+        box-sizing: border-box;
+        padding:5px;
+        border-radius: 5px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        margin:15px;
+    }
 </style>
 <{/*引入左侧导航文件*/}>
 <{include file="common/nav"}>
@@ -144,7 +182,7 @@
                                 <div class="">
                             <span class="upload_box"
                                   style="text-align:center;border-radius:5px;border:1px solid #eaeaea;display: inline-block;position: relative;min-width:200px;"><i
-                                    class="fas fa-cloud-upload-alt"></i> 上传附件<input type="file"
+                                    class="fas fa-cloud-upload-alt"></i> 上传图片<input type="file"
                                                                                     class="form-control col-sm-12 img_file"
                                                                                     id="thumb" name="file"
                                                                                     placeholder=""
