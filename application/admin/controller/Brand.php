@@ -66,7 +66,11 @@ class Brand extends Base{
             get_jsonData(0,$validate->getError(),array('token'=>request()->token()));
         }
 
-        $pic = $this->rfkUpload('file','brand');
+        if($_FILES){
+            $pic = $this->rfkUpload('file','brand');
+        }else{
+            $pic = '';
+        }
         $brand_url = isset($param['brand_url'])?trim($param['brand_url']):'';
 
         if($brand_url!=''){

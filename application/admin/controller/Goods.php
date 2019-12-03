@@ -52,12 +52,32 @@ class Goods extends Base{
 
     //添加
     public function add(){
+        //商品分类信息
         $cate= db('goods_category')->where('is_del',1)->order('sort ASC')->field("id,cate_name,pid,allow_add")->select();
         //获取树状结构数据
         $cateTree = new Catetree($cate);
         $cate = $cateTree->getTree();
         $this->assign('cateTree',$cate);
+
+        //获取品牌名称
+        $brand = db('brand')->where('is_del',1)->order('sort ASC')->select();
+        $this->assign('brand',$brand);
+
+        //获取会员级别列表
+        $level = Db::name('member_level')->where(array('is_del'=>1))->select();
+        $this->assign('level',$level);
+
+        //获取会员级别列表
+        $goods_type= Db::name('goods_type')->where(array('is_del'=>1))->select();
+        $this->assign('goods_type',$goods_type);
+
         return $this->fetch();
+    }
+
+    //获取商品基本信息
+    private function get_goods_info($id){
+        $goods = db('goods')->where(array('id'=>$id))->find();
+        return $goods;
     }
 
     //异步获取基本信息
@@ -66,15 +86,19 @@ class Goods extends Base{
         //获取树状结构数据
         $cateTree = new Catetree($cate);
         $cate = $cateTree->getTree();
+
         $this->assign('cateTree',$cate);
+        return $this->fetch();
+    }
+
+    //异步获取产品描述信息
+    public function ajax_goods_description(){
         return $this->fetch();
     }
 
         //异步获取会员价格信息
     public function ajax_member_price(){
-        //获取会员级别列表
-        $level = Db::name('member_level')->where(array('is_del'=>1))->select();
-        $this->assign('level',$level);
+
         return $this->fetch();
     }
 

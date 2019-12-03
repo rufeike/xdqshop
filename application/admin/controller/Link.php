@@ -66,7 +66,11 @@ class Link extends Base{
             get_jsonData(0,$validate->getError(),array('token'=>request()->token()));
         }
 
-        $pic = $this->rfkupload('file','link');
+        if($_FILES){
+            $pic = $this->rfkupload('file','link');
+        }else{
+            $pic = '';
+        }
         $link_url = isset($param['link_url'])?trim($param['link_url']):'';
 
         if($link_url!=''){

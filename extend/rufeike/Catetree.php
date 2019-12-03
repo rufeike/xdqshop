@@ -36,7 +36,14 @@ class Catetree{
             }
 
             if($v[$this->parentKey] == $pid){
+                $level_path = $pid==0?'':$pid.'_'.$v[$this->key].'_';
                 $v['level'] = $level;
+                $level_path =$this->getParentsId($v[$this->key]);
+                sort($level_path);
+                if($level_path){
+                    $level_path = implode('_',$level_path)."_";
+                }
+                $v['level_path'] =$level_path;
                 $arr[] = $v;
                 $this->_toLayer($v[$this->key],$level+1);
             }
