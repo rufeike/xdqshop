@@ -131,8 +131,7 @@
                         <div class="table-responsive">
                             <input type="hidden" name="__token__" value="<{$Request.token}>">
                             <input type="hidden" value="add" name="action">
-                            <input type="hidden" value="1" name="id" id="id">
-                            <input type="hidden" name="pic">
+                            <input type="hidden" value="0" name="id">
 
                             <!-- 商品基本信息 start -->
                             <div class="content_box active" id="base_info_box">
@@ -155,7 +154,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group" style="line-height: 40px;">
-                                    <label for="cate_id" class="col-sm-2 control-label"
+                                    <label for="brand_id" class="col-sm-2 control-label"
                                            style="float: left;">商品品牌</label>
                                     <div class="">
                                         <select name="brand_id" class="form-control col-sm-8" id="brand_id">
@@ -235,9 +234,7 @@
                                           style="text-align:center;border-radius:5px;border:1px solid #eaeaea;display: inline-block;position: relative;min-width:200px;">
                                         <i class="fas fa-cloud-upload-alt"></i>
                                         上传图片
-                                        <input type="file" class="form-control col-sm-12 img_file" id="thumb"
-                                               name="file" placeholder=""
-                                               style="opacity: 0;cursor:pointer;position: absolute;top:0;" value="">
+                                        <input type="file" class="form-control col-sm-12 img_file" id="thumb" name="file" placeholder="" style="opacity: 0;cursor:pointer;position: absolute;top:0;" value="">
                                     </span>
                                         <span class="img_show_box"></span>
                                         <img class="show_img" src=""
@@ -257,7 +254,7 @@
                                 </div>
 
                                 <div style="clear:both;margin-bottom: 15px;"></div>
-                                <textarea name="content" style="width:100%" id="container" style="line-height: 20px;"
+                                <textarea name="description" style="width:100%" id="container" style="line-height: 20px;"
                                           rows="10"></textarea>
                             </div>
                             <br>
@@ -378,7 +375,8 @@
 <!-- 实例化编辑器 -->
 <script type="text/javascript">
     var ue = UE.getEditor('container', {
-        autoHeight: true,
+        autoHeight: false,
+        initialFrameHeight:400,
         toolbars: [
             ['fullscreen', 'source', 'undo', 'redo', 'simpleupload', 'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc']
         ]
@@ -429,11 +427,7 @@
                     var r = $.parseJSON(r);
                     if (r.code == 200) {
                         layer.msg(r.msg, {icon: 1}, function () {
-                            jump('<{:url('
-                            goods / index
-                            ')}>'
-                        )
-                            ;
+                            jump('<{:url('goods/edit')}>');
                         })
                     } else if (r.code == 101) {
                         layer.alert(r.msg, {icon: 2});

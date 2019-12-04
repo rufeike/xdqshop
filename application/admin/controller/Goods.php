@@ -15,15 +15,14 @@ class Goods extends Base{
         $info= db('goods')->where('is_del',1)->order('sort ASC,id DESC')->select();
         foreach($info as $k => $v) {
             if ($v['status'] == 1) {
-                $info[$k]['status_text'] = '<i class="fas fa-check-circle" style="color:#00ff00;font-size: 20px"></i>';
-            } else {
-                $info[$k]['status_text'] = '<i class="fas fa-times-circle" style="color: #ff0000;font-size: 20px"></i>';
+                $info[$k]['status_text'] = '<span style="color:#999">已上架</span>';
+            } else if($v['status']==2){
+                $info[$k]['status_text'] = '<span style="color:#cccccc">已下架</span>';
+            }else{
+                $info[$k]['status_text'] = '<span style="color:#0000f1">待审核</span>';
             }
-            if ($v['show_top'] == 1) {
-                $info[$k]['show_top_text'] = '<i class="fas fa-check-circle" style="color:#00ff00;font-size: 20px"></i>';
-            } else {
-                $info[$k]['show_top_text'] = '<i class="fas fa-times-circle" style="color: #ff0000;font-size: 20px"></i>';
-            }
+
+
         }
 
         $this->assign('info',$info);
@@ -80,35 +79,7 @@ class Goods extends Base{
         return $goods;
     }
 
-    //异步获取基本信息
-    public function ajax_base_info(){
-        $cate= db('goods_category')->where('is_del',1)->order('sort ASC')->field("id,cate_name,pid,allow_add")->select();
-        //获取树状结构数据
-        $cateTree = new Catetree($cate);
-        $cate = $cateTree->getTree();
 
-        $this->assign('cateTree',$cate);
-        return $this->fetch();
-    }
-
-    //异步获取产品描述信息
-    public function ajax_goods_description(){
-        return $this->fetch();
-    }
-
-        //异步获取会员价格信息
-    public function ajax_member_price(){
-
-        return $this->fetch();
-    }
-
-    //异步获取商品属性
-    public function ajax_goods_attribute(){
-        //获取会员级别列表
-        $goods_type= Db::name('goods_type')->where(array('is_del'=>1))->select();
-        $this->assign('goods_type',$goods_type);
-        return $this->fetch();
-    }
     //异步获取商品属性
     public function ajax_attribute_list(){
         $param = request()->post();
@@ -138,11 +109,24 @@ class Goods extends Base{
         $info = $db->where('id = ?')->bind(array($param['id']))->find();
         $this->assign('info',$info);
 
+        //商品分类信息
         $cate= db('goods_category')->where('is_del',1)->order('sort ASC')->field("id,cate_name,pid,allow_add")->select();
         //获取树状结构数据
         $cateTree = new Catetree($cate);
         $cate = $cateTree->getTree();
         $this->assign('cateTree',$cate);
+
+        //获取品牌名称
+        $brand = db('brand')->where('is_del',1)->order('sort ASC')->select();
+        $this->assign('brand',$brand);
+
+        //获取会员级别列表
+        $level = Db::name('member_level')->where(array('is_del'=>1))->select();
+        $this->assign('level',$level);
+
+        //获取会员级别列表
+        $goods_type= Db::name('goods_type')->where(array('is_del'=>1))->select();
+        $this->assign('goods_type',$goods_type);
 
         return $this->fetch();
     }
@@ -151,13 +135,11 @@ class Goods extends Base{
     //保存信息
     public function save(){
         $param = request()->param();
-        dump($_FILES);
-        dump($param);
-        die;
+
         check_token($param);//防止重复提交
+
         $id = isset($param['id'])?$param['id']:'';
         $action = isset($param['action'])?$param['action']:'';
-        $old_pic= isset($param['old_pic'])?$param['old_pic']:'';
 
         //提交数据验证
         $validate = Validate('goods');
@@ -166,45 +148,41 @@ class Goods extends Base{
             get_jsonData(0,$validate->getError(),array('token'=>request()->token()));
         }
 
-        $pic = $this->rfkupload('file','goods');
-        $link_url = isset($param['link_url'])?trim($param['link_url']):'';
+        //商品分类信息
+        $cate= db('goods_category')->where('is_del',1)->order('sort ASC')->field("id,cate_name,pid,allow_add")->select();
+        //获取树状结构数据
+        $cateTree = new Catetree($cate);
+        $pids = $cateTree->getParentsId($param['goods_category_id']);
+        rsort($pids);
+        $goods_category_path = implode('_',$pids).'_';
 
-        if($link_url!=''){
-            $preg = "/^http(s)?:\\/\\/.+/i";
-            if(!preg_match($preg,$link_url)) {
-                $link_url = 'http://'.$link_url;
-            }
-        }
 
         $data = array(
-            'cate_id' => isset($param['cate_id'])?$param['cate_id']:0,
-            'title' => isset($param['title'])?$param['title']:'',
-            'author' => isset($param['author'])?$param['author']:'',
-            'link_url' => $link_url,
-            'thumb' => $pic!=''?$pic:$old_pic,
-            'description' => isset($param['description'])?$param['description']:'',
-            'keywords' => isset($param['keywords'])?$param['keywords']:'',
-            'show_top' => isset($param['show_top'])?$param['show_top']:0,
-            'status' => isset($param['status'])?$param['status']:0,
-            'content' => isset($param['content'])?$param['content']:'',
+            'goods_category_id' => $param['goods_category_id'],
+            'goods_category_path' => $goods_category_path,
+            'brand_id' => $param['brand_id'],
+            'goods_name' => $param['goods_name'],
+            'market_price' => $param['market_price'],
+            'shop_price' => $param['shop_price'],
+            'goods_weight' => $param['goods_weight'],
+            'goods_unit' => $param['goods_unit'],
+            'status' => $param['status'],
+            'description' => htmlspecialchars($param['description']),
+            'goods_type_id' => $param['goods_type_id'],
+            'create_time' => time(),
         );
 
         //判断添加和修改
         if($action=='add'){
             $data['create_time'] = time();
-            $id = db('goods')->insert($data);
+            $id = model('goods')->save($data);
             if($id){
-                get_jsonData(200,'操作成功');
+                get_jsonData(200,'操作成功',array('id'=>$id));
             }
         }else if($action=='edit'){
-            $data['update_time'] = time();
-            $res = db('goods')->where('id',$id)->data($data)->update();
+            $res = model('goods')->where('id',$id)->update($data);
             if($res!==false){
-                if($pic){//删除老照片地址
-                    $path = ROOT_PATH . 'public' . DS . 'uploads'.DS.'goods'.DS.$old_pic;
-                    @unlink($path);
-                }
-                get_jsonData(200,'操作成功');
+                get_jsonData(200,'操作成功',array('id'=>$id));
             }
         }
 
