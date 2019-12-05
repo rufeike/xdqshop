@@ -91,6 +91,11 @@
         -webkit-box-shadow: none;
         box-shadow: none;
     }
+    .require_tag{
+        top:3px;
+        position: relative;
+        padding:5px;
+        color:red;
     }
 </style>
 <{/*引入左侧导航文件*/}>
@@ -137,7 +142,7 @@
                             <div class="content_box active" id="base_info_box">
                                 <div class="form-group" style="line-height: 40px;">
                                     <label for="goods_category_id" class="col-sm-2 control-label"
-                                           style="float: left;">所属栏目</label>
+                                           style="float: left;">所属栏目<span class="require_tag">*</span></label>
                                     <div class="">
                                         <select  name="goods_category_id" class="form-control col-sm-8" id="goods_category_id">
                                             <option value="0">请选择</option>
@@ -169,25 +174,25 @@
                                 </div>
                                 <div class="form-group" style="line-height: 40px;">
                                     <label for="goods_name" class="col-sm-2 control-label"
-                                           style="float: left;">商品名称</label>
+                                           style="float: left;">商品名称<span class="require_tag">*</span></label>
                                     <div class="">
                                         <input type="text" class="form-control col-sm-8" id="goods_name" name="goods_name" placeholder="" style="" value="<{$info.goods_name}>">
                                     </div>
                                 </div>
                                 <div class="form-group" style="line-height: 40px;">
-                                    <label for="market_price" class="col-sm-2 control-label" style="float: left;">市场价格</label>
+                                    <label for="market_price" class="col-sm-2 control-label" style="float: left;">市场价格<span class="require_tag">*</span></label>
                                     <div class="">
                                         <input type="number" class="form-control col-sm-8" id="market_price" name="market_price" placeholder="" style="" value="<{$info.market_price}>">
                                     </div>
                                 </div>
                                 <div class="form-group" style="line-height: 40px;">
-                                    <label for="shop_price" class="col-sm-2 control-label" style="float: left;">本店价格</label>
+                                    <label for="shop_price" class="col-sm-2 control-label" style="float: left;">本店价格<span class="require_tag">*</span></label>
                                     <div class="">
                                         <input type="number" class="form-control col-sm-8" id="shop_price" name="shop_price" placeholder="" style="" value="<{$info.shop_price}>">
                                     </div>
                                 </div>
                                 <div class="form-group" style="line-height: 40px;">
-                                    <label for="goods_weight" class="col-sm-2 control-label" style="float: left;">商品重量</label>
+                                    <label for="goods_weight" class="col-sm-2 control-label" style="float: left;">商品重量<span class="require_tag">*</span></label>
                                     <div class="">
                                         <input type="number" class="form-control col-sm-8 " id="goods_weight" name="goods_weight" placeholder="" style="" value="<{$info.goods_weight}>">
                                     </div>
@@ -253,7 +258,7 @@
                                 <div class="form-group" style="line-height: 40px;">
                                     <label for="member_price<{$lv.id}>" class="col-sm-2 control-label" style="float: left;"><{$lv.level_name}></label>
                                     <div class="">
-                                        <input type="number" class="form-control col-sm-8" id="member_price<{$lv.id}>"  name="member_price_<{$lv.id}>" placeholder="" style="">
+                                        <input type="number" class="form-control col-sm-8" id="member_price<{$lv.id}>"  name="member_price[<{$lv.id}>]" placeholder="" style="" value="<?php if(isset($priceArr[$lv['id']])){echo $priceArr[$lv['id']];}?>">
                                     </div>
                                 </div>
                                 <{/volist}>
@@ -300,34 +305,27 @@
 
                                 </div>
                                 <div class="card">
-
                                     <div class="card-body">
+                                        <{if(!empty($goods_photo))}>
                                         <div class="row" style="padding:15px;text-align: center;">
+                                            <{volist name='goods_photo' id='gpv'}>
                                             <div class="col-sm-1 col-md-3 img_box"
                                                  style="box-sizing: border-box;padding:15px;height: 200px;position:relative;margin-bottom:30px;">
                                                 <figure class="figure"
                                                         style=";min-width:200px;width:100%;text-align: center;border:2px solid #EEEEEE;border-radius: 5px;margin-bottom:15px;">
-                                                    <img src="__ADMIN__/images/dir.jpg" class="figure-img img-fluid rounded" alt=""
+                                                    <img src="/<{$gpv.sm_thumb}>" class="figure-img img-fluid rounded" alt=""
                                                          style="height:180px">
                                                     <figcaption class="figure-caption" style="text-align: center;background-color: #eeeeee;">
-                                                        dkdkdkd
+                                                        <?php echo mb_substr($gpv['or_thumb'],(strripos($gpv['or_thumb'],DS)+1)); ?>
                                                     </figcaption>
                                                 </figure>
                                                 <span class="del_btn" data-url="222"><i class="fas fa-times-circle"></i></span>
                                             </div>
-                                            <div class="col-sm-1 col-md-3 img_box"
-                                                 style="box-sizing: border-box;padding:15px;height: 200px;position:relative;margin-bottom:30px;">
-                                                <figure class="figure"
-                                                        style=";min-width:200px;width:100%;text-align: center;border:2px solid #EEEEEE;border-radius: 5px;margin-bottom:15px;">
-                                                    <img src="__ADMIN__/images/dir.jpg" class="figure-img img-fluid rounded" alt=""
-                                                         style="height:180px">
-                                                    <figcaption class="figure-caption" style="text-align: center;background-color: #eeeeee;">
-                                                        dkdkdkd
-                                                    </figcaption>
-                                                </figure>
-                                                <span class="del_btn" data-url="222"><i class="fas fa-times-circle"></i></span>
-                                            </div>
+                                            <{/volist}>
                                         </div>
+                                        <{else}>
+                                        <div style="text-align: center">暂无相关相册内容</div>
+                                        <{/if}>
                                     </div>
                                 </div>
                             </div>

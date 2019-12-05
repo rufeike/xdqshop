@@ -11,7 +11,7 @@ use think\Model;
 use \think\Image;
 
 class Goods extends Model{
-
+    //自动过滤掉不存在的字段
     protected static  function init(){
         //数据插入前进行图片上传处理
         Goods::event('before_insert', function ($goods) {
@@ -31,6 +31,60 @@ class Goods extends Model{
                 $goods->sm_thumb = $relativePath.DS.$sm_thumb;
                 $goods->mid_thumb = $relativePath.DS.$mid_thumb;
                 $goods->big_thumb = $relativePath.DS.$big_thumb;
+
+            }
+
+        });
+
+        //数据插入后进行会员价格、商品属性以及图片相册上传处理
+        Goods::event('after_insert', function ($goods) {
+            //添加会员价格
+            $goods_id = $goods->id;
+            $param = request()->post();
+            foreach($param['member_price'] as $mpk =>$mpv){
+                if(trim($mpv)!=''){
+                    $priceArr = array();
+                    $priceArr['goods_id'] = $goods_id;
+                    $priceArr['member_level_id'] = $mpk;
+                    $priceArr['member_price'] = floatval($mpv);
+                    $price_rel = db('member_price')->insert($priceArr);
+                }
+            }
+
+            //添加商品相册数据处理
+            if(isset($_FILES['files'])&&$_FILES['files']){
+                // 获取表单上传文件
+                $files = request()->file('files');
+                foreach($files as $file){
+                    $basePath = ROOT_PATH.'public'.DS.'uploads'.DS.'goods'.DS.date("Ymd");
+                    $relativePath = 'public'.DS.'uploads'.DS.'goods'.DS.date("Ymd");
+
+                    // 移动到框架应用根目录/public/uploads/ 目录下
+                    $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads'.DS.'goods');
+                    if($info){
+                        // 输出 42a79759f284b767dfcb2a0197904287.jpg
+                        $or_thumb =  $info->getFilename();
+                        $sm_thumb = 'sm_'.$or_thumb;
+                        $mid_thumb = 'mid_'.$or_thumb;
+                        $big_thumb = 'big_'.$or_thumb;
+                        $image = Image::open($basePath.DS.$or_thumb);
+                        $image->thumb(800, 800)->save($basePath.DS.$big_thumb);
+                        $image->thumb(400, 400)->save($basePath.DS.$mid_thumb);
+                        $image->thumb(150, 150)->save($basePath.DS.$sm_thumb);
+
+                        $photoArr = array();
+                        $photoArr['or_thumb'] = $relativePath.DS.$or_thumb;//原图
+                        $photoArr['sm_thumb'] = $relativePath.DS.$sm_thumb;//小图
+                        $photoArr['mid_thumb'] = $relativePath.DS.$mid_thumb;//中图
+                        $photoArr['big_thumb'] = $relativePath.DS.$big_thumb;//大图
+                        $photoArr['goods_id'] =  $goods->id;//商品ID
+                        $photo_rel = db('goods_photo')->insert($photoArr);
+
+                    }else{
+                        // 上传失败获取错误信息
+                        get_jsonData(0,$file->getError());
+                    }
+                }
 
             }
 

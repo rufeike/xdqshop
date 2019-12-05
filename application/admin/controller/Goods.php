@@ -105,8 +105,12 @@ class Goods extends Base{
     //修改
     public function edit(){
         $param = request()->param();
+        $id = isset($param['id'])?$param['id']:0;
+        if($id ==0){
+            $this->redirect(url('goods/index'));
+        }
         $db = db('goods');
-        $info = $db->where('id = ?')->bind(array($param['id']))->find();
+        $info = $db->where('id = ?')->bind(array($id))->find();
         $this->assign('info',$info);
 
         //商品分类信息
@@ -128,13 +132,29 @@ class Goods extends Base{
         $goods_type= Db::name('goods_type')->where(array('is_del'=>1))->select();
         $this->assign('goods_type',$goods_type);
 
+        //获取商品会员价格
+        $member_price = Db::name('member_price')->where('goods_id=?')->bind(array($id))->select();
+        $priceArr = array();
+        if(!empty($member_price)){
+            foreach($member_price as $mpk => $mpv){
+                $priceArr[$mpv['member_level_id']] = $mpv['member_price'];
+            }
+        }
+        $this->assign('priceArr',$priceArr);
+
+        //获取商品相册详情
+        $goods_photo= db('goods_photo')->where('goods_id=?')->bind(array($id))->select();
+        $this->assign('goods_photo',$goods_photo);
+
         return $this->fetch();
     }
 
 
     //保存信息
     public function save(){
-        $param = request()->param();
+        $param = request()->post();
+        dump($param);
+        die;
 
         check_token($param);//防止重复提交
 
@@ -175,12 +195,13 @@ class Goods extends Base{
         //判断添加和修改
         if($action=='add'){
             $data['create_time'] = time();
-            $id = model('goods')->save($data);
+            $id = model('goods')->allowField(true)->save($data);
             if($id){
                 get_jsonData(200,'操作成功',array('id'=>$id));
             }
         }else if($action=='edit'){
-            $res = model('goods')->where('id',$id)->update($data);
+            $data['update_time'] = time();
+            $res = model('goods')->allowField(true)->where('id',$id)->update($data);
             if($res!==false){
                 get_jsonData(200,'操作成功',array('id'=>$id));
             }

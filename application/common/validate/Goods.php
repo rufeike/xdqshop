@@ -14,14 +14,19 @@ class Goods extends Validate{
     protected $rule = [
 		'__token__'=>'require',
         'goods_category_id'=>'require|between:1,1000',
-		'goods_name'=>'require|unique:goods',
-        //'content'=>'require',
+        'goods_category_id'=>'require|between:1,1000',
+        'goods_name'=>'require|unique:goods',
+        'market_price'=>'require|number',
+        'shop_price'=>'require|number',
+        'goods_weight'=>'require|number',
     ];
 	protected $message = [
 		'__token__'=>'令牌不能為空',
         'goods_category_id'=>'请选择商品分类',
 		'goods_name.require'=>'商品名称不能為空',
         'goods_name.unique'=>'商品名称已存在',
-        //'content'=>'商品描述内容不能为空',
+        'market_price.require'=>'市场价格不能為空',
+        'shop_price.require'=>'商品价格不能為空',
+        'goods_weight.require'=>'商品重量不能為空',
 	];
 }
