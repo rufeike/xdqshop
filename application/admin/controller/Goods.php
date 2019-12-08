@@ -12,7 +12,38 @@ use rufeike\Catetree;
 
 class Goods extends Base{
     public function index(){
-        $info= db('goods')->where('is_del',1)->order('sort ASC,id DESC')->select();
+        $join = array(
+            array('brand b','g.brand_id=b.id','left'),
+            array('goods_type t','g.goods_type_id=t.id','left'),
+            array('goods_stock s','g.id=s.goods_id','left'),
+        );
+        $info= db('goods')->alias('g')->join($join)->field('g.*,b.brand_name,t.type_name,SUM(s.stock_num) stock_num')->where(array('g.is_del'=>1))->group('g.id')->order('g.sort ASC,g.id DESC')->select();
+        foreach($info as $k => $v) {
+            if ($v['status'] == 1) {
+                $info[$k]['status_text'] = '<span style="color:#999">已上架</span>';
+            } else if($v['status']==2){
+                $info[$k]['status_text'] = '<span style="color:#cccccc">已下架</span>';
+            }else{
+                $info[$k]['status_text'] = '<span style="color:#0000f1">待审核</span>';
+            }
+
+            if($v['stock_num']==''){
+                $info[$k]['stock_num']=0;
+            }
+
+        }
+
+        $this->assign('info',$info);
+        return $this->fetch();
+    }
+
+    //回收站
+    public function recycle(){
+        $join = array(
+            array('brand b','g.brand_id=b.id','left'),
+            array('goods_type t','g.goods_type_id=t.id','left')
+        );
+        $info= db('goods')->alias('g')->join($join)->field('g.*,b.brand_name,t.type_name')->where('g.is_del',0)->order('g.sort ASC,g.id DESC')->select();
         foreach($info as $k => $v) {
             if ($v['status'] == 1) {
                 $info[$k]['status_text'] = '<span style="color:#999">已上架</span>';
@@ -29,24 +60,82 @@ class Goods extends Base{
         return $this->fetch();
     }
 
-    //回收站
-    public function recycle(){
-        $info= db('goods')->where('is_del',0)->order('sort ASC,id DESC')->select();
-        foreach($info as $k => $v) {
-            if ($v['status'] == 1) {
-                $info[$k]['status_text'] = '<i class="fas fa-check-circle" style="color:#00ff00;font-size: 20px"></i>';
-            } else {
-                $info[$k]['status_text'] = '<i class="fas fa-times-circle" style="color: #ff0000;font-size: 20px"></i>';
-            }
-            if ($v['show_top'] == 1) {
-                $info[$k]['show_top_text'] = '<i class="fas fa-check-circle" style="color:#00ff00;font-size: 20px"></i>';
-            } else {
-                $info[$k]['show_top_text'] = '<i class="fas fa-times-circle" style="color: #ff0000;font-size: 20px"></i>';
+    //商品库存
+    public function stock(){
+        $param = request()->param();
+        $id = isset($param['id'])?$param['id']:0;
+        //获取商品的可选属性
+        $_goods_attribute_detail = db('goods_attribute_detail')->field('gad.id,gad.goods_attribute_id,gad.value,ga.attr_name')->alias('gad')->join('goods_attribute ga','gad.goods_attribute_id=ga.id')->where(array('gad.goods_id'=>$id,'ga.attr_type'=>1))->select();
+        //把结果重组为与属性名称为键的三维数组
+        $goods_attribute_detail = array();
+        if($_goods_attribute_detail){
+            foreach($_goods_attribute_detail as $k => $v){
+                $goods_attribute_detail[$v['attr_name']][]=$v;
             }
         }
 
+        $this->assign('goods_attribute_detail',$goods_attribute_detail);
+
+        $info= db('goods_stock')->where('goods_id',$id)->order('id ASC')->select();
         $this->assign('info',$info);
+        $this->assign('goods_id',$id);
         return $this->fetch();
+    }
+
+    //商品库存保存
+    public function stock_save(){
+        $param = request()->param();
+        check_token($param);//防止重复提交
+
+        //提交数据验证
+        $validate = Validate('goods_stock');
+        $validate_res= $validate->check($param);
+        if(!$validate_res){
+            get_jsonData(0,$validate->getError(),array('token'=>request()->token()));
+        }
+
+        //重组数据
+        $goods_id= isset($param['goods_id'])?$param['goods_id']:0;
+        $stock_num_arr = isset($param['stock_num'])?$param['stock_num']:array();
+        $attr_arr = isset($param['attr'])?$param['attr']:array();
+
+        $insert_arr = array();
+        foreach($stock_num_arr as $sk => $sv){
+            if(trim($sv)==''){
+                continue;
+            }
+            $tmp_arr = array();
+            $tmp_arr['goods_id']=$goods_id;
+            $tmp_arr['stock_num']=$sv;
+
+            if($attr_arr){
+                $attr_tmp_arr = array();
+                foreach($attr_arr as $ak => $av){
+                    if($av[$sk]==0){
+                        continue 2;
+                    }
+                    $attr_tmp_arr[]=$av[$sk];
+                }
+                $tmp_arr['attr_str'] = implode(',',$attr_tmp_arr);
+            }
+
+            $insert_arr[] = $tmp_arr;
+        }
+        $insert_arr = array_unique($insert_arr, SORT_REGULAR);
+
+        //删除原来的记录
+        db('goods_stock')->where(array('goods_id'=>$goods_id))->delete();
+
+        //插入新记录
+        $rel = db('goods_stock')->insertAll($insert_arr);
+        if($rel>0){
+            get_jsonData(200,'操作成功');
+        }else if($rel==0){
+            get_jsonData(0,'请正确填写数据',array('token'=>request()->token()));
+        }else{
+            get_jsonData(0,'操作失败');
+        }
+
     }
 
     //添加
@@ -142,6 +231,14 @@ class Goods extends Base{
         }
         $this->assign('priceArr',$priceArr);
 
+        //获取该商品的属性详情
+        $goods_attribute_detail = db('goods_attribute_detail')->where(array('goods_id'=>$id))->select();
+        $this->assign('goods_attribute_detail',$goods_attribute_detail);
+
+        //获取商品对应属性
+        $goods_attribute = db('goods_attribute')->where(array('goods_type_id'=>$info['goods_type_id']))->select();
+        $this->assign('goods_attribute',$goods_attribute);
+
         //获取商品相册详情
         $goods_photo= db('goods_photo')->where('goods_id=?')->bind(array($id))->select();
         $this->assign('goods_photo',$goods_photo);
@@ -153,8 +250,6 @@ class Goods extends Base{
     //保存信息
     public function save(){
         $param = request()->post();
-        dump($param);
-        die;
 
         check_token($param);//防止重复提交
 
@@ -195,7 +290,9 @@ class Goods extends Base{
         //判断添加和修改
         if($action=='add'){
             $data['create_time'] = time();
-            $id = model('goods')->allowField(true)->save($data);
+            $model = model('goods');
+            $model->allowField(true)->save($data);
+            $id = $model->getLastInsID();
             if($id){
                 get_jsonData(200,'操作成功',array('id'=>$id));
             }

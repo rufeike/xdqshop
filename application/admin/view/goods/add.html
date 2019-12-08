@@ -272,7 +272,7 @@
                                 <div class="form-group" style="line-height: 40px;">
                                     <label for="member_price<{$lv.id}>" class="col-sm-2 control-label" style="float: left;"><{$lv.level_name}></label>
                                     <div class="">
-                                        <input type="number" class="form-control col-sm-8" id="member_price<{$lv.id}>"  name="member_price[<{$lv.id}>]" placeholder="" style="">
+                                        <input type="number" class="form-control col-sm-8" id="member_price<{$lv.id}>"  name="member_price[<{$lv.id}>]" placeholder="" style="" value="">
                                     </div>
                                 </div>
                                 <{/volist}>
@@ -401,9 +401,11 @@
                 success: function (r) {
                     var r = $.parseJSON(r);
                     if (r.code == 200) {
-                        var id = r.data.id;
+                        var id = r.result.id;
                         layer.msg(r.msg, {icon: 1}, function () {
-                            jump('<{:url('goods/edit',array("id"=>'+id+'))}>');
+                            var url = "<{:url('goods/edit',array('id'=>'ss'))}>";
+                            url=url.replace('ss',id);
+                            jump(url);
                         })
                     } else if (r.code == 101) {
                         layer.alert(r.msg, {icon: 2});
@@ -425,10 +427,11 @@
         })
 
         $(document).on('click', '.add_attr_btn', function () {
+            var objbox = $(this).parents('.goods_attr_item_box');
             var obj = $(this).parents('.goods_attr_item');
             var html = obj.prop("outerHTML");
             html = html.replace('fa-plus-circle add_attr_btn','fa-minus-circle remove_attr_btn');
-            obj.after(html);
+            objbox.append(html);
         })
 
         $(document).on('click','.remove_attr_btn',function(){

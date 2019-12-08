@@ -51,6 +51,54 @@ class Goods extends Model{
                 }
             }
 
+            //添加商品属性
+            $goods_type_id = isset($param['goods_type_id'])?$param['goods_type_id']:0;
+            if($goods_type_id>0){
+                $insert_arr = array();
+                $only = isset($param['only'])?$param['only']:array();
+                $radio = isset($param['radio'])?$param['radio']:array();
+                $balance = isset($param['balance'])?$param['balance']:array();
+                //单选属性处理
+                if($radio){
+                    $tmparr = array();
+                    foreach($radio as $rk => $rv) {
+                        foreach($rv as $rkk => $rvv){
+                            //忽略无效数据
+                            if(trim($rvv)==''||trim($balance[$rk][$rkk])==''){
+                                continue;
+                            }
+                            $tmparr['goods_attribute_id'] = $rk;
+                            $tmparr['value'] = trim($rvv);
+                            $tmparr['balance'] = (float)$balance[$rk][$rkk];
+                            $tmparr['goods_id'] = $goods_id;
+                            $insert_arr[] = $tmparr;
+                        }
+                    }
+                }
+
+                //唯一属性处理
+                if($only){
+                    foreach($only as $ok => $ov){
+                        foreach($ov as $okk => $ovv){
+                            //忽略无效数据
+                            if(trim($ovv=='')){
+                                continue;
+                            }
+                            $tmparr = array();
+                            $tmparr['goods_attribute_id'] = $ok;
+                            $tmparr['value'] = $ovv;
+                            $tmparr['balance']=0;
+                            $tmparr['goods_id'] = $goods_id;
+                            $insert_arr[] = $tmparr;
+                        }
+                    }
+                }
+
+                if(!empty($insert_arr)){
+                    $attr_rel = db('goods_attribute_detail')->insertAll($insert_arr);
+                }
+            }
+
             //添加商品相册数据处理
             if(isset($_FILES['files'])&&$_FILES['files']){
                 // 获取表单上传文件

@@ -1,4 +1,5 @@
 <{volist name='goods_attribute' id='v'}>
+<div class="goods_attr_item_box">
 <div class="goods_attr_item">
     <div style="clear:both;"></div>
     <div class="form-group" style="line-height: 40px;">
@@ -6,31 +7,32 @@
         <label for="" class="col-sm-2 control-label" style="float: left;"><{$v.attr_name}> &nbsp;&nbsp;<i style="cursor:pointer;" class="fas fa-plus-circle add_attr_btn"></i></label>
         <div class="">
             <{if($v.attr_values)}>
-            <select name="attr_<{$v.id}>[]" id="" class="form-control col-sm-2" style="float:left;">
+            <select name="radio[<{$v.id}>][]" id="" class="form-control col-sm-2" style="float:left;">
                 <{volist name='v.attr_values' id='av'}>
                 <option value="<{$av}>"><{$av}></option>
                 <{/volist}>
             </select>
             <{else}>
-            <input type="text" name="attr_<{$v.id}>[]" id="" class="form-control col-sm-2" style="float:left;">
+            <input type="text" name="radio[<{$v.id}>][]" id="" class="form-control col-sm-2" style="float:left;">
             <{/if}>
-            <input type="number" class="form-control col-sm-6" id="" name="attr_<{$v.id}>_values[]"
+            <input type="number" class="form-control col-sm-6" id="" name="balance[<{$v.id}>][]"
                    placeholder="价格差额" style="float:left;">
         </div>
         <{else}>
         <label for="" class="col-sm-2 control-label" style="float: left;"><{$v.attr_name}></label>
         <{if($v.attr_values)}>
-        <select name="attr_<{$v.id}>" id="" class="form-control col-sm-8" style="float:left;">
+        <select name="only[<{$v.id}>][]" id="" class="form-control col-sm-8" style="float:left;">
             <{volist name='v.attr_values' id='av'}>
             <option value="<{$av}>"><{$av}></option>
             <{/volist}>
         </select>
         <{else}>
-        <input type="text" name="attr_<{$v.id}>" id="" class="form-control col-sm-8" style="float:left;">
+        <input type="text" name="only[<{$v.id}>][]" id="" class="form-control col-sm-8" style="float:left;">
         <{/if}>
         <{/if}>
     </div>
     <div style="clear:both;"></div>
+</div>
 </div>
 
 <{/volist}>

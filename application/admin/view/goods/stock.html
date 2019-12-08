@@ -1,0 +1,148 @@
+<{/*引入头部资源文件*/}>
+<{include file="common/header"}>
+<style>
+</style>
+<{/*引入左侧导航文件*/}>
+<{include file="common/nav"}>
+
+<div id="content-wrapper">
+
+    <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="<{:url('index/index')}>"><i class="fa fa-home fa-fw"></i>&nbsp;首页</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="<{:url('goods/index')}>">商品管理</a>
+            </li>
+            <li class="breadcrumb-item active">库存</li>
+        </ol>
+        <form id="form" action="<{:url('goods/stock_save')}>" method="post" class="form-horizontal">
+            <input type="hidden" name="__token__" value="<{$Request.token}>">
+            <input type="hidden" name="goods_id" value="<{$goods_id}>">
+
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <div></div>
+            <button type="button" id="save" class="btn btn-primary" data-toggle="modal" data-target="#lable" ><i class="fas fa-save"> 保存</i></button>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fas fa-table"></i>
+                商品列表
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <{if($goods_attribute_detail)}>
+                            <{volist name='goods_attribute_detail' id='gadv'}>
+                            <th><{$key}></th>
+                            <{/volist}>
+                            <{/if}>
+                            <th>库存</th>
+                            <th width="15%">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <{if(!empty($info))}>
+                        <{volist name='info' id='v' key='k'}>
+                        <tr>
+                            <{if($goods_attribute_detail)}>
+                            <{volist name='goods_attribute_detail' id='gadv2'}>
+                            <td class="form-group">
+                                <select name="attr[<{$key}>][]" id="" class="form-control">
+                                    <option value="0">请选择</option>
+                                    <{if($gadv2)}>
+                                    <{volist name='gadv2' id='av'}>
+                                    <?php $tmp_arr = explode(',',$v['attr_str']); ?>
+                                    <option <{if(in_array($av['id'],$tmp_arr))}>selected<{/if}> value="<{$av.id}>"><{$av.value}></option>
+                                    <{/volist}>
+                                    <{/if}>
+                                </select>
+                            </td>
+                            <{/volist}>
+                            <{/if}>
+                            <td class="form-group" style="width:150px;">
+                                <input type="number" name="stock_num[]" value="<{$v['stock_num']}>" class="form-control">
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-primary magic_action" onclick="magicAction(this)"><{if($k==1)}><i class="fa fa-plus"></i><{else}><i class="fa fa-minus"></i><{/if}></button>
+                            </td>
+                        </tr>
+                        <{/volist}>
+                        <{else}>
+                        <tr>
+                            <{if($goods_attribute_detail)}>
+                            <{volist name='goods_attribute_detail' id='gadv2'}>
+                            <td class="form-group">
+                                <select name="attr[<{$key}>][]" id="" class="form-control">
+                                    <option value="0">请选择</option>
+                                    <{if($gadv2)}>
+                                    <{volist name='gadv2' id='av'}>
+                                        <option value="<{$av.id}>"><{$av.value}></option>
+                                    <{/volist}>
+                                    <{/if}>
+                                </select>
+                            </td>
+                            <{/volist}>
+                            <{/if}>
+                            <td class="form-group" style="width:150px;">
+                                <input type="number" name="stock_num[]" class="form-control">
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-primary magic_action" onclick="magicAction(this)"><i class="fa fa-plus"></i></button>
+                            </td>
+                        </tr>
+                        <{/if}>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        </form>
+
+<{/*引入底部公共文件*/}>
+<{include file="common/footer"}>
+
+        <script>
+            $(function(){
+                $(document).on('click', '#save', function () {
+                    $('#form').ajaxSubmit({
+                        success: function (r) {
+                            var r = $.parseJSON(r);
+                            if (r.code == 200) {
+                                layer.msg(r.msg, {icon: 1}, function () {
+                                    window.location.reload();
+                                })
+                            } else if (r.code == 101) {
+                                layer.alert(r.msg, {icon: 2});
+                            } else {
+                                layer.alert(r.msg, {icon: 2});
+                                $("[name='__token__']").val(r.result.token);
+                            }
+                        }
+                    })
+                })
+
+            })
+
+            function magicAction(obj){
+                var obj = $(obj);
+                var tbody = $(obj).parents('tbody');
+                var tr = $(obj).parents('tr');
+                if(obj.html()=='<i class="fa fa-plus"></i>'){
+                    var newTr = tr.clone();
+                    newTr.find('.magic_action').html('<i class="fa fa-minus"></i>');
+                    newTr.find('select').val(0);
+                    newTr.find('input').val('');
+                    tbody.append(newTr);
+                }else{
+                    tr.remove();
+                }
+            }
+        </script>
