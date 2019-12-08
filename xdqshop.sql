@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50727
 File Encoding         : 65001
 
-Date: 2019-12-01 20:33:49
+Date: 2019-12-09 00:05:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -47,7 +47,7 @@ INSERT INTO `tp_article` VALUES ('7', '1', '支付说明', '', 'public\\uploads\
 INSERT INTO `tp_article` VALUES ('8', '1', '免责声明', '', null, '', null, '7', '99', '0', '0', null, '0', '1', null);
 INSERT INTO `tp_article` VALUES ('9', '1', '支付宝支付', '', '', '', '<p><img src=\"/public/ueditor/image/20191126/1574771681757601.jpg\" title=\"1574771681757601.jpg\" alt=\"login_bg.jpg\"/></p>', '7', '99', '1', '0', null, '1574771684', '1', '');
 INSERT INTO `tp_article` VALUES ('10', '1', '微信支付', '', 'public\\uploads\\article\\20191128\\3cb7d3f0b78a51b03ebd74c1c7e9ebdc.jpg', '', '<p>45454</p>', '7', '99', '0', '1', null, '1574956008', '1', '');
-INSERT INTO `tp_article` VALUES ('15', '老公', '我老婆使用信用卡心得', '我老婆', 'public\\uploads\\article\\20191128\\d2f6a141fe686106f8f205de9350dd9d.jpg', '我老婆超额贷款', '<p>放得开发快递发的开发贷款发的咖啡店父类大风大浪发卡方发卡夫卡六块腹肌卡了法力浮龙的奥卡菲娜付款啦法拉开发暖风机afafklafa凯迪拉克你客<br/></p><p>亏大发了发卡量发了疯奥拉夫啦lfakfalfdkfka</p><p><br/></p><p><br/></p><p>辅导费健康路否那falf</p><p><br/></p><p>代付款发快递看就看见风使舵金粉世家方法sjwmf.v四季分明快捷方式咖啡机积分开始大家风范节目否爱睡觉按啥的看法夹噶嘎婆上课慢jaguargfagh&#39;gkf赶紧来看古灵精怪</p><p>LGJLSGN&#39;SLGHALS</p><p><img src=\"/public/ueditor/image/20191126/1574782927279414.jpg\" title=\"1574782927279414.jpg\" alt=\"001.JPG\"/></p><p>&nbsp;ASIDGLKDGNLL海格力斯看过了更好地客户嘎嘎红薯干活uwdtierhj8vbjwk4ntofnb</p>', '7', '99', '0', '1', '1574782955', '1574955997', '1', 'http://www.rufeike.top');
+INSERT INTO `tp_article` VALUES ('15', '老公', '我老婆使用信用卡心得', '我老婆', 'public\\uploads\\article\\20191128\\d2f6a141fe686106f8f205de9350dd9d.jpg', '我老婆超额贷款', '<p>放得开发快递发的开发贷款发的咖啡店父类大风大浪发卡方发卡夫卡六块腹肌卡了法力浮龙的奥卡菲娜付款啦法拉开发暖风机afafklafa凯迪拉克你客<br/></p><p>亏大发了发卡量发了疯奥拉夫啦lfakfalfdkfka</p><p><br/></p><p><br/></p><p>辅导费健康路否那falf</p><p><br/></p><p>代付款发快递看就看见风使舵金粉世家方法sjwmf.v四季分明快捷方式咖啡机积分开始大家风范节目否爱睡觉按啥的看法夹噶嘎婆上课慢jaguargfagh&#39;gkf赶紧来看古灵精怪</p><p>LGJLSGN&#39;SLGHALS</p><p><img src=\"/public/ueditor/image/20191126/1574782927279414.jpg\" title=\"1574782927279414.jpg\" alt=\"001.JPG\"/></p><p>&nbsp;ASIDGLKDGNLL海格力斯看过了更好地客户嘎嘎红薯干活uwdtierhj8vbjwk4ntofnb</p>', '7', '99', '0', '1', '1574782955', '1574955997', '0', 'http://www.rufeike.top');
 
 -- ----------------------------
 -- Table structure for tp_article_category
@@ -78,11 +78,11 @@ INSERT INTO `tp_article_category` VALUES ('3', '网店信息', null, '', '', '1'
 INSERT INTO `tp_article_category` VALUES ('4', '年庆优惠', null, '', '', '2', '99', '0', '1', null, '0', '1');
 INSERT INTO `tp_article_category` VALUES ('5', '新手指南', null, '', '', '12', '99', '0', '1', null, '0', '1');
 INSERT INTO `tp_article_category` VALUES ('6', '其他分类', null, '', 'fdfd', '0', '95', '0', '1', null, '0', '1');
-INSERT INTO `tp_article_category` VALUES ('7', '支付说明', null, '', '', '2', '99', '0', '1', null, '0', '1');
+INSERT INTO `tp_article_category` VALUES ('7', '支付说明', null, '', '', '4', '99', '0', '1', null, '0', '1');
 INSERT INTO `tp_article_category` VALUES ('8', '免责声明', null, '', '', '7', '99', '0', '1', null, '0', '1');
-INSERT INTO `tp_article_category` VALUES ('9', '支付宝支付', null, null, null, '7', '99', '0', '1', null, '0', '1');
+INSERT INTO `tp_article_category` VALUES ('9', '支付宝支付', null, '', '', '7', '99', '0', '1', null, '0', '1');
 INSERT INTO `tp_article_category` VALUES ('10', '微信支付', null, null, null, '7', '99', '0', '1', null, '0', '1');
-INSERT INTO `tp_article_category` VALUES ('11', '闪电付', null, null, null, '7', '99', '0', '1', null, '0', '1');
+INSERT INTO `tp_article_category` VALUES ('11', '闪电付', null, '', '', '7', '99', '0', '1', null, '0', '1');
 INSERT INTO `tp_article_category` VALUES ('12', '购物流程', null, null, null, '5', '99', '0', '1', null, '0', '1');
 INSERT INTO `tp_article_category` VALUES ('13', 'fdfdfd', null, '', 'dfdfd', '4', '99', '0', '0', '1574661095', '0', '1');
 
@@ -101,19 +101,15 @@ CREATE TABLE `tp_brand` (
   `is_del` tinyint(1) DEFAULT '1' COMMENT '是否删除 0：删除 1：显示',
   `create_time` bigint(20) DEFAULT NULL COMMENT '添加时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COMMENT='商品品牌';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='商品品牌';
 
 -- ----------------------------
 -- Records of tp_brand
 -- ----------------------------
-INSERT INTO `tp_brand` VALUES ('1', '大幅度发放', 'httP://电放费大幅度', 'public\\uploads\\brand\\20191128\\848e90fef35923b8ff379fd5e167372f.png', '奋斗的方法', '1', '50', '1', null);
-INSERT INTO `tp_brand` VALUES ('2', '大幅度发放', 'ddfdfd', '', '对方付电费', '1', '50', '1', null);
-INSERT INTO `tp_brand` VALUES ('3', '放的地方', 'http://ddfdfd', '', '辅导辅导费', '1', '50', '1', null);
-INSERT INTO `tp_brand` VALUES ('4', '大幅度发放', '', 'public\\uploads\\brand\\20191128\\e96e43b2b70fd2780f4475eacaa39b1c.jpg', '辅导费', '1', '50', '1', null);
-INSERT INTO `tp_brand` VALUES ('5', '大幅度发放', '', '', '', '1', '50', '0', null);
-INSERT INTO `tp_brand` VALUES ('6', '大幅度发放', 'http://ddfdfd', '20191124\\7cb3238c3587b8e763d46c5b79762212.png', '大幅度', '1', '50', '0', null);
-INSERT INTO `tp_brand` VALUES ('7', '大幅度发放', 'http://ddfdfd', '20191124\\9449f606ec2be1c340a8227e6ff83671.png', '大多数', '1', '50', '0', null);
-INSERT INTO `tp_brand` VALUES ('8', '大幅度发放', 'http://ddfdfd', '', '辅导辅导', '0', '50', '0', null);
+INSERT INTO `tp_brand` VALUES ('1', '格力电器', '', '', '', '0', '50', '1', '1575376969');
+INSERT INTO `tp_brand` VALUES ('2', '海尔冰箱', '', '', '', '0', '50', '1', '1575377049');
+INSERT INTO `tp_brand` VALUES ('3', '联想电脑', '', '', '', '0', '50', '1', '1575523686');
+INSERT INTO `tp_brand` VALUES ('4', '戴尔电脑', '', '', '', '0', '50', '1', '1575523704');
 
 -- ----------------------------
 -- Table structure for tp_config
@@ -156,9 +152,11 @@ INSERT INTO `tp_config` VALUES ('12', 'shoppingTest', '商品配置测试', 'inp
 DROP TABLE IF EXISTS `tp_goods`;
 CREATE TABLE `tp_goods` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `goods_category_id` int(11) DEFAULT '0' COMMENT '产品分类ID',
+  `goods_category_path` varchar(255) DEFAULT NULL COMMENT '产品分类导航路径',
   `goods_num` bigint(20) DEFAULT NULL COMMENT '商品编号',
   `goods_name` varchar(120) DEFAULT NULL COMMENT '商品名称',
-  `org_thumb` varchar(255) DEFAULT NULL COMMENT '原图缩略图',
+  `or_thumb` varchar(255) DEFAULT NULL COMMENT '原图缩略图',
   `sm_thumb` varchar(255) DEFAULT NULL COMMENT '小缩略图',
   `mid_thumb` varchar(255) DEFAULT NULL COMMENT '中缩略图',
   `big_thumb` varchar(255) DEFAULT NULL COMMENT '大图片',
@@ -175,11 +173,18 @@ CREATE TABLE `tp_goods` (
   `update_time` bigint(20) DEFAULT '0' COMMENT '更新数据',
   `is_del` tinyint(1) DEFAULT '1' COMMENT '是否删除，默认1正常，0删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商品表';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COMMENT='商品表';
 
 -- ----------------------------
 -- Records of tp_goods
 -- ----------------------------
+INSERT INTO `tp_goods` VALUES ('1', '15', '15_11_10_', null, '联想Level5600', 'public\\uploads\\goods\\20191208\\efa080b014d91686e3593cff07b3c97f.jpg', 'public\\uploads\\goods\\20191208\\sm_efa080b014d91686e3593cff07b3c97f.jpg', 'public\\uploads\\goods\\20191208\\mid_efa080b014d91686e3593cff07b3c97f.jpg', 'public\\uploads\\goods\\20191208\\big_efa080b014d91686e3593cff07b3c97f.jpg', '3', '&lt;p&gt;&lt;img src=&quot;/public/ueditor/image/20191208/1575777235852408.jpg&quot; title=&quot;1575777235852408.jpg&quot; alt=&quot;timg (2).jpg&quot;/&gt;&lt;/p&gt;', '12', 'kg', '1', '7800.00', '7500.00', '0', '51', '1575777380', '0', '1');
+INSERT INTO `tp_goods` VALUES ('2', '9', '9_', null, 'dsdsds', null, null, null, null, '1', '', '434334', 'kg', '0', '34.00', '343.00', '0', '50', '1575813595', '0', '1');
+INSERT INTO `tp_goods` VALUES ('3', '9', '9_', null, '232', null, null, null, null, '1', '', '3232', 'kg', '0', '2.00', '232.00', '0', '50', '1575813920', '0', '1');
+INSERT INTO `tp_goods` VALUES ('4', '9', '9_', null, '232232', null, null, null, null, '1', '', '232', 'kg', '0', '2332.00', '23232.00', '0', '50', '1575813973', '0', '1');
+INSERT INTO `tp_goods` VALUES ('5', '18', '18_9_', null, '23323323223', null, null, null, null, '1', '', '2332332', 'kg', '0', '232.00', '232.00', '0', '50', '1575814002', '0', '1');
+INSERT INTO `tp_goods` VALUES ('6', '17', '17_9_', null, '1111111111111', null, null, null, null, '2', '', '223', 'kg', '0', '11111.00', '111.00', '0', '50', '1575814133', '0', '1');
+INSERT INTO `tp_goods` VALUES ('7', '28', '28_27_19_9_', null, '2222222222222', null, null, null, null, '2', '', '232', 'kg', '0', '32.00', '23.00', '0', '50', '1575814287', '0', '1');
 
 -- ----------------------------
 -- Table structure for tp_goods_attribute
@@ -195,16 +200,48 @@ CREATE TABLE `tp_goods_attribute` (
   `status` tinyint(4) DEFAULT '0' COMMENT '是否显示，默认0不显示，1显示',
   `is_del` tinyint(4) DEFAULT '1' COMMENT '是否删除，默认1正常 ，0删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='商品属性表';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COMMENT='商品属性表';
 
 -- ----------------------------
 -- Records of tp_goods_attribute
 -- ----------------------------
-INSERT INTO `tp_goods_attribute` VALUES ('1', '内存', '0', '4G,8G,16G', '2', '-2', '0', '1');
-INSERT INTO `tp_goods_attribute` VALUES ('2', '机身内存', '0', '32G,64G,128G,256G', '2', '2', '0', '1');
+INSERT INTO `tp_goods_attribute` VALUES ('1', '内存', '1', '4G,8G,16G', '2', '-2', '0', '1');
+INSERT INTO `tp_goods_attribute` VALUES ('2', '机身内存', '1', '32G,64G,128G,256G', '2', '2', '0', '1');
 INSERT INTO `tp_goods_attribute` VALUES ('3', '颜色', '1', '土豪金,粉红色,黑色', '2', '0', '0', '1');
-INSERT INTO `tp_goods_attribute` VALUES ('4', '尺寸', '0', '1900mm x 720mm x 10mm', '2', '0', '0', '1');
+INSERT INTO `tp_goods_attribute` VALUES ('4', '尺寸', '0', '', '2', '9', '0', '1');
 INSERT INTO `tp_goods_attribute` VALUES ('5', '运行内存', '1', '4G,8G,16G,32G', '1', '1', '0', '1');
+INSERT INTO `tp_goods_attribute` VALUES ('6', 'CPU', '1', 'Internet,奔腾', '1', '9', '0', '1');
+INSERT INTO `tp_goods_attribute` VALUES ('7', '显卡', '1', '', '1', '0', '0', '1');
+INSERT INTO `tp_goods_attribute` VALUES ('8', '生产日期', '0', '', '1', '0', '0', '1');
+INSERT INTO `tp_goods_attribute` VALUES ('9', '厂家', '0', '', '1', '0', '0', '1');
+
+-- ----------------------------
+-- Table structure for tp_goods_attribute_detail
+-- ----------------------------
+DROP TABLE IF EXISTS `tp_goods_attribute_detail`;
+CREATE TABLE `tp_goods_attribute_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `goods_id` int(11) DEFAULT NULL COMMENT '商品ID',
+  `goods_attribute_id` int(11) DEFAULT NULL,
+  `value` varchar(255) DEFAULT NULL,
+  `balance` decimal(10,2) DEFAULT '0.00' COMMENT '价格差额',
+  PRIMARY KEY (`id`),
+  KEY `goods_id` (`goods_id`),
+  KEY `goods_attribute_id` (`goods_attribute_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COMMENT='商品属性详细表';
+
+-- ----------------------------
+-- Records of tp_goods_attribute_detail
+-- ----------------------------
+INSERT INTO `tp_goods_attribute_detail` VALUES ('1', '1', '7', '独立显卡', '100.00');
+INSERT INTO `tp_goods_attribute_detail` VALUES ('2', '1', '7', '集成显卡', '0.00');
+INSERT INTO `tp_goods_attribute_detail` VALUES ('3', '1', '5', '4G', '100.00');
+INSERT INTO `tp_goods_attribute_detail` VALUES ('4', '1', '5', '8G', '150.00');
+INSERT INTO `tp_goods_attribute_detail` VALUES ('5', '1', '5', '16G', '200.00');
+INSERT INTO `tp_goods_attribute_detail` VALUES ('6', '1', '6', 'Internet', '100.00');
+INSERT INTO `tp_goods_attribute_detail` VALUES ('7', '1', '6', '奔腾', '50.00');
+INSERT INTO `tp_goods_attribute_detail` VALUES ('8', '1', '8', '2019-10-10', '0.00');
+INSERT INTO `tp_goods_attribute_detail` VALUES ('9', '1', '9', '深圳富士康', '0.00');
 
 -- ----------------------------
 -- Table structure for tp_goods_category
@@ -223,7 +260,7 @@ CREATE TABLE `tp_goods_category` (
   `create_time` bigint(20) DEFAULT NULL COMMENT '创建时间',
   `allow_add` tinyint(1) DEFAULT '1' COMMENT '是否可以添加子分类 默认为1：可添加，0：不可添加',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='商品分类表';
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COMMENT='商品分类表';
 
 -- ----------------------------
 -- Records of tp_goods_category
@@ -233,6 +270,73 @@ INSERT INTO `tp_goods_category` VALUES ('2', '男装', '', '男装', '男装', '
 INSERT INTO `tp_goods_category` VALUES ('3', '女装', '', '女装', '', '1', '100', '0', '1', '1575005672', '1');
 INSERT INTO `tp_goods_category` VALUES ('4', '童装', '', '童装', '', '1', '99', '0', '1', '1575005690', '1');
 INSERT INTO `tp_goods_category` VALUES ('5', '冬装', '', '', '', '2', '99', '0', '1', '1575005759', '1');
+INSERT INTO `tp_goods_category` VALUES ('6', '羽绒服', '', '', '', '5', '99', '0', '1', '1575350033', '1');
+INSERT INTO `tp_goods_category` VALUES ('7', '毛衣', '', '', '', '5', '99', '0', '1', '1575350046', '1');
+INSERT INTO `tp_goods_category` VALUES ('8', '风衣', '', '', '', '5', '99', '0', '1', '1575350065', '1');
+INSERT INTO `tp_goods_category` VALUES ('9', '家电', '', '', '', '0', '99', '0', '1', '1575350254', '1');
+INSERT INTO `tp_goods_category` VALUES ('10', '数码产品', '', '', '', '0', '99', '0', '1', '1575350268', '1');
+INSERT INTO `tp_goods_category` VALUES ('11', '电脑', '', '', '', '10', '99', '0', '1', '1575350287', '1');
+INSERT INTO `tp_goods_category` VALUES ('12', '手机', '', '', '', '10', '99', '0', '1', '1575350303', '1');
+INSERT INTO `tp_goods_category` VALUES ('13', '照相机', '', '', '', '10', '99', '0', '1', '1575350330', '1');
+INSERT INTO `tp_goods_category` VALUES ('14', '摄影机', '', '', '', '10', '99', '0', '1', '1575350341', '1');
+INSERT INTO `tp_goods_category` VALUES ('15', '笔记本', '', '', '', '11', '99', '0', '1', '1575350368', '1');
+INSERT INTO `tp_goods_category` VALUES ('16', '台式电脑', '', '', '', '11', '99', '0', '1', '1575350383', '1');
+INSERT INTO `tp_goods_category` VALUES ('17', '电视机', '', '', '', '9', '99', '0', '1', '1575350707', '1');
+INSERT INTO `tp_goods_category` VALUES ('18', '冰箱', '', '', '', '9', '99', '0', '1', '1575350722', '1');
+INSERT INTO `tp_goods_category` VALUES ('19', '洗衣机', '', '', '', '9', '99', '0', '1', '1575350735', '1');
+INSERT INTO `tp_goods_category` VALUES ('20', '厨房电器', '', '', '', '9', '99', '0', '1', '1575350783', '1');
+INSERT INTO `tp_goods_category` VALUES ('21', '空调', '', '', '', '9', '99', '0', '1', '1575350815', '1');
+INSERT INTO `tp_goods_category` VALUES ('22', '电饭煲', '', '', '', '20', '99', '0', '1', '1575350861', '1');
+INSERT INTO `tp_goods_category` VALUES ('23', '电磁炉', '', '', '', '20', '99', '0', '1', '1575350890', '1');
+INSERT INTO `tp_goods_category` VALUES ('24', '电水壶', '', '', '', '20', '99', '0', '1', '1575350911', '1');
+INSERT INTO `tp_goods_category` VALUES ('25', '电压力锅', '', '', '', '20', '99', '0', '1', '1575350928', '1');
+INSERT INTO `tp_goods_category` VALUES ('26', '滚筒式', '', '', '', '19', '99', '0', '1', '1575350980', '1');
+INSERT INTO `tp_goods_category` VALUES ('27', '直筒式', '', '', '', '19', '99', '0', '1', '1575351013', '1');
+INSERT INTO `tp_goods_category` VALUES ('28', '全自动', '', '', '', '27', '99', '0', '1', '1575351037', '1');
+INSERT INTO `tp_goods_category` VALUES ('29', '半自动', '', '', '', '27', '99', '0', '1', '1575351050', '1');
+INSERT INTO `tp_goods_category` VALUES ('30', '鞋', '', '', '', '0', '99', '0', '1', '1575352288', '1');
+INSERT INTO `tp_goods_category` VALUES ('31', '男鞋', '', '', '', '30', '99', '0', '1', '1575352329', '1');
+INSERT INTO `tp_goods_category` VALUES ('32', '女鞋', '', '', '', '30', '99', '0', '1', '1575352344', '1');
+INSERT INTO `tp_goods_category` VALUES ('33', '高跟鞋', '', '', '', '32', '99', '0', '1', '1575352360', '1');
+
+-- ----------------------------
+-- Table structure for tp_goods_photo
+-- ----------------------------
+DROP TABLE IF EXISTS `tp_goods_photo`;
+CREATE TABLE `tp_goods_photo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `goods_id` int(11) DEFAULT NULL COMMENT '商品ID',
+  `or_thumb` varchar(255) DEFAULT NULL COMMENT '原图',
+  `sm_thumb` varchar(255) DEFAULT NULL COMMENT '小图',
+  `mid_thumb` varchar(255) DEFAULT NULL COMMENT '中图',
+  `big_thumb` varchar(255) DEFAULT NULL COMMENT '大图',
+  PRIMARY KEY (`id`),
+  KEY `goods_id` (`goods_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='商品相册表';
+
+-- ----------------------------
+-- Records of tp_goods_photo
+-- ----------------------------
+INSERT INTO `tp_goods_photo` VALUES ('1', '1', 'public\\uploads\\goods\\20191208\\368f6fd1d7c868b23a14d85bec1a61e8.jpg', 'public\\uploads\\goods\\20191208\\sm_368f6fd1d7c868b23a14d85bec1a61e8.jpg', 'public\\uploads\\goods\\20191208\\mid_368f6fd1d7c868b23a14d85bec1a61e8.jpg', 'public\\uploads\\goods\\20191208\\big_368f6fd1d7c868b23a14d85bec1a61e8.jpg');
+
+-- ----------------------------
+-- Table structure for tp_goods_stock
+-- ----------------------------
+DROP TABLE IF EXISTS `tp_goods_stock`;
+CREATE TABLE `tp_goods_stock` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `stock_num` int(11) DEFAULT '0' COMMENT '库存数量',
+  `attr_str` varchar(255) DEFAULT NULL COMMENT '属性组合字符串',
+  `goods_id` int(11) DEFAULT '0' COMMENT '商品ID',
+  PRIMARY KEY (`id`),
+  KEY `goods_id` (`goods_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COMMENT='商品库存表';
+
+-- ----------------------------
+-- Records of tp_goods_stock
+-- ----------------------------
+INSERT INTO `tp_goods_stock` VALUES ('5', '10', null, '7');
+INSERT INTO `tp_goods_stock` VALUES ('14', '10', '3,6,2', '1');
 
 -- ----------------------------
 -- Table structure for tp_goods_type
@@ -266,12 +370,13 @@ CREATE TABLE `tp_link` (
   `is_del` tinyint(1) DEFAULT '1' COMMENT '是否删除 0：删除 1：显示',
   `create_time` bigint(20) DEFAULT NULL COMMENT '添加时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='友情链接表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='友情链接表';
 
 -- ----------------------------
 -- Records of tp_link
 -- ----------------------------
 INSERT INTO `tp_link` VALUES ('1', '粤凯信息科技有限公司', 'http://www.yuekai.com', 'public\\uploads\\link\\20191129\\5e3ed5d84b667726d6aea153eed57376.jpg', '世界第一，宇宙最强', '1', '50', '1', '1574784547');
+INSERT INTO `tp_link` VALUES ('2', '粤凯信息科技有限公司', '', '', '', '0', '50', '1', '1575377021');
 
 -- ----------------------------
 -- Table structure for tp_member_level
@@ -295,3 +400,22 @@ INSERT INTO `tp_member_level` VALUES ('2', '初级会员', '10000', '20000', '80
 INSERT INTO `tp_member_level` VALUES ('3', '中级会员', '20000', '50000', '70', '1');
 INSERT INTO `tp_member_level` VALUES ('4', '高级会员', '50000', '100000', '60', '1');
 INSERT INTO `tp_member_level` VALUES ('5', 'VIP会员', '100000', '1000000', '50', '1');
+
+-- ----------------------------
+-- Table structure for tp_member_price
+-- ----------------------------
+DROP TABLE IF EXISTS `tp_member_price`;
+CREATE TABLE `tp_member_price` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `member_price` decimal(10,2) DEFAULT '0.00' COMMENT '会员价格',
+  `member_level_id` int(11) DEFAULT '0' COMMENT '会员等级ID',
+  `goods_id` int(11) DEFAULT '0' COMMENT '产品ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='会员价格表';
+
+-- ----------------------------
+-- Records of tp_member_price
+-- ----------------------------
+INSERT INTO `tp_member_price` VALUES ('1', '7500.00', '1', '1');
+INSERT INTO `tp_member_price` VALUES ('2', '7400.00', '2', '1');
+INSERT INTO `tp_member_price` VALUES ('3', '7300.00', '3', '1');
