@@ -294,7 +294,12 @@
                                         </select>
                                     </div>
                                 </div>
-
+                                <div class="form-group" style="line-height: 40px;">
+                                    <label for="" class="col-sm-2 control-label" style="float: left;"></label>
+                                    <div class="" style="">
+                                        <span style="color:red;background-color: #dbe61a;display:inline-block;height:30px;line-height: 30px;">注意：更改所属类型，会对商品原来的类型进行重新规划，将会删除原来保存的属性,因此设置产品属性时，请提前规划好。</span>
+                                    </div>
+                                </div>
                                 <!-- 动态获取商品类型对应的属性内容 -->
                                 <div id="attribute_box">
 
@@ -315,7 +320,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div id="img_show_box" class="row" style="box-sizing:border-box!;width:90%;padding:15px;">
+                                <div id="img_show_box" class="row" style="box-sizing:border-box;width:90%;padding:15px;">
 
                                 </div>
 
@@ -397,14 +402,15 @@
         })
 
         $(document).on('click', '#save', function () {
+            var loading = layer.load(2);
             $('#form').ajaxSubmit({
                 success: function (r) {
+                    layer.close(loading);
                     var r = $.parseJSON(r);
                     if (r.code == 200) {
                         var id = r.result.id;
                         layer.msg(r.msg, {icon: 1}, function () {
-                            var url = "<{:url('goods/edit',array('id'=>'ss'))}>";
-                            url=url.replace('ss',id);
+                            var url = "<{:url('goods/index')}>";
                             jump(url);
                         })
                     } else if (r.code == 101) {

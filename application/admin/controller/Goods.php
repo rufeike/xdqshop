@@ -232,7 +232,13 @@ class Goods extends Base{
         $this->assign('priceArr',$priceArr);
 
         //获取该商品的属性详情
-        $goods_attribute_detail = db('goods_attribute_detail')->where(array('goods_id'=>$id))->select();
+        $_goods_attribute_detail = db('goods_attribute_detail')->where(array('goods_id'=>$id))->select();
+        $goods_attribute_detail = array();
+        if($_goods_attribute_detail){
+            foreach($_goods_attribute_detail as $gadk => $gadv){
+                $goods_attribute_detail[$gadv['goods_attribute_id']][] = $gadv;
+            }
+        }
         $this->assign('goods_attribute_detail',$goods_attribute_detail);
 
         //获取商品对应属性
@@ -250,6 +256,8 @@ class Goods extends Base{
     //保存信息
     public function save(){
         $param = request()->post();
+        //dump($param);
+        //die;
 
         check_token($param);//防止重复提交
 
@@ -284,21 +292,26 @@ class Goods extends Base{
             'status' => $param['status'],
             'description' => htmlspecialchars($param['description']),
             'goods_type_id' => $param['goods_type_id'],
-            'create_time' => time(),
         );
 
         //判断添加和修改
         if($action=='add'){
             $data['create_time'] = time();
             $model = model('goods');
-            $model->allowField(true)->save($data);
-            $id = $model->getLastInsID();
-            if($id){
-                get_jsonData(200,'操作成功',array('id'=>$id));
+            $res = $model->allowField(true)->save($data);
+            if($res){
+                get_jsonData(200,'操作成功',array());
             }
         }else if($action=='edit'){
             $data['update_time'] = time();
-            $res = model('goods')->allowField(true)->where('id',$id)->update($data);
+            $data['or_thumb'] = $param['or_thumb'];
+            $data['sm_thumb'] = $param['sm_thumb'];
+            $data['mid_thumb'] = $param['mid_thumb'];
+            $data['big_thumb'] = $param['big_thumb'];
+            $data['update_time'] = time();
+            $data['id']=$id;
+            $model = model('goods');
+            $res=$model->allowField(true)->update($data);
             if($res!==false){
                 get_jsonData(200,'操作成功',array('id'=>$id));
             }
@@ -335,6 +348,49 @@ class Goods extends Base{
             Db::rollback();
             get_jsonData(0,'失败',array('error'=>$e->getMessage()));
         }
+    }
+
+    //删除图片相册
+    public function delete_photo(){
+        $param = request()->post();
+        $id = isset($param['id'])?$param['id']:0;
+        $photo = db('goods_photo')->where(array('id'=>$id))->find();
+        if(empty($photo)){
+            get_jsonData(0,'图片不存在');
+        }
+
+        //删除图片
+        @unlink(ROOT_PATH.$photo['or_thumb']);
+        @unlink(ROOT_PATH.$photo['sm_thumb']);
+        @unlink(ROOT_PATH.$photo['mid_thumb']);
+        @unlink(ROOT_PATH.$photo['big_thumb']);
+        //删除数据库记录
+        $res = db('goods_photo')->delete($id);
+
+        if($res){
+            get_jsonData(200,'操作成功',array());
+        }
+
+        get_jsonData(0,'操作失败',array());
+    }
+
+    //删除商品属性
+    public function delete_attr(){
+        $param = request()->post();
+        $id = isset($param['id'])?$param['id']:0;
+        $goods_attribute_detail= db('goods_attribute_detail')->where(array('id'=>$id))->find();
+        if(empty($goods_attribute_detail)){
+            get_jsonData(0,'属性不存在');
+        }
+
+        //删除数据库记录
+        $res = db('goods_attribute_detail')->delete($id);
+
+        if($res){
+            get_jsonData(200,'操作成功',array());
+        }
+
+        get_jsonData(0,'操作失败',array());
     }
 
 

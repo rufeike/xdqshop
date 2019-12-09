@@ -137,6 +137,10 @@
                             <input type="hidden" name="__token__" value="<{$Request.token}>">
                             <input type="hidden" value="edit" name="action">
                             <input type="hidden" value="<{$info.id}>" name="id">
+                            <input type="hidden" value="<{$info.or_thumb}>" name="or_thumb">
+                            <input type="hidden" value="<{$info.sm_thumb}>" name="sm_thumb">
+                            <input type="hidden" value="<{$info.mid_thumb}>" name="mid_thumb">
+                            <input type="hidden" value="<{$info.big_thumb}>" name="big_thumb">
 
                             <!-- 商品基本信息 start -->
                             <div class="content_box active" id="base_info_box">
@@ -230,7 +234,7 @@
                                         <input type="file" class="form-control col-sm-12 img_file" id="thumb" name="file" placeholder="" style="opacity: 0;cursor:pointer;position: absolute;top:0;" value="">
                                     </span>
                                         <span class="img_show_box"></span>
-                                        <img class="show_img " src="/<{$info.sm_thumb}>" style="height: 40px;position: relative;top:-4px;cursor:pointer">
+                                        <img class="show_img " src="<{if($info.sm_thumb!='')}>/<{$info.sm_thumb}><{/if}>" style="height: 40px;position: relative;top:-4px;cursor:pointer">
                                         <img src="/<{$info.mid_thumb}>" style="position: absolute;height: 200px;display: none;">
                                     </div>
                                 </div>
@@ -280,11 +284,64 @@
                                         </select>
                                     </div>
                                 </div>
-
+                                <div class="form-group" style="line-height: 40px;">
+                                    <label for="" class="col-sm-2 control-label" style="float: left;"></label>
+                                    <div class="" style="">
+                                        <span style="color:red;background-color: #dbe61a;display:inline-block;height:30px;line-height: 30px;">注意：更改所属类型，会对商品原来的类型进行重新规划，将会删除原来保存的属性,因此设置产品属性时，请提前规划好。</span>
+                                    </div>
+                                </div>
                                 <!-- 动态获取商品类型对应的属性内容 -->
                                 <div id="attribute_box">
                                     <{if($goods_attribute)}>
+                                    <!-- 遍历默认类型的对应的属性内容 -->
                                     <{volist name='goods_attribute' id='v'}>
+
+                                    <{if(isset($goods_attribute_detail[$v['id']])&&$goods_attribute_detail[$v['id']])}>
+                                    <!-- 遍历商品类型的对应的属性内容 -->
+                                    <?php
+                                        $tmparr = $goods_attribute_detail[$v['id']];
+                                    ?>
+                                    <{volist name='tmparr' id='tv' key='k'}>
+                                    <div class="goods_attr_item_box">
+                                        <div class="goods_attr_item">
+                                            <div style="clear:both;"></div>
+                                            <div class="form-group" style="line-height: 40px;">
+                                                <{if($v['attr_type']==1)}>
+                                                <label for="" class="col-sm-2 control-label" style="float: left;"><{$v.attr_name}> &nbsp;&nbsp;<{if($k==1)}><i style="cursor:pointer;" class="fas fa-plus-circle add_attr_btn"></i><{else}><i style="cursor:pointer;" class="fas fa-minus-circle  delete_attr_btn" data-id="<{$tv.id}>"></i><{/if}></label>
+                                                <div class="">
+                                                    <{if($v.attr_values)}>
+                                                    <!-- 把属性值拆分 -->
+                                                    <?php $attr_values=explode(',',$v['attr_values']);?>
+                                                    <select name="old_radio[<{$v.id}>][]" id="" class="form-control col-sm-2" style="float:left;">
+                                                        <{volist name='attr_values' id='av'}>
+                                                        <option <{if($av===$tv['value'])}>selected style="background-color:#eaeaea;"<{/if}> value="<{$av}>"><{$av}></option>
+                                                        <{/volist}>
+                                                    </select>
+                                                    <{else}>
+                                                    <input type="text" name="old_radio[<{$v.id}>][]" id="" class="form-control col-sm-2" style="float:left;" value="<{$tv['value']}>">
+                                                    <{/if}>
+                                                    <input type="number" class="form-control col-sm-6" id="" name="old_balance[<{$v.id}>][]"
+                                                           placeholder="价格差额" style="float:left;" value="<{$tv['balance']}>">
+                                                </div>
+                                                <{else}>
+                                                <label for="" class="col-sm-2 control-label" style="float: left;"><{$v.attr_name}></label>
+                                                <{if($v.attr_values)}>
+                                                <?php $attr_values=explode(',',$v['attr_values']);?>
+                                                <select name="old_only[<{$v.id}>][]" id="" class="form-control col-sm-8" style="float:left;">
+                                                    <{volist name='attr_values' id='av'}>
+                                                    <option <{if($av===$tv['value'])}>selected style="background-color:#eaeaea;"<{/if}> value="<{$av}>"><{$av}></option>
+                                                    <{/volist}>
+                                                </select>
+                                                <{else}>
+                                                <input type="text" name="old_only[<{$v.id}>][]" id="" class="form-control col-sm-8" style="float:left;"  value="<{$tv['value']}>" >
+                                                <{/if}>
+                                                <{/if}>
+                                            </div>
+                                            <div style="clear:both;"></div>
+                                        </div>
+                                    </div>
+                                    <{/volist}>
+                                    <{else}>
                                     <div class="goods_attr_item_box">
                                         <div class="goods_attr_item">
                                             <div style="clear:both;"></div>
@@ -293,8 +350,9 @@
                                                 <label for="" class="col-sm-2 control-label" style="float: left;"><{$v.attr_name}> &nbsp;&nbsp;<i style="cursor:pointer;" class="fas fa-plus-circle add_attr_btn"></i></label>
                                                 <div class="">
                                                     <{if($v.attr_values)}>
+                                                    <?php $attr_values=explode(',',$v['attr_values']);?>
                                                     <select name="radio[<{$v.id}>][]" id="" class="form-control col-sm-2" style="float:left;">
-                                                        <{volist name='v.attr_values' id='av'}>
+                                                        <{volist name='attr_values' id='av'}>
                                                         <option value="<{$av}>"><{$av}></option>
                                                         <{/volist}>
                                                     </select>
@@ -307,8 +365,9 @@
                                                 <{else}>
                                                 <label for="" class="col-sm-2 control-label" style="float: left;"><{$v.attr_name}></label>
                                                 <{if($v.attr_values)}>
+                                                <?php $attr_values=explode(',',$v['attr_values']);?>
                                                 <select name="only[<{$v.id}>][]" id="" class="form-control col-sm-8" style="float:left;">
-                                                    <{volist name='v.attr_values' id='av'}>
+                                                    <{volist name='attr_values' id='av'}>
                                                     <option value="<{$av}>"><{$av}></option>
                                                     <{/volist}>
                                                 </select>
@@ -320,6 +379,8 @@
                                             <div style="clear:both;"></div>
                                         </div>
                                     </div>
+
+                                    <{/if}>
 
                                     <{/volist}>
                                     <{/if}>
@@ -340,7 +401,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div id="img_show_box" class="row" style="box-sizing:border-box!;width:90%;padding:15px;">
+                                <div id="img_show_box" class="row" style="box-sizing:border-box;width:90%;padding:15px;">
 
                                 </div>
                                 <div class="card">
@@ -358,7 +419,7 @@
                                                         <?php echo mb_substr($gpv['or_thumb'],(strripos($gpv['or_thumb'],DS)+1)); ?>
                                                     </figcaption>
                                                 </figure>
-                                                <span class="del_btn" data-url="222"><i class="fas fa-times-circle"></i></span>
+                                                <span class="del_btn del_img_btn" data-url="" data-id="<{$gpv.id}>"><i class="fas fa-times-circle"></i></span>
                                             </div>
                                             <{/volist}>
                                         </div>
@@ -445,8 +506,10 @@
         })
 
         $(document).on('click', '#save', function () {
+            var loading = layer.load(2);
             $('#form').ajaxSubmit({
                 success: function (r) {
+                    layer.close(loading);
                     var r = $.parseJSON(r);
                     if (r.code == 200) {
                         layer.msg(r.msg, {icon: 1}, function () {
@@ -479,14 +542,65 @@
         })
         $(document).on('click', '.add_attr_btn', function () {
             var objbox = $(this).parents('.goods_attr_item_box');
-            var obj = $(this).parents('.goods_attr_item');
-            var html = obj.prop("outerHTML");
-            html = html.replace('fa-plus-circle add_attr_btn','fa-minus-circle remove_attr_btn');
-            objbox.append(html);
+            var obj = $(this).parents('.goods_attr_item_box');
+            var newDiv = obj.clone();
+            newDiv.find('.add_attr_btn').removeClass('add_attr_btn').removeClass('fa-plus-circle').addClass('fa-minus-circle').addClass('remove_attr_btn')
+            newDiv.find('select option').css('background-color','#fff');
+            newDiv.find('input').val('');
+            var select_name = newDiv.find('select').attr('name');
+            var new_select_name = select_name.replace('old_','');
+            newDiv.find('select').attr('name',new_select_name);
+            var input_name = newDiv.find('input').attr('name');
+            var new_input_name = input_name.replace('old_','');
+            newDiv.find('input').attr('name',new_input_name);
+            objbox.append(newDiv);
         })
 
         $(document).on('click','.remove_attr_btn',function(){
             $(this).parents('.goods_attr_item').remove();
+        })
+
+        //删除图片
+        $(document).on('click','.del_img_btn',function(){
+            var obj = $(this).parents('.img_box');
+            var id = $(this).attr('data-id');
+            layer.confirm('确认删除该图片吗',{icon:3},function(index){
+                layer.close(index);
+                var url = "<{:url('goods/delete_photo')}>";
+                var loading = layer.load(2);
+                $.post(url,{id:id},function(r){
+                    layer.close(loading);
+                    var json = $.parseJSON(r);
+                    if(json.code==200){
+                        obj.remove();
+                        layer.msg(json.msg,{icon:1,time:2000})
+                    }else{
+                        console.log(r);
+                    }
+                })
+            })
+        })
+
+
+        //删除属性
+        $(document).on('click','.delete_attr_btn',function(){
+            var obj = $(this).parents('.goods_attr_item_box');
+            var id = $(this).attr('data-id');
+            layer.confirm('确认删除该属性吗，删除属性将会影响原设定的产品库存设置！',{icon:3},function(index){
+                layer.close(index);
+                var url = "<{:url('goods/delete_attr')}>";
+                var loading = layer.load(2);
+                $.post(url,{id:id},function(r){
+                    layer.close(loading);
+                    var json = $.parseJSON(r);
+                    if(json.code==200){
+                        obj.remove();
+                        layer.msg(json.msg,{icon:1,time:2000})
+                    }else{
+                        console.log(r);
+                    }
+                })
+            })
         })
 
         //多图片图片预览
