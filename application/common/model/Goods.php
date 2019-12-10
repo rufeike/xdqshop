@@ -182,7 +182,57 @@ class Goods extends Model{
                 }
             }
 
-            //添加商品属性
+            $attr_update_arr = array();
+            $old_only = isset($param['old_only'])?$param['old_only']:array();
+            $old_radio = isset($param['old_radio'])?$param['old_radio']:array();
+            $old_balance = isset($param['old_balance'])?$param['old_balance']:array();
+            //单选属性处理
+            if($old_radio){
+                $tmparr = array();
+                foreach($old_radio as $rk => $rv) {
+                    foreach($rv as $rkk => $rvv){
+                        //忽略无效数据
+                        if(trim($rvv)==''||trim($old_balance[$rk][$rkk])==''){
+                            continue;
+                        }
+                        $tmparr['id']=$rkk;
+                        $tmparr['goods_attribute_id'] = $rk;
+                        $tmparr['value'] = trim($rvv);
+                        $tmparr['balance'] = (float)$old_balance[$rk][$rkk];
+                        $tmparr['goods_id'] = $goods_id;
+                        $attr_update_arr[] = $tmparr;
+                    }
+                }
+            }
+
+            //唯一属性处理
+            if($old_only){
+                foreach($old_only as $ok => $ov){
+                    foreach($ov as $okk => $ovv){
+                        //忽略无效数据
+                        if(trim($ovv=='')){
+                            continue;
+                        }
+                        $tmparr = array();
+                        $tmparr['id']=$okk;
+                        $tmparr['goods_attribute_id'] = $ok;
+                        $tmparr['value'] = $ovv;
+                        $tmparr['balance']=0;
+                        $tmparr['goods_id'] = $goods_id;
+                        $attr_update_arr[] = $tmparr;
+                    }
+                }
+            }
+
+            if(!empty($attr_update_arr)){
+                foreach($attr_update_arr as $uv){
+                    $attr_update_rel = db('goods_attribute_detail')->update($uv);
+                }
+            }
+
+
+
+            //添加新的商品属性
             $goods_type_id = isset($param['goods_type_id'])?$param['goods_type_id']:0;
             if($goods_type_id>0){
                 $insert_arr = array();
@@ -206,6 +256,7 @@ class Goods extends Model{
                         }
                     }
                 }
+
 
                 //唯一属性处理
                 if($only){

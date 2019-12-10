@@ -256,8 +256,7 @@ class Goods extends Base{
     //保存信息
     public function save(){
         $param = request()->post();
-        //dump($param);
-        //die;
+
 
         check_token($param);//防止重复提交
 
@@ -383,6 +382,11 @@ class Goods extends Base{
             get_jsonData(0,'属性不存在');
         }
 
+        //删除库存表中相关的库存记录
+        $map = array(
+            'goods_id'=>$goods_attribute_detail['goods_id'],
+        );
+        db('goods_stock')->where($map)->delete();
         //删除数据库记录
         $res = db('goods_attribute_detail')->delete($id);
 

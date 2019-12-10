@@ -312,28 +312,28 @@
                                                     <{if($v.attr_values)}>
                                                     <!-- 把属性值拆分 -->
                                                     <?php $attr_values=explode(',',$v['attr_values']);?>
-                                                    <select name="old_radio[<{$v.id}>][]" id="" class="form-control col-sm-2" style="float:left;">
+                                                    <select name="old_radio[<{$v.id}>][<{$tv.id}>]" id="" class="form-control col-sm-2" style="float:left;">
                                                         <{volist name='attr_values' id='av'}>
                                                         <option <{if($av===$tv['value'])}>selected style="background-color:#eaeaea;"<{/if}> value="<{$av}>"><{$av}></option>
                                                         <{/volist}>
                                                     </select>
                                                     <{else}>
-                                                    <input type="text" name="old_radio[<{$v.id}>][]" id="" class="form-control col-sm-2" style="float:left;" value="<{$tv['value']}>">
+                                                    <input type="text" name="old_radio[<{$v.id}>][<{$tv.id}>]" id="" class="form-control col-sm-2" style="float:left;" value="<{$tv['value']}>">
                                                     <{/if}>
-                                                    <input type="number" class="form-control col-sm-6" id="" name="old_balance[<{$v.id}>][]"
+                                                    <input type="number" class="form-control col-sm-6" id="" name="old_balance[<{$v.id}>][<{$tv.id}>]"
                                                            placeholder="价格差额" style="float:left;" value="<{$tv['balance']}>">
                                                 </div>
                                                 <{else}>
                                                 <label for="" class="col-sm-2 control-label" style="float: left;"><{$v.attr_name}></label>
                                                 <{if($v.attr_values)}>
                                                 <?php $attr_values=explode(',',$v['attr_values']);?>
-                                                <select name="old_only[<{$v.id}>][]" id="" class="form-control col-sm-8" style="float:left;">
+                                                <select name="old_only[<{$v.id}>][<{$tv.id}>]" id="" class="form-control col-sm-8" style="float:left;">
                                                     <{volist name='attr_values' id='av'}>
                                                     <option <{if($av===$tv['value'])}>selected style="background-color:#eaeaea;"<{/if}> value="<{$av}>"><{$av}></option>
                                                     <{/volist}>
                                                 </select>
                                                 <{else}>
-                                                <input type="text" name="old_only[<{$v.id}>][]" id="" class="form-control col-sm-8" style="float:left;"  value="<{$tv['value']}>" >
+                                                <input type="text" name="old_only[<{$v.id}>][<{$tv['id']}>]" id="" class="form-control col-sm-8" style="float:left;"  value="<{$tv['value']}>" >
                                                 <{/if}>
                                                 <{/if}>
                                             </div>
@@ -542,7 +542,7 @@
         })
         $(document).on('click', '.add_attr_btn', function () {
             var objbox = $(this).parents('.goods_attr_item_box');
-            var obj = $(this).parents('.goods_attr_item_box');
+            var obj = $(this).parents('.goods_attr_item');
             var newDiv = obj.clone();
             newDiv.find('.add_attr_btn').removeClass('add_attr_btn').removeClass('fa-plus-circle').addClass('fa-minus-circle').addClass('remove_attr_btn')
             newDiv.find('select option').css('background-color','#fff');
@@ -586,7 +586,7 @@
         $(document).on('click','.delete_attr_btn',function(){
             var obj = $(this).parents('.goods_attr_item_box');
             var id = $(this).attr('data-id');
-            layer.confirm('确认删除该属性吗，删除属性将会影响原设定的产品库存设置！',{icon:3},function(index){
+            layer.confirm('确认删除该属性吗，删除属性将会清空原设定的产品库存设置,需要重新设置库存数量！',{icon:3},function(index){
                 layer.close(index);
                 var url = "<{:url('goods/delete_attr')}>";
                 var loading = layer.load(2);
