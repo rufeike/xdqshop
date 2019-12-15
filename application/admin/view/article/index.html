@@ -34,7 +34,7 @@
                         <tr>
                             <th>序号</th>
                             <th>文章标题</th>
-                            <th>关键字</th>
+                            <th>所属分类</th>
                             <th>文章描述</th>
                             <th>缩略图</th>
                             <th width="8%">排序</th>
@@ -48,7 +48,7 @@
                         <tr>
                             <td><{$k}></td>
                             <td><{$v.title}></td>
-                            <td><{$v.keywords}></td>
+                            <td><{$v.cate_name}></td>
                             <td title="<{$v.description}>"><{:mb_substr($v.description,0,10)}><{if mb_strlen($v.description)>30 }>...<{/if}></td>
                             <td><{if($v.thumb!='')}><img src="/<{$v.thumb}>" style="height: 40px;"><{/if}></td>
                             <td align="center"><input type="number" value="<{$v.sort}>" style="max-width: 60px;text-align: center;" onchange="ajaxSort('<{:url(\'article/ajaxSort\')}>',<{$v.id}>,$(this),'article')"></td>

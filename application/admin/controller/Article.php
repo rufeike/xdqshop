@@ -12,7 +12,7 @@ use rufeike\Catetree;
 
 class Article extends Base{
     public function index(){
-        $info= db('article')->where('is_del',1)->order('sort ASC,id DESC')->select();
+        $info= db('article')->alias('a')->join('article_category ac','a.cate_id = ac.id','LEFT')->where('a.is_del',1)->order('a.cate_id ASC,a.sort ASC,a.id DESC')->field('a.*,ac.cate_name,ac.id cate_id')->select();
         foreach($info as $k => $v) {
             if ($v['status'] == 1) {
                 $info[$k]['status_text'] = '<i class="fas fa-check-circle" style="color:#00ff00;font-size: 20px"></i>';
@@ -32,7 +32,7 @@ class Article extends Base{
 
     //回收站
     public function recycle(){
-        $info= db('article')->where('is_del',0)->order('sort ASC,id DESC')->select();
+        $info= db('article')->alias('a')->join('article_category ac','a.cate_id = ac.id','LEFT')->where('a.is_del',0)->order('a.cate_id ASC,a.sort ASC,a.id DESC')->field('a.*,ac.cate_name,ac.id cate_id')->select();
         foreach($info as $k => $v) {
             if ($v['status'] == 1) {
                 $info[$k]['status_text'] = '<i class="fas fa-check-circle" style="color:#00ff00;font-size: 20px"></i>';
@@ -92,7 +92,11 @@ class Article extends Base{
             get_jsonData(0,$validate->getError(),array('token'=>request()->token()));
         }
 
-        $pic = $this->rfkupload('file','article');
+        if(isset($_FILES['file'])&&$_FILES['file']){
+            $pic = $this->rfkupload('file','article');
+        }else{
+            $pic = '';
+        }
         $link_url = isset($param['link_url'])?trim($param['link_url']):'';
 
         if($link_url!=''){

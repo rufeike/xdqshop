@@ -147,6 +147,7 @@ return [
         '__PUBLIC__' => '/public',
         '__STATIC__' => '/public/static',
         '__ADMIN__' => '/public/static/admin',
+        '__INDEX__' => '/public/static/index',
         '__UPLOADS__' => '/public/uploads',
     ],
     // 默认跳转页面对应的模板文件

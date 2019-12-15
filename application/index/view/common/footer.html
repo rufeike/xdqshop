@@ -1,0 +1,65 @@
+<!-- 底部-->
+<style>
+	.article_box .article_item{
+		float:left;
+		margin-left:15px;
+	}
+
+	.article_box .article_item h4{
+       	font-size:1.5em;
+    }
+	.article_box .article_item:nth-child(1){
+		margin-left:0px;
+    }
+	.article_box:after{
+		content:'';
+		display: block;
+		clear: both;
+	}
+    .article_box .article_item li{
+		line-height: 25px;
+		height: 25px;
+	}
+
+	@media only screen and (max-width: 1025px) {
+		.footer-hd2{
+			max-width: 1000px!important;
+			margin:0 auto;
+		}
+	}
+
+	@media only screen and (min-width: 1260px) {
+		.footer-hd2{
+			max-width: 1200px;
+		}
+	}
+
+</style>
+<div class="footer " style="width:100%;">
+    <div style="max-width: 1200px;margin:15px auto;">
+	<div class="footer-hd2">
+		<ul class="article_box am-avg-sm-1 am-avg-md-6">
+			<{volist name='helpArticles' id='hav'}>
+			<li class="article_item">
+				<h4><{$hav.cate_name}></h4>
+				<ul>
+                    <{volist name='hav.articles' id='av'}>
+					<li><a href="<{:url('index/article/index',array('id'=>$av['id']))}>"><{$av.title}></a></li>
+					<{/volist}>
+				</ul>
+			</li>
+			<{/volist}>
+		</ul>
+	</div>
+		<br>
+	<div class="footer-bd ">
+		<p style="text-align: center">
+			<{volist name='webArticles' id='wv'}>
+			<a href="<{:url('index/article/index',array('id'=>$wv['id']))}>"><{$wv.title}></a>
+            <{/volist}>
+
+			<em><{$configInfo.copy}></em>
+		</p>
+	</div>
+	</div>
+</div>

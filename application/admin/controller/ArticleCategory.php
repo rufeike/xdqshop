@@ -12,7 +12,7 @@ use think\Db;
 
 class ArticleCategory extends Base{
     public function index(){
-        $info= db('article_category')->alias('AC')->join('article_category PAC','AC.pid = PAC.id','LEFT')->where('AC.is_del',1)->order('AC.sort DESC,AC.id DESC')->field("AC.*,PAC.cate_name as pname")->select();
+        $info= db('article_category')->alias('AC')->join('article_category PAC','AC.pid = PAC.id','LEFT')->where('AC.is_del',1)->order('AC.sort ASC,AC.id DESC')->field("AC.*,PAC.cate_name as pname")->select();
         $cateTree = new Catetree($info);
         $info = $cateTree->getTree();
 
@@ -148,7 +148,7 @@ class ArticleCategory extends Base{
         //判断添加和修改
         if ($action == 'add') {
             $data['create_time'] = time();
-            $data['cate_type'] = isset($cate_type[0])?$cate_type[0]:0;
+            $data['cate_type'] = isset($cate_type['cate_type'])?$cate_type['cate_type']:0;
             $id = db('article_category')->insert($data);
             if ($id) {
                 get_jsonData(200, '操作成功');
@@ -178,7 +178,7 @@ class ArticleCategory extends Base{
             }else if($id==3){
                 $data['cate_type'] = 3;
             }else{
-                $data['cate_type'] = isset($cate_type[0])?$cate_type[0]:0;
+                $data['cate_type'] = isset($cate_type['cate_type'])?$cate_type['cate_type']:0;
             }
 
 

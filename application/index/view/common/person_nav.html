@@ -1,0 +1,42 @@
+<aside class="menu">
+	<ul>
+		<li class="person" <{if($Request.action=='index')}>class="active"<{/if}> >
+			<a href="<{:url('person/index')}>">个人中心</a>
+		</li>
+		<li class="person">
+			<a href="#">个人资料</a>
+			<ul>
+				<li <{if($Request.action=='information')}>class="active"<{/if}> > <a href="<{:url('person/information')}>">个人信息</a></li>
+				<li <{if($Request.action=='safety')}>class="active"<{/if}> > <a href="<{:url('person/safety')}>">安全设置</a></li>
+				<li <{if($Request.action=='address')}>class="active"<{/if}> > <a href="<{:url('person/address')}>">收货地址</a></li>
+			</ul>
+		</li>
+		<li class="person">
+			<a href="#">我的交易</a>
+			<ul>
+				<li <{if($Request.action=='order')}>class="active"<{/if}> ><a href="<{:url('person/order')}>">订单管理</a></li>
+				<li <{if($Request.action=='change')}>class="active"<{/if}> > <a href="<{:url('person/change')}>">退款售后</a></li>
+			</ul>
+		</li>
+		<li class="person">
+			<a href="#">我的资产</a>
+			<ul>
+				<li <{if($Request.action=='coupon')}>class="active"<{/if}> > <a href="<{:url('person/coupon')}>">优惠券 </a></li>
+				<li <{if($Request.action=='bonus')}>class="active"<{/if}> > <a href="<{:url('person/bonus')}>">红包</a></li>
+				<li <{if($Request.action=='bill')}>class="active"<{/if}> > <a href="<{:url('person/bill')}>">账单明细</a></li>
+			</ul>
+		</li>
+
+		<li class="person">
+			<a href="#">我的小窝</a>
+			<ul>
+				<li <{if($Request.action=='collection')}>class="active"<{/if}> > <a href="<{:url('person/collection')}>">收藏</a></li>
+				<li <{if($Request.action=='foot')}>class="active"<{/if}> > <a href="<{:url('person/foot')}>">足迹</a></li>
+				<li <{if($Request.action=='comment')}>class="active"<{/if}> > <a href="<{:url('person/commentlist')}>">评价</a></li>
+				<li <{if($Request.action=='news')}>class="active"<{/if}> > <a href="<{:url('person/news')}>">消息</a></li>
+			</ul>
+		</li>
+
+	</ul>
+
+</aside>

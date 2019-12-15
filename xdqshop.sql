@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50727
 File Encoding         : 65001
 
-Date: 2019-12-09 00:05:28
+Date: 2019-12-15 22:52:36
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,18 +36,29 @@ CREATE TABLE `tp_article` (
   `is_del` tinyint(1) DEFAULT '1' COMMENT '默认1：正常 1：删除',
   `link_url` varchar(255) DEFAULT NULL COMMENT '外部链接地址',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COMMENT='文章表';
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COMMENT='文章表';
 
 -- ----------------------------
 -- Records of tp_article
 -- ----------------------------
-INSERT INTO `tp_article` VALUES ('4', '1', '年庆优惠', '', null, '', null, '2', '99', '0', '0', null, '0', '1', null);
-INSERT INTO `tp_article` VALUES ('5', '1', '新手指南', '', null, '', null, '12', '99', '0', '0', null, '0', '1', null);
-INSERT INTO `tp_article` VALUES ('7', '1', '支付说明', '', 'public\\uploads\\article\\20191128\\99618728dceb597963438d60475dd460.jpg', '', '<p><img src=\"/public/ueditor/image/20191126/1574773033157353.png\" title=\"1574773033157353.png\" alt=\"tag-1.png\"/></p>', '2', '99', '0', '0', null, '1574956018', '1', '');
-INSERT INTO `tp_article` VALUES ('8', '1', '免责声明', '', null, '', null, '7', '99', '0', '0', null, '0', '1', null);
-INSERT INTO `tp_article` VALUES ('9', '1', '支付宝支付', '', '', '', '<p><img src=\"/public/ueditor/image/20191126/1574771681757601.jpg\" title=\"1574771681757601.jpg\" alt=\"login_bg.jpg\"/></p>', '7', '99', '1', '0', null, '1574771684', '1', '');
-INSERT INTO `tp_article` VALUES ('10', '1', '微信支付', '', 'public\\uploads\\article\\20191128\\3cb7d3f0b78a51b03ebd74c1c7e9ebdc.jpg', '', '<p>45454</p>', '7', '99', '0', '1', null, '1574956008', '1', '');
-INSERT INTO `tp_article` VALUES ('15', '老公', '我老婆使用信用卡心得', '我老婆', 'public\\uploads\\article\\20191128\\d2f6a141fe686106f8f205de9350dd9d.jpg', '我老婆超额贷款', '<p>放得开发快递发的开发贷款发的咖啡店父类大风大浪发卡方发卡夫卡六块腹肌卡了法力浮龙的奥卡菲娜付款啦法拉开发暖风机afafklafa凯迪拉克你客<br/></p><p>亏大发了发卡量发了疯奥拉夫啦lfakfalfdkfka</p><p><br/></p><p><br/></p><p>辅导费健康路否那falf</p><p><br/></p><p>代付款发快递看就看见风使舵金粉世家方法sjwmf.v四季分明快捷方式咖啡机积分开始大家风范节目否爱睡觉按啥的看法夹噶嘎婆上课慢jaguargfagh&#39;gkf赶紧来看古灵精怪</p><p>LGJLSGN&#39;SLGHALS</p><p><img src=\"/public/ueditor/image/20191126/1574782927279414.jpg\" title=\"1574782927279414.jpg\" alt=\"001.JPG\"/></p><p>&nbsp;ASIDGLKDGNLL海格力斯看过了更好地客户嘎嘎红薯干活uwdtierhj8vbjwk4ntofnb</p>', '7', '99', '0', '1', '1574782955', '1574955997', '0', 'http://www.rufeike.top');
+INSERT INTO `tp_article` VALUES ('1', '如非客', '售后流程', '售后流程', '', '售后流程', '<p>售后流程</p>', '4', '1', '0', '1', '1576339023', '0', '1', '');
+INSERT INTO `tp_article` VALUES ('2', '如非客', '购物流程', '购物流程', 'public\\uploads\\article\\20191214\\7bc23cf73afaec8597b9051b8f49dc23.jpg', '', '<p style=\"padding: 0px; line-height: 1.75em; color: rgb(94, 94, 94); font-family: &quot;Microsoft YaHei&quot;; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255);\"><img src=\"https://gfs12.gomein.net.cn/T1j2VvBXZ_1RCvBVdK.png\" title=\"国美购物流程（8.14）\"/></p><p style=\"padding: 0px; line-height: 1.75em; color: rgb(94, 94, 94); font-family: &quot;Microsoft YaHei&quot;; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255);\">1. 注册/登录</p><p style=\"padding: 0px; line-height: 1.75em; color: rgb(94, 94, 94); font-family: &quot;Microsoft YaHei&quot;; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255);\">&nbsp;&nbsp;&nbsp; 登录国美账号，如果您还没有国美账户，请点击“注册”</p><p style=\"padding: 0px; line-height: 1.75em; color: rgb(94, 94, 94); font-family: &quot;Microsoft YaHei&quot;; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255);\">2. 选购商品</p><p style=\"padding: 0px; line-height: 1.75em; color: rgb(94, 94, 94); font-family: &quot;Microsoft YaHei&quot;; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255);\">&nbsp;&nbsp;&nbsp; 分类浏览或直接搜索查找商品</p><p style=\"padding: 0px; line-height: 1.75em; color: rgb(94, 94, 94); font-family: &quot;Microsoft YaHei&quot;; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255);\">3. 加入购物车</p><p style=\"padding: 0px; line-height: 1.75em; color: rgb(94, 94, 94); font-family: &quot;Microsoft YaHei&quot;; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255);\">&nbsp;&nbsp;&nbsp; 商品加入购物车去结算或者继续购物</p><p style=\"padding: 0px; line-height: 1.75em; color: rgb(94, 94, 94); font-family: &quot;Microsoft YaHei&quot;; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255);\">4. 去结算</p><p style=\"padding: 0px; line-height: 1.75em; color: rgb(94, 94, 94); font-family: &quot;Microsoft YaHei&quot;; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255);\">&nbsp;&nbsp; 点击去结算按钮，进入订单信息页面，确认您的收货地址、联系方式、支付方式、配送方式、发票信息</p><p style=\"padding: 0px; line-height: 1.75em; color: rgb(94, 94, 94); font-family: &quot;Microsoft YaHei&quot;; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255);\">5. 提交订单</p><p style=\"padding: 0px; line-height: 1.75em; color: rgb(94, 94, 94); font-family: &quot;Microsoft YaHei&quot;; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255);\">&nbsp;&nbsp;&nbsp; 确认无误，提交订单，完成支付</p><p style=\"padding: 0px; line-height: 1.75em; color: rgb(94, 94, 94); font-family: &quot;Microsoft YaHei&quot;; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255);\">6. 查看订单</p><p style=\"padding: 0px; line-height: 1.75em; color: rgb(94, 94, 94); font-family: &quot;Microsoft YaHei&quot;; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255);\">&nbsp;&nbsp;&nbsp; 在“我的”-“全部订单”页面，查看订单状态，了解商品配送流程</p><p style=\"padding: 0px; line-height: 1.75em; color: rgb(94, 94, 94); font-family: &quot;Microsoft YaHei&quot;; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255);\">7. 确认收货</p><p style=\"padding: 0px; line-height: 1.75em; color: rgb(94, 94, 94); font-family: &quot;Microsoft YaHei&quot;; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255);\">&nbsp;&nbsp;&nbsp; 确认收货，参与商品评价互动</p><p><br/></p>', '4', '2', '0', '1', '1576339065', '1576402750', '1', '');
+INSERT INTO `tp_article` VALUES ('3', '如非客', '订购方式', '订购方式', '', '', '<p>订购方式</p>', '4', '3', '0', '1', '1576339139', '1576339516', '1', '');
+INSERT INTO `tp_article` VALUES ('4', '如非客', '货到付款区域', '货到付款区域', '', '', '<p>货到付款区域</p>', '6', '1', '0', '1', '1576339180', '0', '1', '');
+INSERT INTO `tp_article` VALUES ('5', '如非客', '配送支付智能查询', '配送支付智能查询', '', '', '<p>配送支付智能查询</p>', '6', '2', '0', '1', '1576339206', '0', '1', '');
+INSERT INTO `tp_article` VALUES ('6', '如非客', '支付方式说明', '支付方式说明', '', '支付方式说明', '<p>支付方式说明</p>', '6', '3', '0', '1', '1576339228', '0', '1', '');
+INSERT INTO `tp_article` VALUES ('7', '如非客', '资金管理', '资金管理', '', '资金管理', '<p>资金管理</p>', '7', '1', '0', '1', '1576339255', '0', '1', '');
+INSERT INTO `tp_article` VALUES ('8', '如非客', '我的收藏', '我的收藏', '', '我的收藏', '<p>我的收藏</p>', '7', '2', '0', '1', '1576339285', '0', '1', '');
+INSERT INTO `tp_article` VALUES ('9', '如非客', '我的订单', '我的订单', '', '', '<p>我的订单<br/></p>', '7', '3', '0', '1', '1576339314', '0', '1', '');
+INSERT INTO `tp_article` VALUES ('10', '如非客', '退换货政策', '退换货政策', '', '', '<p style=\"padding: 0px; line-height: 1.75em; color: rgb(94, 94, 94); font-family: &quot;Microsoft YaHei&quot;; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255);\">国美为您提供了在线受理退换货的服务，您只需要登录您的国美账户，在“<a href=\"http://myhome.gome.com.cn/member/myReturnGoodList\" title=\"\" style=\"text-decoration-line: none; color: rgb(94, 94, 94); outline: 0px; cursor: pointer;\"><span style=\"font-weight: 700; line-height: 1.5;\"><span style=\"color: rgb(79, 129, 189);\">我的国美—退换货单</span></span></a>”页面中在线提交申请信息即可！具体操作流程如下：</p><p style=\"padding: 0px; line-height: 1.75em; color: rgb(94, 94, 94); font-family: &quot;Microsoft YaHei&quot;; font-size: 14px; white-space: normal; background-color: rgb(255, 255, 255);\"><img src=\"https://gfs11.gomein.net.cn/T1OMDvB5hT1RCvBVdK.jpg\" title=\"20131213165927_822\"/></p><p><br/></p>', '8', '1', '0', '1', '1576339358', '1576400492', '1', '');
+INSERT INTO `tp_article` VALUES ('11', '如非客', '售后服务保证', '售后服务保证', '', '售后服务保证', '<p>售后服务保证</p>', '8', '2', '0', '1', '1576339382', '1576339505', '1', '');
+INSERT INTO `tp_article` VALUES ('12', '如非客', '产品质量保证', '产品质量保证', '', '', '<p><img src=\"https://gfs11.gomein.net.cn/T1E0CvBbVv1RCvBVdK.png\"/></p>', '8', '3', '0', '1', '1576339403', '1576400051', '1', '');
+INSERT INTO `tp_article` VALUES ('13', '如非客', '网站故障报告', '网站故障报告', '', '网站故障报告', '<p>网站故障报告</p>', '9', '1', '0', '1', '1576339430', '0', '1', '');
+INSERT INTO `tp_article` VALUES ('14', '如非客', '选购咨询', '选购咨询', '', '', '<p>选购咨询</p>', '9', '2', '0', '1', '1576339476', '0', '1', '');
+INSERT INTO `tp_article` VALUES ('15', '如非客', '投诉与建议', '投诉与建议', '', '', '<p>投诉与建议</p>', '9', '3', '0', '1', '1576339494', '0', '1', '');
+INSERT INTO `tp_article` VALUES ('16', '', '合作伙伴', '合作伙伴', '', '', '<p>合作伙伴合作伙伴合作伙伴合作伙伴</p>', '3', '99', '0', '0', '1576421236', '0', '1', '');
+INSERT INTO `tp_article` VALUES ('17', '', '联系我们', '', '', '', '<p>联系我们联系我们联系我们</p>', '3', '99', '0', '0', '1576421263', '0', '1', '');
+INSERT INTO `tp_article` VALUES ('18', '', '网站地图', '', '', '', '<p>网站地图</p>', '3', '99', '0', '0', '1576421294', '0', '1', '');
 
 -- ----------------------------
 -- Table structure for tp_article_category
@@ -67,24 +78,23 @@ CREATE TABLE `tp_article_category` (
   `cate_type` tinyint(1) DEFAULT '0' COMMENT '分类类型 默认0：普通分类，1：系统分类  2：网店帮助，3：网店信息',
   `allow_add` tinyint(1) DEFAULT '1' COMMENT '是否可以添加子分类 默认为1：可添加，0：不可添加',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COMMENT='文章分类表';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COMMENT='文章分类表';
 
 -- ----------------------------
 -- Records of tp_article_category
 -- ----------------------------
-INSERT INTO `tp_article_category` VALUES ('1', '系统分类', null, '', '', '0', '104', '1', '1', '1574604114', '1', '0');
-INSERT INTO `tp_article_category` VALUES ('2', '网店帮助', null, '', 'dfafafd', '1', '98', '1', '1', '1574607894', '2', '0');
-INSERT INTO `tp_article_category` VALUES ('3', '网店信息', null, '', '', '1', '99', '0', '1', null, '3', '0');
-INSERT INTO `tp_article_category` VALUES ('4', '年庆优惠', null, '', '', '2', '99', '0', '1', null, '0', '1');
-INSERT INTO `tp_article_category` VALUES ('5', '新手指南', null, '', '', '12', '99', '0', '1', null, '0', '1');
-INSERT INTO `tp_article_category` VALUES ('6', '其他分类', null, '', 'fdfd', '0', '95', '0', '1', null, '0', '1');
-INSERT INTO `tp_article_category` VALUES ('7', '支付说明', null, '', '', '4', '99', '0', '1', null, '0', '1');
-INSERT INTO `tp_article_category` VALUES ('8', '免责声明', null, '', '', '7', '99', '0', '1', null, '0', '1');
-INSERT INTO `tp_article_category` VALUES ('9', '支付宝支付', null, '', '', '7', '99', '0', '1', null, '0', '1');
-INSERT INTO `tp_article_category` VALUES ('10', '微信支付', null, null, null, '7', '99', '0', '1', null, '0', '1');
-INSERT INTO `tp_article_category` VALUES ('11', '闪电付', null, '', '', '7', '99', '0', '1', null, '0', '1');
-INSERT INTO `tp_article_category` VALUES ('12', '购物流程', null, null, null, '5', '99', '0', '1', null, '0', '1');
-INSERT INTO `tp_article_category` VALUES ('13', 'fdfdfd', null, '', 'dfdfd', '4', '99', '0', '0', '1574661095', '0', '1');
+INSERT INTO `tp_article_category` VALUES ('1', '系统分类', null, '系统分类', '系统默认', '0', '99', '1', '1', '1576337703', '1', '0');
+INSERT INTO `tp_article_category` VALUES ('2', '网店帮助', null, '网店帮助', '网店帮助', '1', '99', '1', '1', '1576337745', '2', '1');
+INSERT INTO `tp_article_category` VALUES ('3', '网店信息', null, '网店信息', '网店信息', '1', '98', '1', '1', '1576337777', '3', '0');
+INSERT INTO `tp_article_category` VALUES ('4', '新手上路', null, '', '新手上路', '2', '1', '1', '1', '1576338179', '2', '1');
+INSERT INTO `tp_article_category` VALUES ('5', ' 站内快讯', null, ' 站内快讯', ' 站内快讯', '0', '99', '1', '1', '1576338270', '0', '1');
+INSERT INTO `tp_article_category` VALUES ('6', '配送与支付', null, '', '配送与支付', '2', '2', '1', '1', '1576338469', '2', '1');
+INSERT INTO `tp_article_category` VALUES ('7', '会员中心', null, '', '会员中心', '2', '3', '1', '1', '1576338501', '2', '1');
+INSERT INTO `tp_article_category` VALUES ('8', '服务保证', null, '', '服务保证', '2', '4', '1', '1', '1576338543', '2', '1');
+INSERT INTO `tp_article_category` VALUES ('9', '联系我们', null, '', '联系我们', '2', '5', '1', '1', '1576338576', '2', '1');
+INSERT INTO `tp_article_category` VALUES ('10', '测试', null, '', '', '2', '99', '0', '0', '1576342125', '2', '1');
+INSERT INTO `tp_article_category` VALUES ('11', '公告', null, '公告', '公告', '0', '99', '1', '1', '1576386046', '0', '1');
+INSERT INTO `tp_article_category` VALUES ('12', '促销', null, '促销', '促销', '0', '99', '1', '1', '1576386089', '0', '1');
 
 -- ----------------------------
 -- Table structure for tp_brand
@@ -133,18 +143,18 @@ CREATE TABLE `tp_config` (
 -- ----------------------------
 -- Records of tp_config
 -- ----------------------------
-INSERT INTO `tp_config` VALUES ('1', 'website', '站点', 'input', 'gfgfg', '', '1', '53', '0', null, '1');
+INSERT INTO `tp_config` VALUES ('1', 'website', '站点', 'input', '量繁多百货', '', '1', '53', '0', null, '1');
 INSERT INTO `tp_config` VALUES ('2', 'description', '企业介绍', 'textarea', '', '', '1', '48', '0', '1574863805', '1');
-INSERT INTO `tp_config` VALUES ('3', 'isVcode', '是否开启验证码', 'radio', '关闭', '开启,关闭', '1', '50', '0', '1574868889', '1');
+INSERT INTO `tp_config` VALUES ('3', 'isVcode', '是否开启验证码', 'radio', '开启', '开启,关闭', '1', '50', '0', '1574868889', '1');
 INSERT INTO `tp_config` VALUES ('4', 'checkboxTest', '测试多选', 'checkbox', '多选1,多选4', '多选1,多选2,多选3,多选4', '1', '50', '0', '1574869007', '1');
 INSERT INTO `tp_config` VALUES ('5', 'selectTest', '测试下拉框', 'select', '下拉3', '下拉1,下拉2,下拉3,下拉4', '1', '50', '0', '1574869080', '1');
-INSERT INTO `tp_config` VALUES ('6', 'qrcode', '二维码', 'file', 'public\\uploads\\config\\20191128\\bf85223890ad189165bd64b79ae51edf.png', '', '1', '50', '0', '1574869132', '1');
-INSERT INTO `tp_config` VALUES ('7', 'wxcode', '微信二维码', 'file', 'public\\uploads\\config\\20191128\\ea89a06c799f961bbcac6e6797881fb5.jpg', '', '1', '50', '0', '1574869166', '1');
-INSERT INTO `tp_config` VALUES ('8', 'seotitle', 'SEO标题', 'input', '', '', '1', '50', '0', '1574915902', '1');
-INSERT INTO `tp_config` VALUES ('9', 'seokeywords', 'SEO关键字', 'input', '', '', '1', '50', '0', '1574915934', '1');
-INSERT INTO `tp_config` VALUES ('10', 'seodescription', 'SEO描述', 'textarea', '', '', '1', '50', '0', '1574915982', '1');
-INSERT INTO `tp_config` VALUES ('11', 'checkboxTest2', '多选框测试2', 'checkbox', '复选框2,复选框3', '复选框1,复选框2,复选框3,复选框4', '1', '50', '0', '1574918025', '1');
-INSERT INTO `tp_config` VALUES ('12', 'shoppingTest', '商品配置测试', 'input', '大幅度发', '', '1', '50', '1', '1574955177', '1');
+INSERT INTO `tp_config` VALUES ('6', 'waplogo', '手机端logo', 'file', 'public\\uploads\\config\\20191215\\37d4488e849ffb55b178d02cbcdb6e3b.png', '', '1', '50', '0', '1574869132', '1');
+INSERT INTO `tp_config` VALUES ('7', 'weblogo', '电脑端logo', 'file', 'public\\uploads\\config\\20191215\\ebcbab72ecf8dc7a58eaa545c14da040.png', '', '1', '50', '0', '1574869166', '1');
+INSERT INTO `tp_config` VALUES ('8', 'seotitle', 'SEO标题', 'input', '繁有多超市', '', '1', '50', '0', '1574915902', '1');
+INSERT INTO `tp_config` VALUES ('9', 'seokeywords', 'SEO关键字', 'input', '益智玩具，数码产品', '', '1', '50', '0', '1574915934', '1');
+INSERT INTO `tp_config` VALUES ('10', 'seodescription', 'SEO描述', 'textarea', '益智玩具，数码产品，益智玩具，数码产品，益智玩具，数码产品', '', '1', '50', '0', '1574915982', '1');
+INSERT INTO `tp_config` VALUES ('11', 'icp', 'ICP备案号', 'input', '11010502038379号', '', '1', '50', '0', '1574918025', '1');
+INSERT INTO `tp_config` VALUES ('12', 'copy', '版权', 'input', '© 2019-2020', '', '1', '50', '0', '1574955177', '1');
 
 -- ----------------------------
 -- Table structure for tp_goods
@@ -173,18 +183,13 @@ CREATE TABLE `tp_goods` (
   `update_time` bigint(20) DEFAULT '0' COMMENT '更新数据',
   `is_del` tinyint(1) DEFAULT '1' COMMENT '是否删除，默认1正常，0删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COMMENT='商品表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='商品表';
 
 -- ----------------------------
 -- Records of tp_goods
 -- ----------------------------
-INSERT INTO `tp_goods` VALUES ('1', '15', '15_11_10_', null, '联想Level5600', 'public\\uploads\\goods\\20191208\\efa080b014d91686e3593cff07b3c97f.jpg', 'public\\uploads\\goods\\20191208\\sm_efa080b014d91686e3593cff07b3c97f.jpg', 'public\\uploads\\goods\\20191208\\mid_efa080b014d91686e3593cff07b3c97f.jpg', 'public\\uploads\\goods\\20191208\\big_efa080b014d91686e3593cff07b3c97f.jpg', '3', '&lt;p&gt;&lt;img src=&quot;/public/ueditor/image/20191208/1575777235852408.jpg&quot; title=&quot;1575777235852408.jpg&quot; alt=&quot;timg (2).jpg&quot;/&gt;&lt;/p&gt;', '12', 'kg', '1', '7800.00', '7500.00', '0', '51', '1575777380', '0', '1');
-INSERT INTO `tp_goods` VALUES ('2', '9', '9_', null, 'dsdsds', null, null, null, null, '1', '', '434334', 'kg', '0', '34.00', '343.00', '0', '50', '1575813595', '0', '1');
-INSERT INTO `tp_goods` VALUES ('3', '9', '9_', null, '232', null, null, null, null, '1', '', '3232', 'kg', '0', '2.00', '232.00', '0', '50', '1575813920', '0', '1');
-INSERT INTO `tp_goods` VALUES ('4', '9', '9_', null, '232232', null, null, null, null, '1', '', '232', 'kg', '0', '2332.00', '23232.00', '0', '50', '1575813973', '0', '1');
-INSERT INTO `tp_goods` VALUES ('5', '18', '18_9_', null, '23323323223', null, null, null, null, '1', '', '2332332', 'kg', '0', '232.00', '232.00', '0', '50', '1575814002', '0', '1');
-INSERT INTO `tp_goods` VALUES ('6', '17', '17_9_', null, '1111111111111', null, null, null, null, '2', '', '223', 'kg', '0', '11111.00', '111.00', '0', '50', '1575814133', '0', '1');
-INSERT INTO `tp_goods` VALUES ('7', '28', '28_27_19_9_', null, '2222222222222', null, null, null, null, '2', '', '232', 'kg', '0', '32.00', '23.00', '0', '50', '1575814287', '0', '1');
+INSERT INTO `tp_goods` VALUES ('1', '15', '15_11_10_', '157595757353172', '联想Level5600', 'public\\uploads\\goods\\20191210\\c0527d99d74357922ae5fcfb42db1620.jpg', 'public\\uploads\\goods\\20191210\\sm_c0527d99d74357922ae5fcfb42db1620.jpg', 'public\\uploads\\goods\\20191210\\mid_c0527d99d74357922ae5fcfb42db1620.jpg', 'public\\uploads\\goods\\20191210\\big_c0527d99d74357922ae5fcfb42db1620.jpg', '3', '&lt;p&gt;&lt;img src=&quot;/public/ueditor/image/20191210/1575957408880600.jpg&quot; title=&quot;1575957408880600.jpg&quot; alt=&quot;timg (2).jpg&quot;/&gt;&lt;/p&gt;', '10', 'kg', '1', '7000.00', '6500.00', '0', '50', '1575957572', '1575957666', '1');
+INSERT INTO `tp_goods` VALUES ('2', '21', '21_9_', '157595774095775', '立式空调', 'public\\uploads\\goods\\20191210\\b69bc0cc762119955e74f108b4cc64b7.jpg', 'public\\uploads\\goods\\20191210\\sm_b69bc0cc762119955e74f108b4cc64b7.jpg', 'public\\uploads\\goods\\20191210\\mid_b69bc0cc762119955e74f108b4cc64b7.jpg', 'public\\uploads\\goods\\20191210\\big_b69bc0cc762119955e74f108b4cc64b7.jpg', '1', '', '70', 'kg', '0', '10000.00', '9000.00', '0', '50', '1575957740', '0', '1');
 
 -- ----------------------------
 -- Table structure for tp_goods_attribute
@@ -200,7 +205,7 @@ CREATE TABLE `tp_goods_attribute` (
   `status` tinyint(4) DEFAULT '0' COMMENT '是否显示，默认0不显示，1显示',
   `is_del` tinyint(4) DEFAULT '1' COMMENT '是否删除，默认1正常 ，0删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COMMENT='商品属性表';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COMMENT='商品属性表';
 
 -- ----------------------------
 -- Records of tp_goods_attribute
@@ -214,6 +219,7 @@ INSERT INTO `tp_goods_attribute` VALUES ('6', 'CPU', '1', 'Internet,奔腾', '1'
 INSERT INTO `tp_goods_attribute` VALUES ('7', '显卡', '1', '', '1', '0', '0', '1');
 INSERT INTO `tp_goods_attribute` VALUES ('8', '生产日期', '0', '', '1', '0', '0', '1');
 INSERT INTO `tp_goods_attribute` VALUES ('9', '厂家', '0', '', '1', '0', '0', '1');
+INSERT INTO `tp_goods_attribute` VALUES ('10', '颜色', '1', '黑色,红色,白色,黄色', '1', '0', '0', '1');
 
 -- ----------------------------
 -- Table structure for tp_goods_attribute_detail
@@ -228,20 +234,25 @@ CREATE TABLE `tp_goods_attribute_detail` (
   PRIMARY KEY (`id`),
   KEY `goods_id` (`goods_id`),
   KEY `goods_attribute_id` (`goods_attribute_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COMMENT='商品属性详细表';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COMMENT='商品属性详细表';
 
 -- ----------------------------
 -- Records of tp_goods_attribute_detail
 -- ----------------------------
-INSERT INTO `tp_goods_attribute_detail` VALUES ('1', '1', '7', '独立显卡', '100.00');
-INSERT INTO `tp_goods_attribute_detail` VALUES ('2', '1', '7', '集成显卡', '0.00');
-INSERT INTO `tp_goods_attribute_detail` VALUES ('3', '1', '5', '4G', '100.00');
-INSERT INTO `tp_goods_attribute_detail` VALUES ('4', '1', '5', '8G', '150.00');
-INSERT INTO `tp_goods_attribute_detail` VALUES ('5', '1', '5', '16G', '200.00');
-INSERT INTO `tp_goods_attribute_detail` VALUES ('6', '1', '6', 'Internet', '100.00');
-INSERT INTO `tp_goods_attribute_detail` VALUES ('7', '1', '6', '奔腾', '50.00');
-INSERT INTO `tp_goods_attribute_detail` VALUES ('8', '1', '8', '2019-10-10', '0.00');
-INSERT INTO `tp_goods_attribute_detail` VALUES ('9', '1', '9', '深圳富士康', '0.00');
+INSERT INTO `tp_goods_attribute_detail` VALUES ('1', '1', '7', '集成显卡', '0.00');
+INSERT INTO `tp_goods_attribute_detail` VALUES ('2', '1', '7', '独立显卡', '100.00');
+INSERT INTO `tp_goods_attribute_detail` VALUES ('3', '1', '10', '黑色', '0.00');
+INSERT INTO `tp_goods_attribute_detail` VALUES ('4', '1', '10', '红色', '20.00');
+INSERT INTO `tp_goods_attribute_detail` VALUES ('5', '1', '10', '白色', '25.00');
+INSERT INTO `tp_goods_attribute_detail` VALUES ('6', '1', '10', '黄色', '5.00');
+INSERT INTO `tp_goods_attribute_detail` VALUES ('7', '1', '5', '4G', '0.00');
+INSERT INTO `tp_goods_attribute_detail` VALUES ('8', '1', '5', '8G', '100.00');
+INSERT INTO `tp_goods_attribute_detail` VALUES ('9', '1', '5', '16G', '200.00');
+INSERT INTO `tp_goods_attribute_detail` VALUES ('10', '1', '5', '32G', '300.00');
+INSERT INTO `tp_goods_attribute_detail` VALUES ('11', '1', '6', 'Internet', '100.00');
+INSERT INTO `tp_goods_attribute_detail` VALUES ('12', '1', '6', '奔腾', '50.00');
+INSERT INTO `tp_goods_attribute_detail` VALUES ('13', '1', '8', '2019-12-10', '0.00');
+INSERT INTO `tp_goods_attribute_detail` VALUES ('14', '1', '9', '深圳富士康', '0.00');
 
 -- ----------------------------
 -- Table structure for tp_goods_category
@@ -312,12 +323,19 @@ CREATE TABLE `tp_goods_photo` (
   `big_thumb` varchar(255) DEFAULT NULL COMMENT '大图',
   PRIMARY KEY (`id`),
   KEY `goods_id` (`goods_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='商品相册表';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COMMENT='商品相册表';
 
 -- ----------------------------
 -- Records of tp_goods_photo
 -- ----------------------------
 INSERT INTO `tp_goods_photo` VALUES ('1', '1', 'public\\uploads\\goods\\20191208\\368f6fd1d7c868b23a14d85bec1a61e8.jpg', 'public\\uploads\\goods\\20191208\\sm_368f6fd1d7c868b23a14d85bec1a61e8.jpg', 'public\\uploads\\goods\\20191208\\mid_368f6fd1d7c868b23a14d85bec1a61e8.jpg', 'public\\uploads\\goods\\20191208\\big_368f6fd1d7c868b23a14d85bec1a61e8.jpg');
+INSERT INTO `tp_goods_photo` VALUES ('2', '8', 'public\\uploads\\goods\\20191209\\d7c650f7c5424636fd16033f2a6bc1db.png', 'public\\uploads\\goods\\20191209\\sm_d7c650f7c5424636fd16033f2a6bc1db.png', 'public\\uploads\\goods\\20191209\\mid_d7c650f7c5424636fd16033f2a6bc1db.png', 'public\\uploads\\goods\\20191209\\big_d7c650f7c5424636fd16033f2a6bc1db.png');
+INSERT INTO `tp_goods_photo` VALUES ('3', '10', 'public\\uploads\\goods\\20191210\\5ef1c4f55c5e71295723b0bf6b764eac.png', 'public\\uploads\\goods\\20191210\\sm_5ef1c4f55c5e71295723b0bf6b764eac.png', 'public\\uploads\\goods\\20191210\\mid_5ef1c4f55c5e71295723b0bf6b764eac.png', 'public\\uploads\\goods\\20191210\\big_5ef1c4f55c5e71295723b0bf6b764eac.png');
+INSERT INTO `tp_goods_photo` VALUES ('4', '11', 'public\\uploads\\goods\\20191210\\d466ebb4993bbf978b37ddf2f67b44fa.jpg', 'public\\uploads\\goods\\20191210\\sm_d466ebb4993bbf978b37ddf2f67b44fa.jpg', 'public\\uploads\\goods\\20191210\\mid_d466ebb4993bbf978b37ddf2f67b44fa.jpg', 'public\\uploads\\goods\\20191210\\big_d466ebb4993bbf978b37ddf2f67b44fa.jpg');
+INSERT INTO `tp_goods_photo` VALUES ('5', '11', 'public\\uploads\\goods\\20191210\\5981aa527a1d9d5096fe0c7ecd160087.jpg', 'public\\uploads\\goods\\20191210\\sm_5981aa527a1d9d5096fe0c7ecd160087.jpg', 'public\\uploads\\goods\\20191210\\mid_5981aa527a1d9d5096fe0c7ecd160087.jpg', 'public\\uploads\\goods\\20191210\\big_5981aa527a1d9d5096fe0c7ecd160087.jpg');
+INSERT INTO `tp_goods_photo` VALUES ('6', '1', 'public\\uploads\\goods\\20191210\\773f41f4b536438058686e3821f6a1a7.jpg', 'public\\uploads\\goods\\20191210\\sm_773f41f4b536438058686e3821f6a1a7.jpg', 'public\\uploads\\goods\\20191210\\mid_773f41f4b536438058686e3821f6a1a7.jpg', 'public\\uploads\\goods\\20191210\\big_773f41f4b536438058686e3821f6a1a7.jpg');
+INSERT INTO `tp_goods_photo` VALUES ('7', '1', 'public\\uploads\\goods\\20191210\\2f1bad06e77611e6712f01aea67c6a68.jpg', 'public\\uploads\\goods\\20191210\\sm_2f1bad06e77611e6712f01aea67c6a68.jpg', 'public\\uploads\\goods\\20191210\\mid_2f1bad06e77611e6712f01aea67c6a68.jpg', 'public\\uploads\\goods\\20191210\\big_2f1bad06e77611e6712f01aea67c6a68.jpg');
+INSERT INTO `tp_goods_photo` VALUES ('8', '2', 'public\\uploads\\goods\\20191210\\e9705adf844be45e42112b9129b973d8.png', 'public\\uploads\\goods\\20191210\\sm_e9705adf844be45e42112b9129b973d8.png', 'public\\uploads\\goods\\20191210\\mid_e9705adf844be45e42112b9129b973d8.png', 'public\\uploads\\goods\\20191210\\big_e9705adf844be45e42112b9129b973d8.png');
 
 -- ----------------------------
 -- Table structure for tp_goods_stock
@@ -330,13 +348,11 @@ CREATE TABLE `tp_goods_stock` (
   `goods_id` int(11) DEFAULT '0' COMMENT '商品ID',
   PRIMARY KEY (`id`),
   KEY `goods_id` (`goods_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COMMENT='商品库存表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商品库存表';
 
 -- ----------------------------
 -- Records of tp_goods_stock
 -- ----------------------------
-INSERT INTO `tp_goods_stock` VALUES ('5', '10', null, '7');
-INSERT INTO `tp_goods_stock` VALUES ('14', '10', '3,6,2', '1');
 
 -- ----------------------------
 -- Table structure for tp_goods_type
@@ -406,16 +422,41 @@ INSERT INTO `tp_member_level` VALUES ('5', 'VIP会员', '100000', '1000000', '50
 -- ----------------------------
 DROP TABLE IF EXISTS `tp_member_price`;
 CREATE TABLE `tp_member_price` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
   `member_price` decimal(10,2) DEFAULT '0.00' COMMENT '会员价格',
   `member_level_id` int(11) DEFAULT '0' COMMENT '会员等级ID',
-  `goods_id` int(11) DEFAULT '0' COMMENT '产品ID',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='会员价格表';
+  `goods_id` int(11) DEFAULT '0' COMMENT '产品ID'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='会员价格表';
 
 -- ----------------------------
 -- Records of tp_member_price
 -- ----------------------------
-INSERT INTO `tp_member_price` VALUES ('1', '7500.00', '1', '1');
-INSERT INTO `tp_member_price` VALUES ('2', '7400.00', '2', '1');
-INSERT INTO `tp_member_price` VALUES ('3', '7300.00', '3', '1');
+INSERT INTO `tp_member_price` VALUES ('6500.00', '1', '1');
+INSERT INTO `tp_member_price` VALUES ('6400.00', '2', '1');
+INSERT INTO `tp_member_price` VALUES ('6300.00', '3', '1');
+INSERT INTO `tp_member_price` VALUES ('6200.00', '4', '1');
+INSERT INTO `tp_member_price` VALUES ('6000.00', '5', '1');
+
+-- ----------------------------
+-- Table structure for tp_nav
+-- ----------------------------
+DROP TABLE IF EXISTS `tp_nav`;
+CREATE TABLE `tp_nav` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nav_name` varchar(255) DEFAULT NULL COMMENT '导航名称',
+  `nav_url` varchar(255) DEFAULT NULL COMMENT '导航地址',
+  `position` varchar(10) DEFAULT NULL COMMENT '导航位置,默认top顶部，min中部，bottom底部',
+  `sort` int(4) DEFAULT '0' COMMENT '排序',
+  `open` tinyint(1) DEFAULT '1' COMMENT '是否新窗口打开',
+  `status` tinyint(1) DEFAULT '0' COMMENT '是否显示默认1显示，0不显示',
+  `create_time` bigint(20) DEFAULT '0' COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of tp_nav
+-- ----------------------------
+INSERT INTO `tp_nav` VALUES ('2', '闪购', 'http://www.rufeike.top', 'top', '2', '1', '1', '1576415936');
+INSERT INTO `tp_nav` VALUES ('3', '首页', 'http://www.xdqshop.com/index.php/index/index/index.html', 'top', '1', '0', '1', '1576417558');
+INSERT INTO `tp_nav` VALUES ('4', '限时抢', 'http://www.rufeike.top', 'top', '4', '1', '1', '1576417817');
+INSERT INTO `tp_nav` VALUES ('5', '团购', 'http://www.rufeike.top', 'top', '3', '1', '1', '1576417837');
+INSERT INTO `tp_nav` VALUES ('6', '大包装', 'http://www.rufeike.top', 'top', '5', '0', '1', '1576417870');

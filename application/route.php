@@ -8,14 +8,20 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-
-return [
-    '__pattern__' => [
-        'name' => '\w+',
-    ],
-    '[hello]'     => [
-        ':id'   => ['index/hello', ['method' => 'get'], ['id' => '\d+']],
-        ':name' => ['index/hello', ['method' => 'post']],
-    ],
-
+use think\Route;
+//Route::rule('cate/:cate_id','index/article_category/index','GET|POST',['ext' =>'html|htm'],['cate_id'=>'\d{1,3}']);
+Route::rule([
+    'cate/:cate_id'  =>  'index/article_category/index',
+    'article/:id' =>  ['index/article/index',['ext'=>'html'],['id'=>'\d{1,3}']],
+],'','GET',['ext'=>'html'],['id'=>'\d+']);
+/*return [
+//    '__pattern__' => [
+//        'name' => '\w+',
+//    ],
+//    '[hello]'     => [
+//        ':id'   => ['index/hello', ['method' => 'get'], ['id' => '\d+']],
+//        ':name' => ['index/hello', ['method' => 'post']],
+//    ],
+//    'cate/:id' => ['index/atricle_category/index',['method'=>'get'],['id'=>'\d{1,3}']],
 ];
+*/

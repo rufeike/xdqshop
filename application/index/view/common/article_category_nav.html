@@ -1,0 +1,39 @@
+<aside class="nav_list">
+	<h3>文章分类</h3>
+	<ul class="am-list admin-sidebar-list" id="collapase-nav-1">
+		<{volist name='cate' id='cv'}>
+		<{if(!empty($cv['_child']))}>
+		<li  class="am-panel">
+			<a class=" <{if($cate_id==$cv.id)}>active<{/if}>" data-am-collapse="{parent: '#collapase-nav-<{$cv.id}>',target:'#a-nav<{$cv.id}>'}" href="<{:url('index/article_category/index',array('cate_id'=>$cv.id))}>" >
+				<i class=" am-margin-left-sm"></i> <{$cv.cate_name}><i class="am-icon-angle-right am-fr am-margin-right"></i>
+			</a>
+			<ul class="am-list am-collapse admin-sidebar-sub am-in" id="a-nav<{$cv.id}>">
+                <{volist name='cv._child' id='ccv'}>
+					<{if(!empty($ccv['_child']))}>
+						<li>
+							<a class=" <{if($cate_id==$ccv.id)}>active<{/if}>"  data-am-collapse="{parent: '#collapase-nav-<{$ccv.id}>',target:'#a-nav<{$ccv.id}>'}" href="<{:url('index/article_category/index',array('cate_id'=>$ccv.id))}>">
+								<i class=" am-margin-left-sm"></i> <{$ccv.cate_name}><i class="am-icon-angle-right am-fr am-margin-right"></i>
+							</a>
+                            <ul  class="am-list am-collapse admin-sidebar-sub admin-sidebar-sub2 am-in" id="a-nav<{$ccv.id}>">
+								<{volist name='ccv._child' id='cccv'}>
+									<li><a class=" <{if($cate_id==$cccv.id)}>active<{/if}>" href="<{:url('index/article_category/index',array('cate_id'=>$cccv.id))}>"><i class=" am-margin-left-sm"></i> <{$cccv.cate_name}> </a></li>
+								<{/volist}>
+							</ul>
+						</li>
+					<{else}>
+						<li><a class="<{if($cate_id==$ccv.id)}>active<{/if}>" href="<{:url('index/article_category/index',array('cate_id'=>$ccv.id))}>"><i class=" am-margin-left-sm"></i> <{$ccv.cate_name}> </a></li>
+					<{/if}>
+				<{/volist}>
+			</ul>
+		</li>
+		<{else}>
+		<li  class="am-panel">
+			<a class="<{if($cate_id==$cv.id)}>active<{/if}>" href="<{:url('index/article_category/index',array('cate_id'=>$cv.id))}>">
+				<i class=" am-margin-left-sm "></i> <{$cv.cate_name}>
+			</a>
+		</li>
+		<{/if}>
+		<{/volist}>
+	</ul>
+
+</aside>
