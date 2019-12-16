@@ -72,6 +72,18 @@
                                 <img src="" style="position: absolute;height: 200px;display: none;">
                             </div>
                         </div>
+                        <{if($recommend)}>
+                        <div class="form-group" style="line-height: 40px;">
+                            <label for="" class="col-sm-2 control-label" style="float: left;">推荐位</label>
+                            <div class="">
+                                <{volist name='recommend' id='rv'}>
+                                <label>
+                                    <input type="checkbox" name="recommend[]" value="<{$rv['id']}>" > <span style="margin-right: 15px;"><{$rv.rec_name}></span>
+                                </label>
+                                <{/volist}>
+                            </div>
+                        </div>
+                        <{/if}>
                         <div class="form-group" style="line-height: 40px;">
                             <label for="" class="col-sm-2 control-label" style="float: left;">显示到导航</label>
                             <div class="">

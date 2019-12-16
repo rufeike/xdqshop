@@ -12,7 +12,7 @@ use think\Db;
 
 class GoodsCategory extends Base{
     public function index(){
-        $info= db('goods_category')->alias('AC')->join('goods_category PAC','AC.pid = PAC.id','LEFT')->where('AC.is_del',1)->order('AC.sort DESC,AC.id DESC')->field("AC.*,PAC.cate_name as pname")->select();
+        $info= db('goods_category')->alias('AC')->join('goods_category PAC','AC.pid = PAC.id','LEFT')->where('AC.is_del',1)->order('AC.sort ASC,AC.id DESC')->field("AC.*,PAC.cate_name as pname")->select();
         $cateTree = new Catetree($info);
         $info = $cateTree->getTree();
 
@@ -39,6 +39,10 @@ class GoodsCategory extends Base{
         $info = $cateTree->getTree();
         $this->assign('info',$info);
         $this->assign('id',$id);
+        //获取推荐位记录
+        $recommend = db('recommend')->where(array('rec_type'=>2))->select();
+        $this->assign('recommend',$recommend);
+
         return $this->fetch();
     }
 
@@ -60,6 +64,20 @@ class GoodsCategory extends Base{
         $cateTree = new Catetree($cate);
         $cate = $cateTree->getTree();
         $this->assign('cateTree',$cate);
+
+        //获取推荐位记录
+        $recommend = db('recommend')->where(array('rec_type'=>2))->select();
+        $this->assign('recommend',$recommend);
+        //获取本商品的推荐位记录
+        $recommend_detail = db('recommend_detail')->where(array('item_id'=>$id,'rec_type'=>2))->select();
+        $recommend_ids = array();
+        if($recommend_detail){
+            foreach($recommend_detail as $v){
+                $recommend_ids[] = $v['rec_id'];
+            }
+        }
+        $this->assign('recommend_ids',$recommend_ids);
+
         return $this->fetch();
     }
 
@@ -132,8 +150,9 @@ class GoodsCategory extends Base{
         //判断添加和修改
         if ($action == 'add') {
             $data['create_time'] = time();
-            $id = db('goods_category')->insert($data);
-            if ($id) {
+            $model = model('goods_category');
+            $res = $model->allowField(true)->save($data);
+            if($res){
                 get_jsonData(200, '操作成功');
             }
         } else if ($action == 'edit') {
@@ -149,12 +168,15 @@ class GoodsCategory extends Base{
                 get_jsonData(0,'子类不能修改为父类', array('token' => request()->token()));
             }
 
-            $res = db('goods_category')->where('id', $id)->data($data)->update();
+            $data['id']=$id;
+            $model = model('goods_category');
+            $res=$model->allowField(true)->update($data);
             if ($res !== false) {
                 if($pic){//删除老照片地址
                     $path = ROOT_PATH . $old_pic;
                     @unlink($path);
                 }
+
                 get_jsonData(200, '操作成功');
             }
         }

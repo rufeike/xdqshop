@@ -10,6 +10,7 @@ namespace app\index\controller;
 use think\Controller;
 
 class Base extends Controller{
+    protected $configInfo;
     //初始方法
     public function _initialize(){
         $this->_getHelpArticles();//获取网站帮助类文章
@@ -43,6 +44,7 @@ class Base extends Controller{
     //获取配置项
     private function _getConfigInfo(){
         $configInfo= model('config')->getConfigInfo();
+        $this->configInfo = $configInfo;
         $this->assign('configInfo',$configInfo);
     }
 }

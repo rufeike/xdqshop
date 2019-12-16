@@ -52,6 +52,18 @@ class Goods extends Model{
                 }
             }
 
+            //添加推荐位信息
+            if(isset($param['recommend'])){
+                $recommend = $param['recommend'];
+                foreach($recommend as $reck => $recv){
+                    $recommendArr = array();
+                    $recommendArr['item_id'] = $goods_id;
+                    $recommendArr['rec_id'] = $recv;
+                    $recommendArr['rec_type'] = 1;
+                    $recommend_rel = db('recommend_detail')->insert($recommendArr);
+                }
+            }
+
             //添加商品属性
             $goods_type_id = isset($param['goods_type_id'])?$param['goods_type_id']:0;
             if($goods_type_id>0){
@@ -166,9 +178,26 @@ class Goods extends Model{
                 $goods->big_thumb = $relativePath.DS.$big_thumb;
             }
 
-            //添加会员价格
+
+
             $goods_id = $goods->id;
             $param = request()->post();
+
+            //添加推荐位信息
+            //删除推荐位老纪录信息
+            db('recommend_detail')->where(array('item_id'=>$goods_id,'rec_type'=>1))->delete();
+            if(isset($param['recommend'])){
+                $recommend = $param['recommend'];
+                foreach($recommend as $reck => $recv){
+                    $recommendArr = array();
+                    $recommendArr['item_id'] = $goods_id;
+                    $recommendArr['rec_id'] = $recv;
+                    $recommendArr['rec_type'] = 1;
+                    $recommend_rel = db('recommend_detail')->insert($recommendArr);
+                }
+            }
+
+            //添加会员价格
             //删除原来表中的会员价格
             db('member_price')->where(array('goods_id'=>$goods_id))->delete();
 

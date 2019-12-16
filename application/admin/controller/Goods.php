@@ -147,6 +147,10 @@ class Goods extends Base{
         $cate = $cateTree->getTree();
         $this->assign('cateTree',$cate);
 
+        //获取推荐位记录
+        $recommend = db('recommend')->where(array('rec_type'=>1))->select();
+        $this->assign('recommend',$recommend);
+
         //获取品牌名称
         $brand = db('brand')->where('is_del',1)->order('sort ASC')->select();
         $this->assign('brand',$brand);
@@ -209,6 +213,19 @@ class Goods extends Base{
         $cate = $cateTree->getTree();
         $this->assign('cateTree',$cate);
 
+        //获取推荐位记录
+        $recommend = db('recommend')->where(array('rec_type'=>1))->select();
+        $this->assign('recommend',$recommend);
+        //获取本商品的推荐位记录
+        $recommend_detail = db('recommend_detail')->where(array('item_id'=>$id,'rec_type'=>1))->select();
+        $recommend_ids = array();
+        if($recommend_detail){
+            foreach($recommend_detail as $v){
+                $recommend_ids[] = $v['rec_id'];
+            }
+        }
+        $this->assign('recommend_ids',$recommend_ids);
+
         //获取品牌名称
         $brand = db('brand')->where('is_del',1)->order('sort ASC')->select();
         $this->assign('brand',$brand);
@@ -256,7 +273,6 @@ class Goods extends Base{
     //保存信息
     public function save(){
         $param = request()->post();
-
 
         check_token($param);//防止重复提交
 

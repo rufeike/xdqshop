@@ -38,6 +38,14 @@
 			<form action="<{:url('index/search')}>">
 				<input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
 				<input id="ai-topsearch" class="submit am-btn"  value="搜索" index="1" type="submit">
+				<div class="hotwords_box">
+					<?php $hotwords = isset($configInfo['hotwords'])?explode(',',$configInfo['hotwords']):array();?>
+					<{if($hotwords)}>
+					<{volist name='hotwords' id='hv'}>
+					<a href="<{:url('index/index/search',array('search_words'=>$hv))}>"><{$hv}></a>
+					<{/volist}>
+					<{/if}>
+				</div>
 			</form>
 		</div>
 	</div>
